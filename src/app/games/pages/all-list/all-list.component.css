@@ -1,0 +1,15 @@
+.rojo {
+    border: 3px solid red
+}
+
+img {
+    height: 350px;
+}
+
+
+.card:hover {scale: 1.05; transition: 0.7s; box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);}
+
+.rojo {
+  border: 1px solid red;
+}
+

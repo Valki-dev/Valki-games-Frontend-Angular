@@ -1,0 +1,57 @@
+<div class="grid-cols-1 flex justify-center  bg-shared">
+  <app-input (onSearch)="searchGamesByName($event)"></app-input>
+</div>
+
+<div class="grid-cols-1 flex justify-center bg-main min-h-[80vh]" id="main"
+  *ngIf="getVideoGames.length > 0; else noGames">
+  <div class="container">
+    <div class="flex items-center flex-col sm:items-end sm:ml-5">
+      <div class="mt-5">
+        <div class="flex flex-row h-[50px]">
+          <button pButton pRipple type="button" label="Orderar por ▽" class="p-button-outlined p-button-help"
+            (click)="toggleShowOptions()"></button>
+            <div *ngIf="methodSelected">
+              <button class="bg-gray-800 hover:bg-gray-600 rounded-full w-[30px] h-[30px] text-white" (click)="clearSort()">X</button>
+            </div>
+        </div>
+        
+      </div>
+      <div class="bg-card rounded-lg mt-3 w-[300px] sm:w-[500px]" *ngIf="showOptions">
+        <div class="flex flex-col justify-center space-y-3 p-3 sm:flex-row sm:space-x-3 sm:space-y-0">
+          <a routerLink="/games/all" class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+            (click)="sortGames('alphabetical')">Nombre A-Z</a>
+
+          <a routerLink="/games/all" class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+            (click)="sortGames('alphabeticalInverted')">Nombre Z-A</a>
+
+          <a routerLink="/games/all" class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+            (click)="sortGames('priceMin')">Precio 🡣</a>
+
+          <a routerLink="/games/all" class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+            (click)="sortGames('priceMax')">Precio 🡡</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="flex justify-around flex-wrap">
+      <div class="rounded-lg shadow-lg max-w-[280px] mt-[40px] mb-10 bg-card card"
+        *ngFor="let game of getVideoGames | sortGames: sortingMethod">
+        <a [routerLink]="['./', game.id]">
+          <img class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
+        </a>
+        <div class="p-4">
+          <h5 class="text-white text-xl font-medium mb-2">{{game.name}}</h5>
+          <p class="text-gray-400 mb-4 text-xl font-medium">{{game.price}}€</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noGames>
+  <div class="grid-cols-1 flex justify-center bg-main min-h-[80vh]" id="main">
+    <div class="rounded-lg shadow-lg bg-card max-w-[700px] mt-[40px] h-[100px]">
+      <p class="text-3xl p-5 text-white text-center">No se ha encontrado ningún juego</p>
+    </div>
+  </div>
+</ng-template>

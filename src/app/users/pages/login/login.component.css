@@ -1,0 +1,17 @@
+form {
+    width: 400px;
+}
+
+h1 {
+    font-family: 'Audiowide', cursive;
+}
+
+input {
+    width: 100%;
+}
+
+.main {
+    background: url('../../../../assets/1624.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -1,0 +1,74 @@
+<div class="grid-cols-1 flex justify-center items-center bg-main main min-h-[71.5vh]">
+    <div class="flex justify-center">
+        <div class="p-[40px] my-7 rounded-lg shadow-lg min-w-4xl bg-forms">
+            <h1 class="text-white text-4xl leading-tight font-medium mb-2">Inicio de sesión</h1>
+            <hr>
+            <form [formGroup]="loginForm" (ngSubmit)="logIn()" class="flex flex-col items-center px-5">
+                <div class="mt-5 grid-cols-1 w-[100%]">
+                    <div *ngIf="!email?.valid && (email?.dirty || email?.touched); else emailGood">
+                        <label for="email" class="block text-sm leading-6 text-red-500">Email</label>
+                        <input type="email" name="email" id="userName" formControlName="email" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md "
+                            placeholder="email@example.com">
+                        <div [hidden]="!email?.errors?.['required']" class="flex justify-center text-red-400">
+                            Debes introducir un email válido
+                        </div>
+                    </div>
+                    <ng-template #emailGood>
+                        <div *ngIf="loginError; else notError">
+                            <label for="email" class="block text-sm leading-6 text-red-500">Email</label>
+                            <input type="email" name="email" id="userName" formControlName="email"
+                                autocomplete="given-name"
+                                class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md "
+                                placeholder="email@example.com">
+                        </div>
+                        <ng-template #notError>
+                            <label for="email" class="block text-sm font-medium leading-6 text-gray-500">Email</label>
+                            <input type="email" name="email" id="userName" formControlName="email"
+                                autocomplete="given-name"
+                                class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md "
+                                placeholder="email@example.com">
+                        </ng-template>
+                    </ng-template>
+                </div>
+                <div class="mt-5 mb-10 grid-cols-1 w-[100%]">
+                    <div *ngIf="!password?.valid && (password?.dirty || password?.touched); else passwordGood">
+                        <label for="password" class="block text-sm leading-6 text-red-500">Contraseña</label>
+                        <input type="password" name="password" id="password" formControlName="password"
+                            autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md "
+                            placeholder="********">
+                        <div [hidden]="!password?.errors?.['required']" class="flex justify-center text-red-400">
+                            Debes introducir una contraseña
+                        </div>
+                    </div>
+                    <ng-template #passwordGood>
+                        <div *ngIf="loginError; else notError">
+                            <label for="password" class="block text-sm leading-6 text-red-500">Contraseña</label>
+                            <input type="password" name="password" id="password" formControlName="password"
+                                autocomplete="given-name"
+                                class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md "
+                                placeholder="********">
+                        </div>
+                        <ng-template #notError>
+                            <label for="password"
+                                class="block text-sm font-medium leading-6 text-gray-500">Contraseña</label>
+                            <input type="password" name="password" id="password" formControlName="password"
+                                autocomplete="given-name"
+                                class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md "
+                                placeholder="********">
+                        </ng-template>
+                    </ng-template>
+                    <div *ngIf="loginError" class="flex justify-center w-[100%]">
+                        <p class="text-red-500">Email o contraseña incorrectos</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button pButton pRipple type="submit" label="Iniciar sesión"
+                        class="p-button-outlined p-button-help"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

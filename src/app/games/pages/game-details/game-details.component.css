@@ -1,0 +1,12 @@
+.gameContainer {
+    background-color: rgba(1, 1, 1, 0.349);
+}
+
+.modal {
+    width: 100vh;
+    height: 71.5vh;
+}
+
+.rojo {
+    border: 1px solid red
+}

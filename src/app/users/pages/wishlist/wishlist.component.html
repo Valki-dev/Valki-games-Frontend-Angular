@@ -1,0 +1,56 @@
+<div class="grid-cols-1 flex justify-center min-h-[71.5vh] bg-main">
+    <div
+        class="flex justify-evenly xl:flex-row xl:w-[100%] lg:flex-row lg:w-[100%] md:flex-col md:w-[90%] sm:flex-col sm:w-[90%] flex-col w-[90%]">
+        <div class="flex flex-col  my-7 rounded-lg shadow-lg bg-card">
+            <div class="p-10 flex flex-col justify-start">
+                <div>
+                    <p class="text-white text-4xl title mb-3">Lista de deseos</p>
+                    <hr class="md:w-[90%]">
+                </div>
+                <div class="mt-5 xl:h-[200px] md:flex-row rounded-lg shadow-lg p-5 overflow-x-auto bg-card" id="cart"
+                    *ngIf="wishlist.length > 0; else empty">
+                    <div class="flex flex-col md:flex-row justify-between items-center border border-gray-500 my-5 rounded-lg p-5"
+                        *ngFor="let item of wishlist">
+                        <img src="{{item.URL}}" alt="Imagen no disponible"
+                            class="rounded-lg mx-5 w-[200px] h-[230px] md:w-[100px] md:h-[130px] sm:w-[200px] sm:h-[230px]">
+                        <div class="mx-10 my-5 p-2 md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[150px]">
+                            <div>
+                                <p class="text-white text-2xl">{{item.name}}</p>
+                                <p class="text-button-hover text-2xl"><b>{{item.price}}€</b></p>
+                                <p class="text-gray-500 text-lg">{{item.gender}}</p>
+                            </div>
+                        </div>
+                        <div class="mx-5 sm:my-2">
+                            <button pButton pRipple type="button" label="Añadir al carrito"
+                                class="p-button-outlined p-button-help" (click)="addToCart(item.productId)"></button>
+                        </div>
+                        <div class="sm:my-2 my-5 mx-5">
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button-outlined p-button-secondary"
+                                (click)="deleteFromWishlist(item.productId)"></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="showAddCart">
+                    <div class=" mt-3 mb-3 inline-flex w-full items-center rounded-lg bg-violet-300 py-5 px-6 text-base text-violet-700"
+                        role="alert">
+                        <span class="mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </span>
+                        Juego añadido al carrito
+                    </div>
+                </div>
+
+                <ng-template #empty>
+                    <div
+                        class="rounded-lg shadow-lg bg-card mt-[40px] min-h-[70px] xl:h-[80px] lg:h-[80px] md:h-[70px] sm:h-[70px]">
+                        <p class="text-2xl p-5 text-gray-500 text-center">Aún no se ha agregado ningún producto</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

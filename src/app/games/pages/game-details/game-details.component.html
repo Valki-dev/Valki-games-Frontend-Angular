@@ -1,0 +1,112 @@
+<div class="grid-cols-1 flex justify-center bg-main main min-h-[80vh]">
+  <div class="flex justify-center">
+    <div class="flex xl:flex-row xl:w-[1270px] xl:max-h-[1300px] xl:p-0 lg:flex-row lg:w-[1000px] lg:max-h-[1300px] md:w-[750px] md:flex-col md:p-5 md:max-h-[1300px] sm:flex-col sm:w-[600px] sm:p-5 w-[300px] sm:max-h-[1300px] flex-col my-[55px] rounded-lg shadow-lg bg-card">
+      <div class="flex justify-center xl:p-0 xl:w-[490px] xl:h-[100%] lg:w-[370px] lg:h-[100%] lg:p-7 md:items-center md:w-[100%] md:h-[100%] sm:items-center sm:h-[100%] sm:w-[100%]">
+        <img src="{{game.URL}}" class="rounded-lg border-2 border-white w-[100%] xl:w-[100%] xl:h-[100%] lg:h-[500px] md:w-[300px] md:h-[430px] sm:w-[300px] sm:h-[430px]"
+          alt="Imagen no disponible">
+      </div>
+      <div class="flex xl:w-[780px] lg:w-[630px] md:w-[100%] sm:w-[100%] flex-col justify-start  px-7 py-7">
+        <div>
+          <h5 class="text-button-hover text-3xl font-medium mb-4">{{game.name}}</h5>
+        </div>
+        <hr>
+        <div class="overflow-x-auto">
+          <p class="text-gray-300 mt-3 xl:max-h-[230px] lg:max-h-[200px] md:max-h-[200px] sm:max-h-[200px] max-h-[250px] p-2 text-base mb-4 leading-loose">
+            {{game.description}}</p>
+        </div>
+        <hr>
+        <div class="flex justify-around xl:flex-row lg:flex-row md:flex-row sm:flex-row flex-col mt-4">
+          <div class="flex xl:flex-col xl:items-center xl:max-w-[200px] lg:flex-col lg:items-center lg:max-w-[150px] md:flex-col md:items-center md:max-w-[150px] sm:flex-col sm:items-center sm:max-w-[130px] flex-col items-center mt-5 rounded-lg shadow-lg p-5 bg-card flex-wrap">
+            <p class="text-button-hover"><b>DESARROLADOR</b></p>
+            <p class="text-white">{{game.developer}}</p>
+          </div>
+          <div class="flex xl:flex-col xl:items-center xl:max-w-[150px] lg:flex-col lg:items-center lg:max-w-[130px] md:flex-col md:items-center md:max-w-[150px] sm:flex-col sm:items-center sm:max-w-[120px] flex-col items-center mt-5  rounded-lg shadow-lg p-5 bg-card">
+            <p class="text-button-hover"><b>DISTRIBUIDOR</b></p>
+            <p class="text-white">{{game.publisher}}</p>
+          </div>
+          <div class="flex xl:flex-col xl:items-center xl:max-w-[150px] lg:flex-col lg:items-center lg:max-w-[130px] md:flex-col md:items-center md:max-w-[150px] sm:flex-col sm:items-center sm:max-w-[120px] flex-col items-center mt-5 rounded-lg shadow-lg p-5 bg-card">
+            <p class="text-button-hover"><b>LANZAMIENTO</b></p>
+            <p class="text-white">{{game.releaseDate | date:'dd/MM/yyyy'}}</p>
+          </div>
+          <div class="flex xl:flex-col xl:items-center xl:max-w-[200px] lg:flex-col lg:items-center lg:max-w-[130px] md:flex-col md:items-center md:max-w-[150px] sm:flex-col sm:items-center sm:max-w-[130px] flex-col items-center mt-5 rounded-lg shadow-lg p-5 bg-card">
+            <p class="text-button-hover"><b>GÉNERO</b></p>
+            <p class="text-white">{{game.gender}}</p>
+          </div>
+        </div>
+        <hr class="mt-9">
+        <div class="flex xl:flex-row lg:flex-row md:flex-row sm:flex-row justify-around py-3 items-center flex-col mt-5">
+          <div>
+            <p class="text-button-hover text-4xl"><b>{{game.price}}€</b></p>
+          </div>
+          <div class="flex xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 justify-between w-[180px] bg-card px-10 py-3 mt-5 rounded-lg">
+            <p class="text-button-hover text"><b>STOCK</b></p>
+            <p class="text-white">{{game.stock}}</p>
+          </div>
+          <div class="flex xl:flex-row lg:flex-row md:flex-row sm:flex-row flex-col items-center">
+            <div class="xl:mr-5 lg:mr-5 md:mr-5 sm:mr-5 xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 mt-5">
+              <button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined mr-7" (click)="addToWishlist(game.id)"></button>
+            </div>
+            <div class="xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 mt-5">
+              <button pButton pRipple type="button" label="Añadir al carrito" class="p-button-outlined p-button-help"
+                (click)="addToCart(game.id)"></button>
+            </div>
+          </div>
+        </div>
+        <!--Alerts-->
+        <div *ngIf="showAddWishlist">
+          <div class="mb-3 inline-flex w-full items-center rounded-lg bg-violet-300 py-5 px-6 text-base text-violet-700"
+            role="alert">
+            <span class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            </span>
+            Juego añadido a la lista de deseos
+          </div>
+        </div>
+
+        <div *ngIf="showAddCart">
+          <div class="mb-3 inline-flex w-full items-center rounded-lg bg-violet-300 py-5 px-6 text-base text-violet-700"
+            role="alert">
+            <span class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            </span>
+            Juego añadido al carrito
+          </div>
+        </div>
+
+        <div *ngIf="showErrorAddWishlist">
+          <div class="mb-3 inline-flex w-full items-center rounded-lg bg-red-200 py-5 px-6 text-base text-red-700"
+            role="alert">
+            <span class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="h-5 w-5">
+                <path fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                  clip-rule="evenodd" />
+              </svg>
+            </span>
+            Este juego ya se encuentra en la lista de deseos
+          </div>
+        </div>
+
+        <div *ngIf="showErrorAddCart">
+          <div class="mb-3 inline-flex w-full items-center rounded-lg bg-red-200 py-5 px-6 text-base text-red-700"
+            role="alert">
+            <span class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="h-5 w-5">
+                <path fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                  clip-rule="evenodd" />
+              </svg>
+            </span>
+            Este juego ya se encuentra en el carrito
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="grid-cols-1 flex justify-center items-center bg-main main min-h-[71.5vh]">
+    <div class="flex justify-center">
+        <div class="p-[40px] my-7 rounded-lg shadow-lg min-w-4xl bg-forms">
+            <h1 class="text-white text-4xl leading-tight font-medium mb-2">Registro</h1>
+            <hr>
+            <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col items-center px-5" novalidate>
+                <div class="mt-5 grid-cols-1 w-[100%]">
+                    <div *ngIf="!userName?.valid && (userName?.dirty ||userName?.touched); else userNameGood">
+                        <label for="userName" class="text-sm leading-6 text-red-500">Nombre de usuario</label>
+                        <input type="text" name="userName" id="userName" formControlName="userName" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md" placeholder="Usuario_95">
+                        <div [hidden]="!userName?.errors?.['required']" class="flex justify-center text-red-400">
+                            Debes introducir un nombre de usuario
+                        </div>
+                    </div>
+                    <ng-template #userNameGood>
+                        <label for="userName" class="block text-sm font-medium leading-6 text-gray-500">Nombre de usuario</label>
+                        <input type="text" name="userName" id="userName" formControlName="userName" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md" placeholder="Usuario_95">
+                    </ng-template>
+                </div>
+
+                <div class="mt-5 grid-cols-1 w-[100%]">
+                    <div *ngIf="!email?.valid && (email?.dirty || email?.touched); else emailGood">
+                        <label for="email" class="block text-sm leading-6 text-red-500">Email</label>
+                        <input type="email" name="email" id="userName" formControlName="email" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="email@example.com">
+                        <div [hidden]="!email?.errors?.['email']" class="flex justify-center text-red-400">
+                            Debes introducir un email válido
+                        </div>
+                    </div>
+                    <ng-template #emailGood>
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-500">Email</label>
+                        <input type="email" name="email" id="userName" formControlName="email" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="email@example.com">
+                    </ng-template>
+
+                </div>
+                <div class="mt-5 grid-cols-1 w-[100%]">
+                    <div *ngIf="!password?.valid && (password?.dirty || password?.touched); else passwordGood">
+                        <label for="password" class="block text-sm leading-6 text-red-500">Contraseña</label>
+                        <input type="password" name="password" id="password" formControlName="password" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="********">
+                        <div [hidden]="!password?.errors?.['required']" class="flex justify-center text-red-400">
+                            Debes introducir una contraseña con una longitud mínima de cuatro caracteres
+                        </div>
+                    </div>
+                    <ng-template #passwordGood>
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-500">Contraseña</label>
+                        <input type="password" name="password" id="password" formControlName="password" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="********">
+                    </ng-template>
+                </div>
+                <div class="mt-5 grid-cols-1 w-[100%]">
+                    <div *ngIf="!password2?.valid && (password2?.dirty || password2?.touched); else password2Good">
+                        <label for="password2" class="block text-sm leading-6 text-red-500">Repite la contraseña</label>
+                        <input type="password" name="password2" id="password2" formControlName="password2" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="********">
+                        <div [hidden]="!password2?.errors?.['required']" class="flex justify-center text-red-400">
+                            Debes introducir una contraseña
+                        </div>
+                    </div>
+                    <ng-template #password2Good>
+                        <label for="password2" class="block text-sm font-medium leading-6 text-gray-500">Repite la contraseña</label>
+                        <input type="password" name="password2" id="password2" formControlName="password2" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="********">
+                    </ng-template>
+                </div>
+
+                <div class="mt-5 grid-cols-1 w-[100%]">
+                    <div *ngIf="!phoneNumber?.valid && (phoneNumber?.dirty || phoneNumber?.touched); else phoneNumberGood">
+                        <label for="phoneNumber" class="block text-sm leading-6 text-red-500">Teléfono</label>
+                        <input type="text" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="600000000">
+                        <div [hidden]="!phoneNumber?.errors?.['min']" class="flex justify-center text-red-400">
+                            Debes introducir un número de teléfono válido
+                        </div>
+                    </div>
+                    <ng-template #phoneNumberGood>
+                        <label for="phoneNumber" class="block text-sm font-medium leading-6 text-gray-500">Teléfono</label>
+                        <input type="text" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber" autocomplete="given-name"
+                            class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="600000000">
+                    </ng-template>
+                </div>
+                <div *ngIf="showRegisterError" class="mt-10">
+                    <div class="mb-3 inline-flex w-full items-center rounded-lg bg-red-200 py-5 px-6 text-base text-red-700"
+                        role="alert">
+                        <span class="mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        El usuario ya está registrado en el sistema
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-10">
+                    <button pButton pRipple type="submit" label="Registrarme"
+                        class="p-button-outlined p-button-help"></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

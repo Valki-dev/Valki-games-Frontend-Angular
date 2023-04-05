@@ -1,0 +1,13 @@
+#cart {
+    height: 480px;
+}
+
+/*Tal vez hay que quitar este height*/
+
+.title {
+    font-family: 'Audiowide', cursive;
+}
+
+.rojo {
+    border: 1px solid red;
+}

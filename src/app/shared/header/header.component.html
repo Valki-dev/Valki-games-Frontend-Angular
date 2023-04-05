@@ -1,0 +1,154 @@
+<div class="grid-cols-1 bg-shared" id="header">
+    <nav class="bg-shared p-4">
+        <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8 ">
+            <div class="relative flex h-16 items-center justify-between">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button type="button"
+                        class="rounded-md p-2 text-gray-400 hover:bg-button-hover hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                        aria-controls="mobile-menu" aria-expanded="false" (click)="toggleMobileMenu()">
+                        <span class="sr-only">Open main menu</span>
+
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="flex flex-shrink-0 items-center">
+                        <a routerLink="/games/all" class="flex flex-col items-center">
+                            <img src="../../../assets/mando ps4.png" alt="Logo no disponible" width="100px">
+                            <p class="text-2xl text-white" id="logoTitle">Valki games</p>
+                        </a>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:block">
+                        <div
+                            class="flex space-x-6 pt-5 items-center xl:w-[600px] xl:space-x-6 lg:w-[600px] lg:space-x-6 md:w-[470px] md:space-x-6 sm:w-[300px] sm:space-x-2 sm:flex-wrap ">
+                            <a routerLink="/games/all"
+                                class="text-gray-300 bg-button-navbar hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                                aria-current="page" (click)="getAllGames()">Todos</a>
+
+                            <a routerLink="/games/all"
+                                class="text-gray-300 bg-button-navbar hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                                (click)="getNewGames()">Nuevos</a>
+
+                            <a routerLink="/games/all"
+                                class="text-gray-300 bg-button-navbar hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                                (click)="getOnOfferGames()">Ofertas</a>
+
+                            <a routerLink="/games/all"
+                                class="text-gray-300 bg-button-navbar hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium xl:mt-0 lg:mt-0 md:mt-0 sm:mt-2"
+                                (click)="toggleShowGenders()">Género ▽</a>
+                        </div>
+                        <div class="flex mr-10 overflox-x-auto bg-card rounded-lg mt-2 sm:max-w-[420px] max-w-[300px]" *ngIf="showGenders">
+                            <div
+                                class="flex flex-col flex-wrap sm:max-w-[700px] justify-center space-y-3 p-3 md:p-2 sm:p-0 sm:flex-row sm:space-x-1 sm:space-y-0">
+                                <a routerLink="/games/all"
+                                    class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-sm font-medium" (click)="getGamesByGender('Acción')">Acción</a>
+
+                                <a routerLink="/games/all"
+                                    class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-sm font-medium" (click)="getGamesByGender('Aventura')">Aventura</a>
+
+                                <a routerLink="/games/all"
+                                    class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-sm font-medium" (click)="getGamesByGender('Estrategia')">Estrategia</a>
+
+                                <a routerLink="/games/all"
+                                    class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-sm font-medium" (click)="getGamesByGender('Indie')">Indie</a>
+
+                                <a routerLink="/games/all"
+                                    class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-sm font-medium" (click)="getGamesByGender('Simulación')">Simulación</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <div class="relative ml-3">
+                        <div>
+                            <button class="bg-gray-800 hover:bg-gray-600 rounded-full"><img
+                                    src="../../../assets/carritoBlanco.png" alt="Icono no disponible" width="50px"
+                                    class="p-3" (click)="showCart()"></button>
+                        </div>
+                    </div>
+                    <!-- Profile dropdown -->
+                    <div class="relative ml-3">
+                        <div>
+                            <button (click)="toggleMenu()" class="bg-gray-800 hover:bg-gray-600 rounded-full"><img
+                                    src="../../../assets/iconoPerfilBlanco.png" alt="Icono no disponible" width="50px"
+                                    class="p-3"></button>
+                        </div>
+
+                        <div class="absolute right-0 z-10 w-40 origin-top-right rounded-md bg-button-navbar py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
+                            *ngIf="showMenu">
+                            <div *ngIf="logged; else notLogged">
+                                <!-- Active: "bg-gray-100", Not Active: "" -->
+                                <a routerLink="/user/profile"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-0" (click)="toggleMenu()">Perfil</a>
+                                <a routerLink="/user/wishlist"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-1" (click)="toggleMenu()">Lista de deseos</a>
+                                <a routerLink="/games/all"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-2" (click)="toggleMenu(); logOut()">Cerrar
+                                    sesión</a>
+                            </div>
+
+                            <ng-template #notLogged>
+                                <a routerLink="/user/login"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-0" (click)="toggleMenu()">Iniciar sesión</a>
+                                <a routerLink="/user/register"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-1" (click)="toggleMenu()">Registrarse</a>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden" id="mobile-menu" *ngIf="showMobileMenu">
+            <div class="space-y-1 px-2 pt-2 pb-3">
+                <a routerLink="/games/all" class="text-white block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page" (click)="toggleMobileMenu()">Todos</a>
+
+                <a routerLink="/games/all" class="text-white block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page" (click)="toggleMobileMenu()">Nuevos</a>
+
+                <a routerLink="/games/all" class="text-white block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page" (click)="toggleMobileMenu()">Ofertas</a>
+
+                <a routerLink="/games/all" class="text-white block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page" (click)="toggleShowMobileGenders()">Género ▽</a>
+            </div>
+            <div class="flex mr-10 overflox-x-auto bg-card rounded-lg mt-2 max-w-[450px]" *ngIf="showMobileGenders">
+                <div
+                    class="flex flex-col flex-wrap sm:max-w-[700px] justify-center space-y-3 p-3 md:p-2 sm:p-0 sm:flex-row sm:space-x-1 sm:space-y-0">
+                    <a routerLink="/games/all"
+                        class="text-gray-300 hover:bg-button-hover w-[420px] hover:text-white px-3 py-2 rounded-md text-md font-medium" (click)="getGamesByGender('Acción')">Acción</a>
+
+                    <a routerLink="/games/all"
+                        class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium" (click)="getGamesByGender('Aventura')">Aventura</a>
+
+                    <a routerLink="/games/all"
+                        class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium" (click)="getGamesByGender('Estrategia')">Estrategia</a>
+
+                    <a routerLink="/games/all"
+                        class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium" (click)="getGamesByGender('Indie')">Indie</a>
+
+                    <a routerLink="/games/all"
+                        class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-sm font-medium" (click)="getGamesByGender('Simulación')">Simulación</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

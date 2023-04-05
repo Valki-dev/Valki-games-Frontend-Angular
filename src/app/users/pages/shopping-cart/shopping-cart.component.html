@@ -1,0 +1,64 @@
+<div class="grid-cols-1 flex justify-center min-h-[71.5vh] bg-main">
+    <div class="flex justify-evenly xl:flex-row xl:w-[100%] lg:flex-row lg:w-[100%] md:flex-col md:w-[90%] sm:flex-col sm:w-[90%] flex-col w-[90%]">
+        <div class="flex flex-col  my-7 rounded-lg shadow-lg bg-card">
+            <div class="p-10 flex flex-col justify-start">
+                <div>
+                    <p class="text-white text-4xl title mb-3">Carrito de compras</p>
+                    <hr>
+                </div>
+                <div *ngIf="cart.length > 0; else empty">
+                    <div class="my-5 xl:w-[900px] xl:h-[200px] lg:w-[650px] md:flex-row rounded-lg shadow-lg p-5 overflow-x-auto bg-card" id="cart">
+                        <div class="flex flex-col md:flex-row md:max-w-6xl  justify-between items-center border border-gray-500 my-5 rounded-lg p-5" *ngFor="let item of cart">
+                            <img src="{{item.URL}}" alt="Imagen no disponible"
+                                class="rounded-lg mx-5 w-[180px] h-[230px] md:w-[100px] md:h-[130px] sm:w-[200px] sm:h-[230px]">
+                            <div class="mx-10 my-5 p-2 md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[100%]">
+                                <div>
+                                    <p class="text-white text-2xl">{{item.name}}</p>
+                                    <p class="text-button-hover text-2xl"><b>{{item.price}}€</b></p>
+                                    <p class="text-gray-500 text-lg">{{item.gender}}</p>
+                                </div>
+                            </div>
+                            <div class="mx-10 sm:my-2">
+                                <select [value]="item.amount" #select name="amounts" id="" class="bg-card text-white rounded-lg" (change)="changeAmount(item.productId, select.value)">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <div class="sm:my-2 my-5 ">
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-outlined p-button-secondary"
+                                    (click)="deleteFromCart(item.productId)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #empty>
+                    <div
+                        class="rounded-lg shadow-lg bg-card mt-[40px] min-h-[70px] xl:h-[80px] lg:h-[80px] md:h-[70px] sm:h-[70px]">
+                        <p class="text-2xl p-5 text-gray-500 text-center">Aún no se ha agregado ningún producto</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="flex xl:flex-col xl:w-[280px] xl:h-[180px] xl:my-7 lg:flex-col lg:w-[260px] lg:h-[180px] lg:my-7 md:flex-row md:mt-2 md:mb-7 sm:flex-row sm:mt-2 sm:mb-7 flex-row mt-2 mb-7 rounded-lg shadow-lg bg-card">
+            <div class="flex p-3 xl:flex-col lg:flex-col md:flex-row md:w-[100%] md:justify-evenly md:items-center md:py-5 sm:w-[100%] sm:flex-row sm:justify-evenly sm:items-center sm:py-5 flex-row w-[100%] justify-evenly items-center flex-wrap">
+                <div class="flex xl:w-[100%] xl:p-5 xl:flex-row lg:w-[100%] lg:p-5 md:p-3 md:flex-row md:w-[50%] sm:flex-row sm:w-[50%] sm:p-3 p-3 flex-row w-[50%] justify-between items-center bg-card rounded-lg">
+                    <p class="text-xl text-gray-400">Total</p><b class="text-button-hover text-2xl">{{total}}€</b>
+                </div>
+                <div class="flex justify-center xl:w-[100%] xl:my-3 lg:w-[100%] lg:my-3 md:w-[30%] sm:w-[30%] w-[30%] ">
+                    <button pButton pRipple type="button" label="Pagar" class="p-button-outlined p-button-help w-[100%]" (click)="pay()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
