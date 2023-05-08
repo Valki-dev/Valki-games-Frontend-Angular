@@ -42,7 +42,8 @@ export class LoginComponent {
           this.userService.setLogged(true);
           
           if(response.isAdmin) {
-            
+            this.userService.setIsAdmin(true);
+            this.router.navigate(['/admin/dashboard'])
           } else {
             this.router.navigate(['/games/all']);
           }

@@ -3,6 +3,7 @@ import { GameService } from '../../games/services/game.service';
 import { UserService } from '../../users/services/user.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { User } from 'src/app/users/interfaces/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -18,8 +19,8 @@ export class HeaderComponent {
   sortingMethod: string = "all";
   showGenders: boolean = false;
   showMobileGenders: boolean = false;
-
   logged: boolean = this.userService.getLogged();
+  isAdmin: boolean = this.userService.getIsAdmin();
 
   getAllGames() {
     this.gameService.getAllGames().subscribe((response: any) => {

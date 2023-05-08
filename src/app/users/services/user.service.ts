@@ -15,6 +15,8 @@ export class UserService {
 
   private logged: boolean = false;
 
+  private isAdmin: boolean = false;
+
   private endpoint: string = "http://localhost:3000/api/v2/valki-games/users";
 
   private wishlistEndpoint: string = "http://localhost:3000/api/v1/videogames/wishlist";
@@ -24,20 +26,28 @@ export class UserService {
   
   private userLogged!: User
 
-  getLogged() {
+  getLogged(): boolean {
     return this.logged;
   }
 
-  getUserLogged() {
+  getUserLogged(): User {
     return this.userLogged;
   }
 
-  setLogged(value: boolean) {
+  getIsAdmin(): boolean {
+    return this.isAdmin;
+  }
+
+  setLogged(value: boolean): void {
     this.logged = value;
   }
 
-  setUserLogged(user: User) {
+  setUserLogged(user: User): void {
     this.userLogged = user;
+  }
+
+  setIsAdmin(value: boolean): void {
+    this.isAdmin = value;
   }
 
   //<<-------------------- GET -------------------->>
