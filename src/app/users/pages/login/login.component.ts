@@ -35,13 +35,17 @@ export class LoginComponent {
       this.userService.logIn(data).subscribe(response => {
           this.loginError = false;
 
-          let user: User = response[0];          
+          let user: User = response;          
           
           this.userService.setUserLogged(user);
 
           this.userService.setLogged(true);
           
-          this.router.navigate(['/games/all']);
+          if(response.isAdmin) {
+            
+          } else {
+            this.router.navigate(['/games/all']);
+          }
 
       }, (err) => {
         if(err.status == 500) {
@@ -54,5 +58,4 @@ export class LoginComponent {
       });
     }
   }
-
 }

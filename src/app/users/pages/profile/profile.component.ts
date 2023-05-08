@@ -60,11 +60,11 @@ export class ProfileComponent {
 
         this.userService.updateUser(updateData).subscribe(response => {
 
-          if (response) {
+          if (response.status === "OK") {
             this.userService.getUserById(this.userLogged.id).subscribe(response => {
-              if (response.length > 0) {
-                this.userLogged = response[0];
-                this.userService.setUserLogged(response[0]);
+              if (response) {
+                this.userLogged = response;
+                this.userService.setUserLogged(response);
                 this.showUpdateUser = false;
                 this.router.navigate(['/user/profile']);
               }

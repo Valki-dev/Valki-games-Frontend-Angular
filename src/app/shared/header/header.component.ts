@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GameService } from '../../games/services/game.service';
 import { UserService } from '../../users/services/user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -32,37 +33,21 @@ export class HeaderComponent {
   }
 
   getNewGames() {
-    this.gameService.getNewGames().subscribe(response => {
-      if(response) {
-        this.gameService.videoGames = [...response];
-        this.gameService.originalGames = [...response]
-      }
-    }, (err) => {
-      this.router.navigate(['/error/server']);
-    })
+    this.gameService.videoGames = this.gameService.originalGames;
+    const newGames = [...this.gameService.getVideoGames()].filter(viadeogame => viadeogame.isNew);
+    this.gameService.videoGames = newGames;
   }
 
   getOnOfferGames() {
-    this.gameService.getOnOfferGames().subscribe(response => {
-      if(response) {
-        this.gameService.videoGames = [...response];
-        this.gameService.originalGames = [...response];
-      }
-    }, (err) => {
-      this.router.navigate(['/error/server']);
-    })
+    this.gameService.videoGames = this.gameService.originalGames;
+    const onOfferGames = [...this.gameService.getVideoGames()].filter(videogame => videogame.onOffer);
+    this.gameService.videoGames = onOfferGames;
   }
 
   getGamesByGender(gender: string) {
-    this.gameService.getGamesByGender(gender).subscribe(response => {
-      if(response) {
-        this.gameService.videoGames = [...response];
-        this.gameService.originalGames = [...response];
-        this.toggleShowGenders();
-      }
-    }, (err) => {
-      this.router.navigate(['/error/server']);
-    })
+    this.gameService.videoGames = this.gameService.originalGames;
+    const gamesByGender = [...this.gameService.videoGames].filter(videogame => videogame.gender.includes(gender));
+    this.gameService.videoGames = gamesByGender;
   }
 
   toggleMenu() {
@@ -78,7 +63,7 @@ export class HeaderComponent {
     if(this.userService.getLogged()) {
       this.router.navigate(['/user/cart']);
     } else {
-      alert('INICIA SESIÓN!')
+      Swal.fire('Primero debes iniciar sesión');
       this.router.navigate(['/user/login']);
     }
   }

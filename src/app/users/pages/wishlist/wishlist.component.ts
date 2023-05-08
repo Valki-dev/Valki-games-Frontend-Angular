@@ -10,52 +10,64 @@ import { WishlistItem } from '../../interfaces/wishlistItem.interface';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) { }
 
   wishlist: WishlistItem[] = [];
   userLogged!: User;
   showAddCart: boolean = false;
+  showErrorAddCart: boolean = false;
 
   ngOnInit(): void {
     this.userLogged = this.userService.getUserLogged();
     this.userService.getUserWishlist(this.userLogged.id).subscribe(response => {
-        this.wishlist = response;
+      this.wishlist = response;
     }, (err) => {
       this.router.navigate(['/error/server']);
     })
   }
 
   addToCart(gameId: number) {
-    if(this.userService.getLogged()) {
-      if(gameId && (this.userService.getUserLogged().id != "")) {
-        
+    if (this.userService.getLogged()) {
+      if (gameId && (this.userService.getUserLogged().id != "")) {
+
         const data = {
           userId: this.userService.getUserLogged().id,
           productId: gameId
         }
         this.userService.addToCart(data).subscribe(response => {
-          this.showAddCart = true;
-          setTimeout(() => {
-            this.showAddCart = false;
-          }, 3000);
+          if (response) {
+            this.showAddCart = true;
+            setTimeout(() => {
+              this.showAddCart = false;
+            }, 3000);
+          }
         }, (err) => {
-          this.router.navigate(['/error/server']);
+          if(err.status === 500) {
+            this.router.navigate(['/error/server']);
+          }
+
+          if(err.status === 400) {
+            this.showErrorAddCart = true;
+            setTimeout(() => {
+              this.showErrorAddCart = false;
+            }, 3000);
+          }
         })
       }
-    } 
+    }
   }
 
   deleteFromWishlist(productId: number) {
-    if(productId && (this.userService.getUserLogged().id != "")) {
+    if (productId && (this.userService.getUserLogged().id != "")) {
       const data = {
         userId: this.userService.getUserLogged().id,
         productId: productId
       }
       this.userService.deleteFromWishlist(data).subscribe(response => {
+        console.log(response);
         if (response.status == 'OK') {
           this.userService.getUserWishlist(this.userLogged.id).subscribe(response => {
-            if(response) {
-              
+            if (response) {
               this.wishlist = response;
             }
           })

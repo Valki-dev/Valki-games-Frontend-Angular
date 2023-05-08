@@ -10,7 +10,7 @@ export class GameService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private endpoint: string = "http://localhost:3000/api/v2/valki-games";
+  private endpoint: string = "http://localhost:3000/api/v2/valki-games/games";
 
   private newGamesEndpoint: string = "http://localhost:3000/api/v1/videogames/new";
 
@@ -25,31 +25,22 @@ export class GameService {
     return this.videoGames;
   }
 
-  getAllGames(): Observable<Game[]> {    
-    return this.httpClient.get<Game[]>(`${this.endpoint}/games`);
+  //<<-------------------- GET -------------------->>
+
+  getAllGames(): Observable<Game[]> {
+    return this.httpClient.get<Game[]>(`${this.endpoint}`);
   }
 
-  getGamesByName(search:string): Observable<Game[]> {    
+  getGamesByName(search: string): Observable<Game[]> {
     return this.httpClient.get<Game[]>(`${this.endpoint}/search/${search}`);
   }
 
-  getGameById(id: number): Observable<Game>{    
-    return this.httpClient.get<Game>(`${this.endpoint}/games/${id}`);
+  getGameById(id: number): Observable<Game> {
+    return this.httpClient.get<Game>(`${this.endpoint}/${id}`);
   }
 
-  getNewGames(): Observable<Game[]> {
-    return this.httpClient.get<Game[]>(`${this.newGamesEndpoint}`);
-  }
-
-  getOnOfferGames(): Observable<Game[]> {
-    return this.httpClient.get<Game[]>(`${this.onOfferGamesEndpoint}`)
-  }
-
-  getGamesByGender(gender: string): Observable<Game[]> {
-    return this.httpClient.get<Game[]>(`${this.byGenderEndpoint}?gender=${gender}`);
-  }
-
-  updateGame(updateData: Object): Observable<any> {
+  //<<-------------------- UPDATE -------------------->>
+  updateStock(updateData: any): Observable<any> {
     return this.httpClient.patch<any>(`${this.endpoint}`, updateData);
   }
 

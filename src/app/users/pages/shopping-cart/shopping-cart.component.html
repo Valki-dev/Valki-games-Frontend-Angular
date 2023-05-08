@@ -9,13 +9,13 @@
                 <div *ngIf="cart.length > 0; else empty">
                     <div class="my-5 xl:w-[900px] xl:h-[200px] lg:w-[650px] md:flex-row rounded-lg shadow-lg p-5 overflow-x-auto bg-card" id="cart">
                         <div class="flex flex-col md:flex-row md:max-w-6xl  justify-between items-center border border-gray-500 my-5 rounded-lg p-5" *ngFor="let item of cart">
-                            <img src="{{item.URL}}" alt="Imagen no disponible"
+                            <img src="{{item.products.URL}}" alt="Imagen no disponible"
                                 class="rounded-lg mx-5 w-[180px] h-[230px] md:w-[100px] md:h-[130px] sm:w-[200px] sm:h-[230px]">
                             <div class="mx-10 my-5 p-2 md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[100%]">
                                 <div>
-                                    <p class="text-white text-2xl">{{item.name}}</p>
-                                    <p class="text-button-hover text-2xl"><b>{{item.price}}€</b></p>
-                                    <p class="text-gray-500 text-lg">{{item.gender}}</p>
+                                    <p class="text-white text-2xl">{{item.products.name}}</p>
+                                    <p class="text-button-hover text-2xl"><b>{{item.products.price}}€</b></p>
+                                    <p class="text-gray-500 text-lg">{{item.products.gender}}</p>
                                 </div>
                             </div>
                             <div class="mx-10 sm:my-2">

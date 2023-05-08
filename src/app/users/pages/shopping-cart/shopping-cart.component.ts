@@ -37,7 +37,7 @@ export class ShoppingCartComponent {
   }
 
   calculateTotal() {
-    let totalAmount = this.cart.reduce((total, item) => total += (item.price * item.amount), 0);
+    let totalAmount = this.cart.reduce((total, item) => total += (item.products.price * item.amount), 0);
     return Number(totalAmount.toFixed(2))
   }
 
@@ -74,7 +74,7 @@ export class ShoppingCartComponent {
         }
 
         this.userService.updateAmount(data).subscribe(response => {
-          if(response) {
+          if(response.status == "OK") {
             this.getUserShoppingCart();
             this.total = this.calculateTotal();
             this.router.navigate(['/user/cart']);
@@ -92,21 +92,37 @@ export class ShoppingCartComponent {
         productId: item.productId,
         amount: item.amount
       }
-      this.gameService.updateGame(updateData).subscribe(response => {
+      this.gameService.updateStock(updateData).subscribe(response => {
         if(response.status === "OK") {
-          let data = {
-            userId: this.userService.getUserLogged().id,
-            productId: item.productId
-          }
+          console.log("ENTRA");
+          
+          // ? Traer antes el juego y nmultiplicar el precio por la cantidad del Cart 
+          this.gameService.getGameById(item.productId).subscribe(response => {
+            if(response) {
+              let totalPrice = item.amount * response.price;
 
-          this.userService.addToSales(data).subscribe(response => {
+              let data = {
+                userId: this.userService.getUserLogged().id,
+                productId: item.productId,
+                amount: item.amount,
+                price: totalPrice
+              }
+
+              console.log(data);
+              
+
+              this.userService.addToSales(data).subscribe(response => {
             
-          })
+              })
 
-          this.userService.deleteFromCart(data).subscribe(response => {
+              this.userService.deleteFromCart(data).subscribe(response => {
 
-          })
-          this.router.navigate(['/user/paying'])
+              })
+              this.router.navigate(['/user/paying'])
+            }
+          });
+        } else {
+          //! HACER ALGO CUANDO NO HAYA STOCK PARA COMPRAR
         }
       }, (err) => {
         this.router.navigate(['/error/server']);

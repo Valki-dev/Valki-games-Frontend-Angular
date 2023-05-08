@@ -119,20 +119,20 @@
                                 class="flex justify-around items-center p-3 xl:flex-row lg:flex-row md:flex-col xl:w-[100%] lg:w-[100%] md:justify-center sm:flex-col w-[100%] flex-col">
                                 <div
                                     class="flex justify-evenly items-center xl:w-[300px] xl:h-[100px] lg:w-[300px] lg:h-[100px] md:w-[200px] md:h-[110px] sm:w-[300px]">
-                                    <img src="{{sale.URL}}" alt="Imagen no disponible"
+                                    <img src="{{sale.products.URL}}" alt="Imagen no disponible"
                                         class="rounded-lg mx-5 h-[230px] xl:w-[100px] xl:h-[130px] md:w-[100px] md:h-[200px] sm:w-[100px] sm:h-[230px] w-[100px]">
                                 </div>
                                 <div
                                     class="flex mx-10 my-5 p-2 xl:w-[900px] lg:w-[900px] md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[100%]">
                                     <p
                                         class="text-white text-lg md:my-0 md:text-center md:w-[100%] sm:w-[100%] sm:text-center w-[100%] text-center">
-                                        {{sale.name}}</p>
+                                        {{sale.products.name}}</p>
                                 </div>
                                 <div class="mx-3 sm:m-0 md:m-0 m-0">
                                     <p class="text-gray-500 text-lg">{{sale.saleDate | date:"dd/MM/yyyy"}}</p>
                                 </div>
                                 <div class="mx-3 sm:my-2">
-                                    <p class="text-button-hover text-xl"><b>{{sale.price}}€</b></p>
+                                    <p class="text-button-hover text-xl"><b>{{sale.products.price}}€</b></p>
                                 </div>
                             </div>
                         </div>

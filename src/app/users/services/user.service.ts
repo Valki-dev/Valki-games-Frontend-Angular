@@ -15,7 +15,7 @@ export class UserService {
 
   private logged: boolean = false;
 
-  private endpoint: string = "http://localhost:3000/api/v2/valki-games";
+  private endpoint: string = "http://localhost:3000/api/v2/valki-games/users";
 
   private wishlistEndpoint: string = "http://localhost:3000/api/v1/videogames/wishlist";
 
@@ -42,8 +42,8 @@ export class UserService {
 
   //<<-------------------- GET -------------------->>
 
-  getUserById(userId: string): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.endpoint}/users/${userId}`)
+  getUserById(userId: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.endpoint}/${userId}`)
   }
 
   getUserWishlist(userId: string): Observable<WishlistItem[]> {
@@ -64,8 +64,8 @@ export class UserService {
     return this.httpClient.post<any>(`${this.endpoint}`, user);
   }
 
-  logIn(data: Object): Observable<User[]> {
-    return this.httpClient.post<User[]>(`${this.endpoint}/users/login`, data);
+  logIn(data: Object): Observable<User> {
+    return this.httpClient.post<User>(`${this.endpoint}/login`, data);
   }
 
   addToWishlist(data: Object): Observable<Object> {
@@ -77,27 +77,27 @@ export class UserService {
   }
 
   addToSales(data: Object): Observable<Object> {
-    return this.httpClient.post<Object>(`${this.endpoint}/sale`, data);
+    return this.httpClient.post<Object>(`${this.endpoint}/sales`, data);
   }
 
   //<<-------------------- DELETE -------------------->>
 
   deleteFromWishlist(data: any): Observable<any> {
-    return this.httpClient.delete<any>(`${this.wishlistEndpoint}/${data.userId}?productId=${data.productId}`);
+    return this.httpClient.delete<any>(`${this.endpoint}/wishlist/${data.userId}?productId=${data.productId}`);
   }
 
   deleteFromCart(data: any): Observable<any> {
-    return this.httpClient.delete<any>(`${this.cartEndpoint}/${data.userId}?productId=${data.productId}`);
+    return this.httpClient.delete<any>(`${this.endpoint}/cart/${data.userId}?productId=${data.productId}`);
   }
 
   //<<-------------------- UPDATE -------------------->>
 
-  updateAmount(data: any): Observable<Object> {
-    return this.httpClient.patch<Object>(`${this.cartEndpoint}`, data)
+  updateAmount(data: any): Observable<any> {
+    return this.httpClient.patch<any>(`${this.endpoint}/cart`, data);
   }
 
-  updateUser(data: any): Observable<Object> {
-    return this.httpClient.patch<Object>(`${this.endpoint}`, data)
+  updateUser(data: any): Observable<any> {
+    return this.httpClient.patch<any>(`${this.endpoint}`, data);
   }
 
 }
