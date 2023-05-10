@@ -24,7 +24,8 @@ export class UserService {
   private cartEndpoint: string = "http://localhost:3000/api/v1/videogames/cart";
 
   
-  private userLogged!: User
+  private userLogged!: User;
+  
 
   getLogged(): boolean {
     return this.logged;

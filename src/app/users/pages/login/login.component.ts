@@ -33,11 +33,15 @@ export class LoginComponent {
       }
 
       this.userService.logIn(data).subscribe(response => {
+        if(response) {
           this.loginError = false;
 
           let user: User = response;          
           
+          //? Usar el usuario de sessionStorage en lugar del objeto?
           this.userService.setUserLogged(user);
+          
+          // sessionStorage.setItem("userLogged", JSON.stringify(response));
 
           this.userService.setLogged(true);
           
@@ -47,7 +51,8 @@ export class LoginComponent {
           } else {
             this.router.navigate(['/games/all']);
           }
-
+        }
+          
       }, (err) => {
         if(err.status == 500) {
           this.router.navigate(['/error/server']);

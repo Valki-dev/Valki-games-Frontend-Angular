@@ -16,16 +16,15 @@ import { RouterModule } from '@angular/router';
   declarations: [
     AllListComponent,
     InputComponent,
-    InputComponent,
     GameDetailsComponent,
     SortGamesPipe
   ],
   imports: [
     CommonModule,
+    ButtonModule,
+    FormsModule,
     GamesRoutingModule,
     HttpClientModule,
-    FormsModule,
-    ButtonModule,
     RouterModule
   ]
 })

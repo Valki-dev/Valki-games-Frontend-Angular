@@ -21,16 +21,21 @@ export class HeaderComponent {
   showMobileGenders: boolean = false;
   logged: boolean = this.userService.getLogged();
   isAdmin: boolean = this.userService.getIsAdmin();
+  
 
   getAllGames() {
     this.gameService.getAllGames().subscribe((response: any) => {
       if(response) {
-        this.gameService.videoGames = response;
+        this.gameService.videoGames = [...response];
         this.gameService.originalGames = [...response];
       }
     }, (err) => {
       this.router.navigate(['/error/server']);
     })    
+  }
+
+  get getUserLogged(): User {
+    return this.userService.getUserLogged();
   }
 
   getNewGames() {
@@ -58,6 +63,18 @@ export class HeaderComponent {
 
   logOut() {
     this.userService.setLogged(false);
+    this.userService.setIsAdmin(false);
+
+    const user: User = {
+      id: "",
+      userName: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+      subscriptionDate: new Date(),
+      isAdmin: false
+    }
+    this.userService.setUserLogged(user);
   }
 
   showCart() {

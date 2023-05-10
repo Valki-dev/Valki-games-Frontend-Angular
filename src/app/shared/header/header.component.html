@@ -1,5 +1,5 @@
 <div class="grid-cols-1 bg-shared" id="header">
-    <nav class="bg-shared p-4" *ngIf="isAdmin; else adminHeader">
+    <nav class="bg-shared p-4" *ngIf="!getUserLogged || !getUserLogged.isAdmin; else adminHeader">
         <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8 ">
             <div class="relative flex h-16 items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -202,7 +202,7 @@
 
                                 <a routerLink="/admin/all-games"
                                     class="text-gray-300 bg-button-navbar hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
-                                    (click)="getNewGames()">Todos los juegos</a>
+                                    (click)="getAllGames()">Todos los juegos</a>
                                 <a routerLink="/admin/add-games"
                                     class="text-gray-300 bg-button-navbar hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
                                     (click)="getNewGames()">Agregar juego</a>
