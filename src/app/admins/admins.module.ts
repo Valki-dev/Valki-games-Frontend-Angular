@@ -22,7 +22,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     AllGamesComponent,
     DashboardComponent,
     EditGameComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
