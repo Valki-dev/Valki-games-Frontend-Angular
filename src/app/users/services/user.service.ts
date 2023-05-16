@@ -93,6 +93,10 @@ export class UserService {
 
   //<<-------------------- DELETE -------------------->>
 
+  deleteUser(id: string): Observable<any> {
+    return this.httpClient.delete<any>(`${this.endpoint}/${id}`);
+  }
+
   deleteFromWishlist(data: any): Observable<any> {
     return this.httpClient.delete<any>(`${this.endpoint}/wishlist/${data.userId}?productId=${data.productId}`);
   }

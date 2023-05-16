@@ -3,6 +3,7 @@ import { User } from '../../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
 import { Sale } from '../../interfaces/sale.interface';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,46 @@ export class ProfileComponent {
     this.getUserSales();
   }
 
-  getUserSales() {
+  public deleteUser(id: string) {
+    Swal.fire({
+      title: `¿Seguro que quieres eliminar tu cuenta?`,
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(id).subscribe(response => {
+          if (response.status === "OK") {
+            this.userService.setLogged(false);
+    
+            const user: User = {
+              id: "",
+              userName: "",
+              email: "",
+              password: "",
+              phoneNumber: "",
+              subscriptionDate: new Date(),
+              isAdmin: false
+            }
+            this.userService.setUserLogged(user);
+
+            Swal.fire(`Tu cuenta ha sido eliminada`, '', 'success');
+    
+            this.router.navigate(['/games/all']);
+          }
+        }, (err) => {
+          this.router.navigate(['/error/server']);
+        })
+      } else {
+        this.router.navigate(['/user/profile'])
+      }
+    });
+
+    
+  }
+
+  public getUserSales() {
     this.userService.getUserSales(this.userLogged.id).subscribe(response => {
       if (response) {
         this.sales = response;
@@ -37,7 +77,18 @@ export class ProfileComponent {
     })
   }
 
-  updateUserData(userName: string, email: string, phoneNumber: string) {
+  public showForm() {
+    this.showUpdateUser = true;
+    this.router.navigate(['/user/profile']);
+  }
+
+  public hideForm() {
+    this.updateError = false;
+    this.showUpdateUser = false;
+    this.router.navigate(['/user/profile']);
+  }
+
+  public updateUserData(userName: string, email: string, phoneNumber: string) {
     if ((userName.trim() != "") && (email.trim() != "") && (phoneNumber.trim() != "") && (this.password.trim() != "") && (this.password2.trim() != "")) {
 
       this.updateError = false;
@@ -93,17 +144,6 @@ export class ProfileComponent {
       this.updateError = true;
       this.router.navigate(['/user/profile']);
     }
-  }
-
-  showForm() {
-    this.showUpdateUser = true;
-    this.router.navigate(['/user/profile']);
-  }
-
-  hideForm() {
-    this.updateError = false;
-    this.showUpdateUser = false;
-    this.router.navigate(['/user/profile']);
   }
 
 }

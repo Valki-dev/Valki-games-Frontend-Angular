@@ -16,6 +16,7 @@ import { PayingPageComponent } from './pages/paying-page/paying-page.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { VerificationTokenComponent } from './pages/verification-token/verification-token.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 
@@ -26,6 +27,7 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
     ProfileComponent,
     RegisterComponent,
     ShoppingCartComponent,
+    VerificationTokenComponent,
     WishlistComponent,
   ],
   imports: [

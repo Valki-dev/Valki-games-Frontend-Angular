@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Game } from 'src/app/games/interfaces/game.interface';
 import { GameService } from 'src/app/games/services/game.service';
 import Swal from 'sweetalert2';
 
@@ -28,7 +27,6 @@ export class AllGamesComponent implements OnInit {
       confirmButtonText: 'Eliminar',
       cancelButtonText: `Cancelar`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
 
         this.gameService.deleteGame(id).subscribe(response => {
@@ -37,9 +35,6 @@ export class AllGamesComponent implements OnInit {
             this.getAllGames();
             this.router.navigate(['admin/all-games']);
           }
-
-          //!PONER ALERTA
-
         }, (err) => {
           this.router.navigate(['/error/server']);
         })
