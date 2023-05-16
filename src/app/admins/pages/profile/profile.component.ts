@@ -1,43 +1,41 @@
-import { Component } from '@angular/core';
-import { User } from '../../interfaces/user.interface';
-import { UserService } from '../../services/user.service';
-import { Sale } from '../../interfaces/sale.interface';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/users/interfaces/user.interface';
+import { UserService } from 'src/app/users/services/user.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  public password: string = "";
+  public password2: string = "";
+  public passwordError: boolean = false;
+  public showErrorUpdate: boolean = false;
+  public showUpdateUser: boolean = false;
+  public updateError: boolean = false;
+  public userLogged!: User;
 
-  password: string = "";
-  password2: string = "";
-  passwordError: boolean = false;
-  sales: Sale[] = [];
-  showErrorUpdate: boolean = false;
-  showUpdateUser: boolean = false;
-  updateError: boolean = false;
-  userLogged!: User;
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.userLogged = this.userService.getUserLogged();
-    this.getUserSales();
   }
 
-  getUserSales() {
-    this.userService.getUserSales(this.userLogged.id).subscribe(response => {
-      if (response) {
-        this.sales = response;
-      }
-    }, (err) => {
-      this.router.navigate(['/error/server']);
-    })
+  public hideForm() {
+    this.updateError = false;
+    this.showUpdateUser = false;
+    this.router.navigate(['/admin/profile']);
   }
 
-  updateUserData(userName: string, email: string, phoneNumber: string) {
+  public showForm() {
+    this.showUpdateUser = true;
+    this.router.navigate(['/admin/profile']);
+  }
+
+  public updateUserData(userName: string, email: string, phoneNumber: string) {
     if ((userName.trim() != "") && (email.trim() != "") && (phoneNumber.trim() != "") && (this.password.trim() != "") && (this.password2.trim() != "")) {
 
       this.updateError = false;
@@ -66,7 +64,7 @@ export class ProfileComponent {
                 this.userLogged = response;
                 this.userService.setUserLogged(response);
                 this.showUpdateUser = false;
-                this.router.navigate(['/user/profile']);
+                this.router.navigate(['/admin/profile']);
               }
             }, (err) => {
               this.router.navigate(['/error/server']);
@@ -83,27 +81,14 @@ export class ProfileComponent {
               this.showErrorUpdate = false;
             }, 3000);
           }
-        })
-
+        });
       } else {
         this.passwordError = true;
-        this.router.navigate(['/user/profile']);
+        this.router.navigate(['/admin/profile']);
       }
     } else {
       this.updateError = true;
-      this.router.navigate(['/user/profile']);
+      this.router.navigate(['/admin/profile']);
     }
   }
-
-  showForm() {
-    this.showUpdateUser = true;
-    this.router.navigate(['/user/profile']);
-  }
-
-  hideForm() {
-    this.updateError = false;
-    this.showUpdateUser = false;
-    this.router.navigate(['/user/profile']);
-  }
-
 }

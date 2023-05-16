@@ -8,6 +8,7 @@ export interface Game {
     description: string,
     stock: number,
     price: number,
+    onOfferPrice: number,
     available: boolean,
     onOffer: boolean,
     isNew: boolean,

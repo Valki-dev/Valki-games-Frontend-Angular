@@ -1,26 +1,33 @@
+//Angular imports
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+
+//Modules
+import { AppRoutingModule } from './app-routing.module';
+import { PrimeNgModule } from './prime-ng/prime-ng.module';
+import { SharedModule } from './shared/shared.module';
+
+//Components
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
-    SharedModule,
-    HttpClientModule,
-    RouterModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     FormsModule,
+    HttpClientModule,
+    PrimeNgModule,
+    RouterModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

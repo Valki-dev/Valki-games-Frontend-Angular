@@ -1,15 +1,21 @@
+//Angular imports
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { GamesRoutingModule } from './games-routing.module';
-import { AllListComponent } from './pages/all-list/all-list.component';
-import { HttpClientModule } from '@angular/common/http';
-import { InputComponent } from './sharedGames/input/input.component';
 import { FormsModule } from '@angular/forms';
-import { GameDetailsComponent } from './pages/game-details/game-details.component';
-import { ButtonModule } from 'primeng/button';
-import { SortGamesPipe } from './pipes/sort-games.pipe';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
+//Modules
+import { GamesRoutingModule } from './games-routing.module';
+import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+
+//Components
+import { AllListComponent } from './pages/all-list/all-list.component';
+import { GameDetailsComponent } from './pages/game-details/game-details.component';
+import { InputComponent } from './sharedGames/input/input.component';
+
+//Pipes
+import { SortGamesPipe } from './pipes/sort-games.pipe';
 
 
 @NgModule({
@@ -21,11 +27,12 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    ButtonModule,
+    
     FormsModule,
     GamesRoutingModule,
     HttpClientModule,
-    RouterModule
+    PrimeNgModule,
+    RouterModule,
   ]
 })
 export class GamesModule { }

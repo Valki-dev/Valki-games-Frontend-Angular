@@ -224,12 +224,9 @@
                                 *ngIf="showMenu">
                                 <div *ngIf="logged; else notLogged">
                                     <!-- Active: "bg-gray-100", Not Active: "" -->
-                                    <a routerLink="/user/profile"
+                                    <a routerLink="/admin/profile"
                                         class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
                                         tabindex="-1" id="user-menu-item-0" (click)="toggleMenu()">Perfil</a>
-                                    <a routerLink="/user/wishlist"
-                                        class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-1" (click)="toggleMenu()">Lista de deseos</a>
                                     <a routerLink="/games/all"
                                         class="block px-4 py-2 text-sm text-white hover:bg-button-hover" role="menuitem"
                                         tabindex="-1" id="user-menu-item-2" (click)="toggleMenu(); logOut()">Cerrar

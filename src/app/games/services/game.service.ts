@@ -40,8 +40,16 @@ export class GameService {
   }
 
   //<<-------------------- UPDATE -------------------->>
-  updateStock(updateData: any): Observable<any> {
+  updateGame(updateData: any): Observable<any> {
     return this.httpClient.patch<any>(`${this.endpoint}`, updateData);
   }
 
+  updateStock(updateData: any): Observable<any> {
+    return this.httpClient.patch<any>(`${this.endpoint}/stock`, updateData);
+  }
+
+  //<<-------------------- DELETE -------------------->>
+  deleteGame(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.endpoint}/${id}`);
+  }
 }
