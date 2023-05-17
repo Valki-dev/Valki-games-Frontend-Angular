@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { PasswordModule } from 'primeng/password';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ToastModule } from 'primeng/toast';
 
@@ -15,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
     DropdownModule,
     InputMaskModule,
     PasswordModule,
+    TieredMenuModule,
     VirtualScrollerModule,
     ToastModule
   ]

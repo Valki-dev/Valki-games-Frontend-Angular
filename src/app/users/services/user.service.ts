@@ -69,6 +69,10 @@ export class UserService {
     return this.httpClient.get<Sale[]>(`${this.endpoint}/sales/${userId}`);
   }
 
+  public comparePassword(data: any): Observable<any> {
+    return this.httpClient.post<boolean>(`${this.endpoint}/password`, data);
+  }
+
   //<<-------------------- POST -------------------->>
 
   createUser(user: User): Observable<any> {
@@ -113,6 +117,10 @@ export class UserService {
 
   updateUser(data: any): Observable<any> {
     return this.httpClient.patch<any>(`${this.endpoint}`, data);
+  }
+
+  updatePassword(data: any): Observable<any> {
+    return this.httpClient.patch<any>(`${this.endpoint}/password`, data);
   }
 
 }
