@@ -17,7 +17,7 @@
                     <p class="text-white text-2xl title mb-3">Información de la cuenta</p>
                     <hr>
                 </div>
-                <div *ngIf="!showUpdateUser; else showProfileData">
+                <div *ngIf="!showUpdateUser; else updateContainer">
                     <div class="mt-5 md:flex-row rounded-lg shadow-lg p-8 bg-card">
                         <div class="">
                             <p class="text-white text-lg"><b>Nombre de usuario</b></p>
@@ -36,41 +36,45 @@
                             <p class="text-gray-500">******</p>
                         </div>
                         <div class="mt-2 flex justify-end">
-                            <button pButton pRipple type="button" icon="pi pi-pencil"
-                                class="p-button p-button-help p-button-outlined mr-7" (click)="showForm()"></button>
+                            <button pButton pRipple type="button" icon="pi pi-cog"
+                                class="p-button p-button-help p-button-outlined mr-7"
+                                (click)="menu.toggle($event)"></button>
+                            <p-tieredMenu #menu [model]="menuOptions" [popup]="true"></p-tieredMenu>
                         </div>
                     </div>
                 </div>
-                <ng-template #showProfileData>
-                    <div
-                        class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
-                        <form (ngSubmit)="updateUserData(userName.value, email.value, phoneNumber.value)"
-                            class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg">
-                            <div class="grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                <label for="userName" [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Nombre
-                                    de usuario</label>
-                                <input type="text" name="userName" id="userName" #userName [value]="userLogged.userName" autocomplete="given-name" [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                    placeholder="Usuario_95">
-                            </div>
-                            <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                <label for="email" [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Email</label>
-                                <input type="text" name="email" id="email" #email [value]="userLogged.email" autocomplete="given-name" [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                    placeholder="email@example.com">
-                            </div>
-                            <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                <label for="phoneNumber" [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Teléfono</label>
-                                <input type="text" name="phoneNumber" id="phoneNumber" #phoneNumber [value]="userLogged.phoneNumber" autocomplete="given-name" [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                    placeholder="600000000">
-                            </div>
 
-                            <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                <label for="password" [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Contraseña</label>
-                                <input type="password" name="password" id="password"  autocomplete="given-name" [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'" placeholder="********" [(ngModel)]="password">
-                            </div>
-
-                            <div class="mt-7 mb-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                <label for="password2" [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Repite la contraseña</label>
-                                <input type="password" name="password2" id="password2" autocomplete="given-name" [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'" placeholder="********" [(ngModel)]="password2">
+                <ng-template #updateContainer>
+                    <ng-container *ngIf="showProfileForm; else showPasswordForm">
+                        <div class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
+                            <form (ngSubmit)="updateUserData(userName.value, email.value, phoneNumber.value)"
+                                class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg">
+                                <div class="grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
+                                    <label for="userName"
+                                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Nombre
+                                        de usuario</label>
+                                    <input type="text" name="userName" id="userName" #userName
+                                        [value]="userLogged.userName" autocomplete="given-name"
+                                        [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
+                                        placeholder="Usuario_95">
+                                </div>
+                                <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
+                                    <label for="email"
+                                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Email</label>
+                                    <input type="text" name="email" id="email" #email [value]="userLogged.email"
+                                        autocomplete="given-name"
+                                        [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
+                                        placeholder="email@example.com">
+                                </div>
+                                <div
+                                    class="mt-7 mb-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
+                                    <label for="phoneNumber"
+                                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Teléfono</label>
+                                    <input type="text" name="phoneNumber" id="phoneNumber" #phoneNumber
+                                        [value]="userLogged.phoneNumber" autocomplete="given-name"
+                                        [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
+                                        placeholder="600000000">
+                                </div>
 
                                 <div *ngIf="updateError" class="flex justify-center w-[100%]">
                                     <p class="text-red-500">Introduce todos los campos o campos válidos</p>
@@ -79,32 +83,60 @@
                                 <div *ngIf="passwordError" class="flex justify-center w-[100%]">
                                     <p class="text-red-500">Las contraseñas deben ser iguales</p>
                                 </div>
-                            </div>
 
-
-                            <div
-                                class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5">
-                                <!-- <a routerLink="/user/profile"></a> -->
-                                <button pButton pRipple type="submit" label="Aceptar"
-                                    class="p-button-outlined p-button-help"></button>
-                                <button pButton pRipple type="button" label="Cancelar"
-                                    class="p-button-outlined p-button-secondary" (click)="hideForm()"></button>
-                            </div>
-                        </form>
-                    </div>
-                    <div *ngIf="showErrorUpdate">
-                        <div class="mb-3 inline-flex w-full items-center rounded-lg bg-red-200 py-5 px-6 text-base text-red-700"
-                            role="alert">
-                            <span class="mr-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="h-5 w-5">
-                                    <path fill-rule="evenodd"
-                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                            No se han actualizado los datos
+                                <div
+                                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5">
+                                    <!-- <a routerLink="/user/profile"></a> -->
+                                    <button pButton pRipple type="submit" label="Aceptar"
+                                        class="p-button-outlined p-button-help"></button>
+                                    <button pButton pRipple type="button" label="Cancelar"
+                                        class="p-button-outlined p-button-secondary" (click)="hideForm()"></button>
+                                </div>
+                            </form>
                         </div>
-                    </div>
+                    </ng-container>
+
+
+                    <ng-template #showPasswordForm>
+                        <div class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
+                            <div class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg">
+                                <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
+                                    <label for="currentPassword"
+                                        [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Contraseña actual</label>
+                                    <input type="password" name="currentPassword" id="currentPassword" autocomplete="given-name"
+                                        [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
+                                        placeholder="********" [(ngModel)]="currentPassword">
+                                </div>
+
+                                <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
+                                    <label for="password"
+                                        [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Contraseña</label>
+                                    <input type="password" name="password" id="password" autocomplete="given-name"
+                                        [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
+                                        placeholder="********" [(ngModel)]="password">
+                                </div>
+        
+                                <div class="mt-7 mb-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
+                                    <label for="password2"
+                                        [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Repite
+                                        la contraseña</label>
+                                    <input type="password" name="password2" id="password2" autocomplete="given-name"
+                                        [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
+                                        placeholder="********" [(ngModel)]="password2">
+                                </div>
+        
+                                <div
+                                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5">
+                                    <!-- <a routerLink="/user/profile"></a> -->
+                                    <button pButton pRipple type="submit" label="Aceptar"
+                                        class="p-button-outlined p-button-help" (click)="updatePassword()"></button>
+                                    <button pButton pRipple type="button" label="Cancelar"
+                                        class="p-button-outlined p-button-secondary" (click)="hidePasswordForm()"></button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </ng-template>
                 </ng-template>
             </div>
         </div>

@@ -8,6 +8,8 @@ import { PasswordModule } from 'primeng/password';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ToastModule } from 'primeng/toast';
+import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   exports: [
@@ -18,7 +20,9 @@ import { ToastModule } from 'primeng/toast';
     PasswordModule,
     TieredMenuModule,
     VirtualScrollerModule,
-    ToastModule
+    ToastModule,
+    PaginatorModule,
+    InputTextModule
   ]
 })
 export class PrimeNgModule { }

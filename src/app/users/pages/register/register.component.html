@@ -4,7 +4,7 @@
             <h1 class="text-white text-4xl leading-tight font-medium mb-2">Registro</h1>
             <hr>
             <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col items-center px-5" novalidate>
-                <div class="mt-5 grid-cols-1 w-[100%]">
+                <!-- <div class="mt-5 grid-cols-1 w-[100%]">
                     <div *ngIf="!userName?.valid && (userName?.dirty ||userName?.touched); else userNameGood">
                         <label for="userName" class="text-sm leading-6 text-red-500">Nombre de usuario</label>
                         <input type="text" name="userName" id="userName" formControlName="userName" autocomplete="given-name"
@@ -18,9 +18,54 @@
                         <input type="text" name="userName" id="userName" formControlName="userName" autocomplete="given-name"
                             class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md" placeholder="Usuario_95">
                     </ng-template>
+                </div> -->
+
+                <div class="mt-10 grid-cols-1 w-[100%]">
+                    <span class="p-float-label">
+                        <input pInputText id="userName" formControlName="userName" />
+                        <label htmlFor="userName">Nombre de usuario *</label>
+                    </span>
+
+                    <span *ngIf="isValidField('userName')" class="text-red-500">{{getFieldError("userName")}}</span>
                 </div>
 
-                <div class="mt-5 grid-cols-1 w-[100%]">
+                <div class="mt-10 grid-cols-1 w-[100%]">
+                    <span class="p-float-label">
+                        <input pInputText id="email" formControlName="email" />
+                        <label htmlFor="email">Email *</label>
+                    </span>
+
+                    <span *ngIf="isValidField('email')" class="text-red-500">{{getFieldError("email")}}</span>
+                </div>
+
+                <div class="mt-10 grid-cols-1 w-[100%]">
+                    <span class="p-float-label ">
+                        <p-password formControlName="password" [feedback]="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                        <label htmlFor="password">Contraseña *</label>
+                    </span>
+
+                    <span *ngIf="isValidField('password')" class="text-red-500">{{getFieldError("password")}}</span>
+                </div>
+
+                <div class="mt-10 grid-cols-1 w-[100%]">
+                    <span class="p-float-label ">
+                        <p-password formControlName="password2" [feedback]="false" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                        <label htmlFor="password2">Repite la contraseña *</label>
+                    </span>
+
+                    <span *ngIf="isValidField('password2')" class="text-red-500">{{getFieldError("password2")}}</span>
+                </div>
+
+                <div class="mt-10 grid-cols-1 w-[100%]">
+                    <span class="p-float-label">
+                        <input pInputText id="phoneNumber" formControlName="phoneNumber" />
+                        <label htmlFor="phoneNumber">Teléfono</label>
+                    </span>
+
+                    <span *ngIf="isValidField('phoneNumber')" class="text-red-500">{{getFieldError("phoneNumber")}}</span>
+                </div>
+
+                <!-- <div class="mt-5 grid-cols-1 w-[100%]">
                     <div *ngIf="!email?.valid && (email?.dirty || email?.touched); else emailGood">
                         <label for="email" class="block text-sm leading-6 text-red-500">Email</label>
                         <input type="email" name="email" id="userName" formControlName="email" autocomplete="given-name"
@@ -81,8 +126,8 @@
                         <input type="text" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber" autocomplete="given-name"
                             class="rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md " placeholder="600000000">
                     </ng-template>
-                </div>
-                <div *ngIf="showRegisterError" class="mt-10">
+                </div> -->
+                <div *ngIf="showAlert" class="mt-10 w-[100%]">
                     <div class="mb-3 inline-flex w-full items-center rounded-lg bg-red-200 py-5 px-6 text-base text-red-700"
                         role="alert">
                         <span class="mr-2">
@@ -92,7 +137,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </span>
-                        El usuario ya está registrado en el sistema
+                        {{message}}
                     </div>
                 </div>
 

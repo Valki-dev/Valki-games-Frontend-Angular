@@ -17,31 +17,6 @@
                     <p class="text-white text-2xl title mb-3">Información de la cuenta</p>
                     <hr>
                 </div>
-                <!-- <div *ngIf="!showUpdateUser; else showProfileForm">
-                    <div class="mt-5 md:flex-row rounded-lg shadow-lg p-8 bg-card">
-                        <div class="">
-                            <p class="text-white text-lg"><b>Nombre de usuario</b></p>
-                            <p class="text-gray-500">{{userLogged.userName}}</p>
-                        </div>
-                        <div class="mt-5">
-                            <p class="text-white text-lg"><b>Email</b></p>
-                            <p class="text-gray-500">{{userLogged.email}}</p>
-                        </div>
-                        <div class="mt-5">
-                            <p class="text-white text-lg"><b>Teléfono</b></p>
-                            <p class="text-gray-500">{{userLogged.phoneNumber}}</p>
-                        </div>
-                        <div class="mt-5">
-                            <p class="text-white text-lg"><b>Contraseña</b></p>
-                            <p class="text-gray-500">******</p>
-                        </div>
-                        <div class="mt-2 flex justify-end">
-                            <button pButton pRipple type="button" icon="pi pi-cog"
-                                class="p-button p-button-help p-button-outlined mr-7" (click)="menu.toggle($event)"></button>
-                            <p-tieredMenu #menu [model]="menuOptions" [popup]="true"></p-tieredMenu>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div *ngIf="!showUpdateUser; else updateContainer">
                     <div class="mt-5 md:flex-row rounded-lg shadow-lg p-8 bg-card">

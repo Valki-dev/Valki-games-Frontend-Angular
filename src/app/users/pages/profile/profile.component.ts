@@ -15,17 +15,17 @@ export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  menuOptions!: MenuItem[];
-  currentPassword: string = "";
-  password: string = "";
-  password2: string = "";
-  passwordError: boolean = false;
-  sales: Sale[] = [];
-  showErrorUpdate: boolean = false;
-  showProfileForm: boolean = false;
-  showUpdateUser: boolean = false;
-  updateError: boolean = false;
-  userLogged!: User;
+  public currentPassword: string = "";
+  public menuOptions!: MenuItem[];
+  public password: string = "";
+  public password2: string = "";
+  public passwordError: boolean = false;
+  public sales: Sale[] = [];
+  public showErrorUpdate: boolean = false;
+  public showProfileForm: boolean = false;
+  public showUpdateUser: boolean = false;
+  public updateError: boolean = false;
+  public userLogged!: User;
 
   ngOnInit(): void {
     this.userLogged = this.userService.getUserLogged();
