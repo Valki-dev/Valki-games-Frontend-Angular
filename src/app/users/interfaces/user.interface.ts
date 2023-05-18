@@ -3,7 +3,7 @@ export interface User {
     userName: string,
     email: string,
     password: string,
-    phoneNumber?: string,
+    phoneNumber: string,
     subscriptionDate: Date,
     isAdmin: boolean
 }
