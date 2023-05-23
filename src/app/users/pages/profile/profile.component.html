@@ -9,8 +9,8 @@
             <div
                 class="flex xl:w-[80%] xl:pt-10 lg:w-[80%] lg:pt-10 md:w-[80%] md:pt-10 sm:pt-0 pt-0 flex-col justify-start p-10">
                 <div>
-                    <h5 class="text-white text-3xl font-medium mb-2">{{userLogged.userName | titlecase}}</h5>
-                    <p class="text-gray-600 text-lg">Miembro desde {{userLogged.subscriptionDate | date: 'dd/MM/yyyy'}}
+                    <h5 class="text-white text-3xl font-medium mb-2">{{userLogged?.userName | titlecase}}</h5>
+                    <p class="text-gray-600 text-lg">Miembro desde {{userLogged?.subscriptionDate | date: 'dd/MM/yyyy'}}
                     </p>
                 </div>
                 <div class="mt-8">
@@ -22,15 +22,15 @@
                     <div class="mt-5 md:flex-row rounded-lg shadow-lg p-8 bg-card">
                         <div class="">
                             <p class="text-white text-lg"><b>Nombre de usuario</b></p>
-                            <p class="text-gray-500">{{userLogged.userName}}</p>
+                            <p class="text-gray-500">{{userLogged?.userName}}</p>
                         </div>
                         <div class="mt-5">
                             <p class="text-white text-lg"><b>Email</b></p>
-                            <p class="text-gray-500">{{userLogged.email}}</p>
+                            <p class="text-gray-500">{{userLogged?.email}}</p>
                         </div>
                         <div class="mt-5">
                             <p class="text-white text-lg"><b>Teléfono</b></p>
-                            <p class="text-gray-500">{{userLogged.phoneNumber}}</p>
+                            <p class="text-gray-500">{{userLogged?.phoneNumber}}</p>
                         </div>
                         <div class="mt-5">
                             <p class="text-white text-lg"><b>Contraseña</b></p>
@@ -54,7 +54,7 @@
                                 <div class="grid-cols-1 lg:w-[70%] w-[100%]">
                                     <span class="p-float-label">
                                         <input pInputText id="userName" formControlName="userName" class="w-[100%]"
-                                            [value]="userLogged.userName" />
+                                            [value]="userLogged?.userName" />
                                         <label htmlFor="userName">Nombre de usuario *</label>
                                     </span>
 
@@ -65,7 +65,7 @@
                                 <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
                                     <span class="p-float-label">
                                         <input pInputText id="email" formControlName="email" class="w-[100%]"
-                                            [value]="userLogged.email" />
+                                            [value]="userLogged?.email" />
                                         <label htmlFor="email">Email *</label>
                                     </span>
 
@@ -76,7 +76,7 @@
                                 <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
                                     <span class="p-float-label">
                                         <input pInputText id="phoneNumber" formControlName="phoneNumber" class="w-[100%]"
-                                            [value]="userLogged.phoneNumber" />
+                                            [value]="userLogged?.phoneNumber" />
                                         <label htmlFor="phoneNumber">Teléfono</label>
                                     </span>
 

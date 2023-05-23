@@ -67,14 +67,14 @@ export class LoginComponent {
       if (response) {
         this.loginError = false;
 
-        let user: User = response;
+        // let user: User = response;
 
         //? Usar el usuario de sessionStorage en lugar del objeto?
-        this.userService.setUserLogged(user);
+        this.userService.setUserLogged(response);
 
-        sessionStorage.setItem("userLogged", JSON.stringify(user));
+        sessionStorage.setItem("userLogged", JSON.stringify(response));
 
-        this.userService.setLogged(true);
+        // this.userService.setLogged(true);
 
         if (response.isAdmin) {
           this.userService.setIsAdmin(true);

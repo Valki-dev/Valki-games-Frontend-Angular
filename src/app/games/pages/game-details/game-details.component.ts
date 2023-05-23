@@ -31,10 +31,10 @@ export class GameDetailsComponent implements OnInit {
   }
 
   addToWishlist(gameId: number) {
-    if(this.userService.getLogged()) {
-      if(gameId && (this.userService.getUserLogged().id != "")) {
+    if(this.userService.getUserLogged() !== null) {
+      if(gameId && (this.userService.getUserLogged()!.id != "")) {
         const data = {
-          userId: this.userService.getUserLogged().id,
+          userId: this.userService.getUserLogged()!.id,
           productId: gameId
         }
 
@@ -63,10 +63,10 @@ export class GameDetailsComponent implements OnInit {
   }
 
   addToCart(gameId: number) {
-    if(this.userService.getLogged()) {
-      if(gameId && (this.userService.getUserLogged().id != "")) {
+    if(this.userService.getUserLogged() !== null) {
+      if(gameId && (this.userService.getUserLogged()!.id != "")) {
         const data = {
-          userId: this.userService.getUserLogged().id,
+          userId: this.userService.getUserLogged()!.id,
           productId: gameId
         }
         

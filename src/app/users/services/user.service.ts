@@ -11,15 +11,9 @@ import { Sale } from '../interfaces/sale.interface';
 })
 export class UserService {
 
-  constructor(private httpClient: HttpClient) { 
-    if(sessionStorage.getItem("userLogged")) {
-      
-      this.userLogged = JSON.parse(sessionStorage.getItem("userLogged")!);
-      console.log({usuario: this.userLogged});
-    }
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  private logged: boolean = true;
+  // private logged: boolean = true;
 
   private isAdmin: boolean = false;
 
@@ -30,35 +24,43 @@ export class UserService {
   private cartEndpoint: string = "http://localhost:3000/api/v1/videogames/cart";
 
   
-  private userLogged: User = {
-    id: "0fd04272-d5e2-477f-bbf1-342db0",
-    userName: "Flavio",
-    email: "flavio@gmail.com",
-    password: "1234",
-    phoneNumber: "645756656",
-    subscriptionDate: new Date(),
-    isAdmin: false
-  };
+  // private userLogged: User = {
+  //   id: "0fd04272-d5e2-477f-bbf1-342db0",
+  //   userName: "Flavio",
+  //   email: "flavio@gmail.com",
+  //   password: "1234",
+  //   phoneNumber: "645756656",
+  //   subscriptionDate: new Date(),
+  //   isAdmin: false
+  // };
   
 
-  getLogged(): boolean {
-    return this.logged;
-  }
+  // getLogged(): boolean {
+  //   return this.logged;
+  // }
 
-  getUserLogged(): User {
-    return this.userLogged;
+  getUserLogged(): User | null {
+    if(sessionStorage.getItem("userLogged")) {
+      return JSON.parse(sessionStorage.getItem("userLogged")!);
+    }
+
+    return null;
   }
 
   getIsAdmin(): boolean {
     return this.isAdmin;
   }
 
-  setLogged(value: boolean): void {
-    this.logged = value;
-  }
+  // setLogged(value: boolean): void {
+  //   this.logged = value;
+  // }
 
-  setUserLogged(user: User): void {
-    this.userLogged = user;
+  setUserLogged(user: User | null): void {
+    if(user !== null) {
+      sessionStorage.setItem("userLogged", JSON.stringify(user));
+      return;
+    }
+    sessionStorage.clear();
   }
 
   setIsAdmin(value: boolean): void {

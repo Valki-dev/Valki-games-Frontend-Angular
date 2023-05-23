@@ -16,24 +16,34 @@ export class ShoppingCartComponent {
 
   constructor(private userService: UserService, private gameService: GameService, private router: Router) { }
 
-  userLogged!: User;
+  // userLogged!: User;
   cart: CartItem[] = [];
   total: number = 0;
 
   ngOnInit(): void {
-    this.userLogged = this.userService.getUserLogged();
+    // this.userLogged = this.userService.getUserLogged();
     this.getUserShoppingCart();
   }
 
+  get userLogged(): User | null {
+    return this.userService.getUserLogged();
+  }
+
   getUserShoppingCart() {
-    this.userService.getUserShoppingCart(this.userLogged.id).subscribe(response => {
-      if (response) {
-        this.cart = response;
-        this.total = this.calculateTotal();
-      }
-    }, (err) => {
-      this.router.navigate(['/error/server']);
-    }) 
+    if (this.userService.getUserLogged() !== null) {
+
+      this.userService.getUserShoppingCart(this.userService.getUserLogged()!.id).subscribe(response => {
+        if (response) {
+          this.cart = response;
+          this.total = this.calculateTotal();
+        }
+      }, (err) => {
+        this.router.navigate(['/error/server']);
+      });
+
+    } else {
+      this.router.navigate(["/user/login"]);
+    }
   }
 
   calculateTotal() {
@@ -42,39 +52,44 @@ export class ShoppingCartComponent {
   }
 
   deleteFromCart(productId: number) {
-    if (productId && (this.userService.getUserLogged().id != "")) {
-      const data = {
-        userId: this.userService.getUserLogged().id,
-        productId: productId
-      }
-
-      this.userService.deleteFromCart(data).subscribe(response => {
-        if (response.status == 'OK') {
-          this.userService.getUserShoppingCart(this.userLogged.id).subscribe(response => {
-            if (response) {
-              this.cart = response;
-              this.total = this.calculateTotal();
-            }
-          })
-          this.router.navigate(['/user/cart']);
+    if (this.userService.getUserLogged() !== null) {
+      if (productId && (this.userService.getUserLogged()!.id != "")) {
+        const data = {
+          userId: this.userService.getUserLogged()!.id,
+          productId: productId
         }
-      }, (err) => {
-        this.router.navigate(['/error/server']);
-      })
+
+        this.userService.deleteFromCart(data).subscribe(response => {
+          if (response.status == 'OK') {
+            this.userService.getUserShoppingCart(this.userService.getUserLogged()!.id).subscribe(response => {
+              if (response) {
+                this.cart = response;
+                this.total = this.calculateTotal();
+              }
+            })
+            this.router.navigate(['/user/cart']);
+          }
+        }, (err) => {
+          this.router.navigate(['/error/server']);
+        })
+      }
+    } else {
+      this.router.navigate(["/user/login"]);
     }
   }
 
   changeAmount(productId: number, selectValue: any) {
-    if(this.userService.getLogged()) {
-      if(productId && (this.userService.getUserLogged().id)) {
+    if (this.userService.getUserLogged() !== null) {
+
+      if (productId && (this.userService.getUserLogged()!.id)) {
         const data = {
-          userId: this.userService.getUserLogged().id,
+          userId: this.userService.getUserLogged()!.id,
           productId: productId,
           amount: Number(selectValue)
         }
 
         this.userService.updateAmount(data).subscribe(response => {
-          if(response.status == "OK") {
+          if (response.status == "OK") {
             this.getUserShoppingCart();
             this.total = this.calculateTotal();
             this.router.navigate(['/user/cart']);
@@ -83,51 +98,58 @@ export class ShoppingCartComponent {
           this.router.navigate(['/error/server']);
         })
       }
+
+    } else {
+      this.router.navigate(["/user/login"]);
     }
   }
 
   pay() {
-    this.cart.forEach(item => {
-      let updateData = {
-        productId: item.productId,
-        amount: item.amount
-      }
-      this.gameService.updateStock(updateData).subscribe(response => {
-        if(response.status === "OK") {
-          console.log("ENTRA");
-          
-          // ? Traer antes el juego y nmultiplicar el precio por la cantidad del Cart 
-          this.gameService.getGameById(item.productId).subscribe(response => {
-            if(response) {
-              let totalPrice = item.amount * response.price;
-
-              let data = {
-                userId: this.userService.getUserLogged().id,
-                productId: item.productId,
-                amount: item.amount,
-                price: totalPrice
-              }
-
-              console.log(data);
-              
-
-              this.userService.addToSales(data).subscribe(response => {
-            
-              })
-
-              this.userService.deleteFromCart(data).subscribe(response => {
-
-              })
-              this.router.navigate(['/user/paying'])
-            }
-          });
-        } else {
-          //! HACER ALGO CUANDO NO HAYA STOCK PARA COMPRAR
+    if(this.userService.getUserLogged() !== null) {
+      this.cart.forEach(item => {
+        let updateData = {
+          productId: item.productId,
+          amount: item.amount
         }
-      }, (err) => {
-        this.router.navigate(['/error/server']);
-      })
-    });
+        this.gameService.updateStock(updateData).subscribe(response => {
+          if (response.status === "OK") {
+            console.log("ENTRA");
+  
+            // ? Traer antes el juego y nmultiplicar el precio por la cantidad del Cart 
+            this.gameService.getGameById(item.productId).subscribe(response => {
+              if (response) {
+                let totalPrice = item.amount * response.price;
+  
+                let data = {
+                  userId: this.userService.getUserLogged()!.id,
+                  productId: item.productId,
+                  amount: item.amount,
+                  price: totalPrice
+                }
+  
+                console.log(data);
+  
+  
+                this.userService.addToSales(data).subscribe(response => {
+  
+                })
+  
+                this.userService.deleteFromCart(data).subscribe(response => {
+  
+                })
+                this.router.navigate(['/user/paying'])
+              }
+            });
+          } else {
+            //! HACER ALGO CUANDO NO HAYA STOCK PARA COMPRAR
+          }
+        }, (err) => {
+          this.router.navigate(['/error/server']);
+        })
+      });
+    } else {
+      this.router.navigate(["/user/login"]);
+    }
   }
 
 }

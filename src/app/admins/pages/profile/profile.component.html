@@ -9,8 +9,8 @@
             <div
                 class="flex xl:w-[80%] xl:pt-10 lg:w-[80%] lg:pt-10 md:w-[80%] md:pt-10 sm:pt-0 pt-0 flex-col justify-start p-10">
                 <div>
-                    <h5 class="text-white text-3xl font-medium mb-2">{{userLogged.userName | titlecase}}</h5>
-                    <p class="text-gray-600 text-lg">Miembro desde {{userLogged.subscriptionDate | date: 'dd/MM/yyyy'}}
+                    <h5 class="text-white text-3xl font-medium mb-2">{{userLogged?.userName | titlecase}}</h5>
+                    <p class="text-gray-600 text-lg">Miembro desde {{userLogged?.subscriptionDate | date: 'dd/MM/yyyy'}}
                     </p>
                 </div>
                 <div class="mt-8">
@@ -21,15 +21,15 @@
                     <div class="mt-5 md:flex-row rounded-lg shadow-lg p-8 bg-card">
                         <div class="">
                             <p class="text-white text-lg"><b>Nombre de usuario</b></p>
-                            <p class="text-gray-500">{{userLogged.userName}}</p>
+                            <p class="text-gray-500">{{userLogged?.userName}}</p>
                         </div>
                         <div class="mt-5">
                             <p class="text-white text-lg"><b>Email</b></p>
-                            <p class="text-gray-500">{{userLogged.email}}</p>
+                            <p class="text-gray-500">{{userLogged?.email}}</p>
                         </div>
                         <div class="mt-5">
                             <p class="text-white text-lg"><b>Teléfono</b></p>
-                            <p class="text-gray-500">{{userLogged.phoneNumber}}</p>
+                            <p class="text-gray-500">{{userLogged?.phoneNumber}}</p>
                         </div>
                         <div class="mt-5">
                             <p class="text-white text-lg"><b>Contraseña</b></p>
@@ -54,14 +54,14 @@
                                         [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Nombre
                                         de usuario</label>
                                     <input type="text" name="userName" id="userName" #userName
-                                        [value]="userLogged.userName" autocomplete="given-name"
+                                        [value]="userLogged?.userName" autocomplete="given-name"
                                         [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
                                         placeholder="Usuario_95">
                                 </div>
                                 <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
                                     <label for="email"
                                         [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Email</label>
-                                    <input type="text" name="email" id="email" #email [value]="userLogged.email"
+                                    <input type="text" name="email" id="email" #email [value]="userLogged?.email"
                                         autocomplete="given-name"
                                         [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
                                         placeholder="email@example.com">
@@ -71,7 +71,7 @@
                                     <label for="phoneNumber"
                                         [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Teléfono</label>
                                     <input type="text" name="phoneNumber" id="phoneNumber" #phoneNumber
-                                        [value]="userLogged.phoneNumber" autocomplete="given-name"
+                                        [value]="userLogged?.phoneNumber" autocomplete="given-name"
                                         [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
                                         placeholder="600000000">
                                 </div>

@@ -19,7 +19,7 @@ export class HeaderComponent {
   sortingMethod: string = "all";
   showGenders: boolean = false;
   showMobileGenders: boolean = false;
-  logged: boolean = this.userService.getLogged();
+  // logged: boolean = this.userService.getLogged();
   isAdmin: boolean = this.userService.getIsAdmin();
   
 
@@ -34,7 +34,7 @@ export class HeaderComponent {
     })    
   }
 
-  get getUserLogged(): User {
+  get userLogged(): User | null {
     return this.userService.getUserLogged();
   }
 
@@ -58,29 +58,29 @@ export class HeaderComponent {
 
   toggleMenu() {
     this.showMenu ? this.showMenu = false : this.showMenu = true;
-    this.logged = this.userService.getLogged();
+    // this.logged = this.userService.getLogged();
   }
 
   logOut() {
-    this.userService.setLogged(false);
+    // this.userService.setLogged(false);
     this.userService.setIsAdmin(false);
 
-    const user: User = {
-      id: "",
-      userName: "",
-      email: "",
-      password: "",
-      phoneNumber: "",
-      subscriptionDate: new Date(),
-      isAdmin: false
-    }
-    this.userService.setUserLogged(user);
+    // const user: User = {
+    //   id: "",
+    //   userName: "",
+    //   email: "",
+    //   password: "",
+    //   phoneNumber: "",
+    //   subscriptionDate: new Date(),
+    //   isAdmin: false
+    // }
+    this.userService.setUserLogged(null);
 
     sessionStorage.clear();
   }
 
   showCart() {
-    if(this.userService.getLogged()) {
+    if(this.userService.getUserLogged() !== null) {
       this.router.navigate(['/user/cart']);
     } else {
       Swal.fire('Primero debes iniciar sesión');
