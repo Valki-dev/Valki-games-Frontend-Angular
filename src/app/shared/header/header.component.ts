@@ -75,6 +75,8 @@ export class HeaderComponent {
       isAdmin: false
     }
     this.userService.setUserLogged(user);
+
+    sessionStorage.clear();
   }
 
   showCart() {

@@ -47,51 +47,56 @@
 
                 <ng-template #updateContainer>
                     <ng-container *ngIf="showProfileForm; else showPasswordForm">
-                        <div class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
-                            <form (ngSubmit)="updateUserData(userName.value, email.value, phoneNumber.value)"
-                                class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg">
-                                <div class="grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                    <label for="userName"
-                                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Nombre
-                                        de usuario</label>
-                                    <input type="text" name="userName" id="userName" #userName
-                                        [value]="userLogged.userName" autocomplete="given-name"
-                                        [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                        placeholder="Usuario_95">
-                                </div>
-                                <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                    <label for="email"
-                                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Email</label>
-                                    <input type="text" name="email" id="email" #email [value]="userLogged.email"
-                                        autocomplete="given-name"
-                                        [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                        placeholder="email@example.com">
-                                </div>
-                                <div
-                                    class="mt-7 mb-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                    <label for="phoneNumber"
-                                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Teléfono</label>
-                                    <input type="text" name="phoneNumber" id="phoneNumber" #phoneNumber
-                                        [value]="userLogged.phoneNumber" autocomplete="given-name"
-                                        [class]="updateError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                        placeholder="600000000">
+                        <div
+                            class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
+                            <form [formGroup]="userDataForm" (ngSubmit)="updateUserData()"
+                                class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg" autocomplete="off">
+                                <div class="grid-cols-1 lg:w-[70%] w-[100%]">
+                                    <span class="p-float-label">
+                                        <input pInputText id="userName" formControlName="userName" class="w-[100%]"
+                                            [value]="userLogged.userName" />
+                                        <label htmlFor="userName">Nombre de usuario *</label>
+                                    </span>
+
+                                    <span *ngIf="isValidField(userDataForm, 'userName')"
+                                        class="text-red-500">{{getFieldError(userDataForm, "userName")}}</span>
                                 </div>
 
-                                <div *ngIf="updateError" class="flex justify-center w-[100%]">
-                                    <p class="text-red-500">Introduce todos los campos o campos válidos</p>
+                                <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
+                                    <span class="p-float-label">
+                                        <input pInputText id="email" formControlName="email" class="w-[100%]"
+                                            [value]="userLogged.email" />
+                                        <label htmlFor="email">Email *</label>
+                                    </span>
+
+                                    <span *ngIf="isValidField(userDataForm, 'email')"
+                                        class="text-red-500">{{getFieldError(userDataForm,"email")}}</span>
+                                </div>
+
+                                <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
+                                    <span class="p-float-label">
+                                        <input pInputText id="phoneNumber" formControlName="phoneNumber" class="w-[100%]"
+                                            [value]="userLogged.phoneNumber" />
+                                        <label htmlFor="phoneNumber">Teléfono</label>
+                                    </span>
+
+                                    <span *ngIf="isValidField(userDataForm, 'phoneNumber')"
+                                        class="text-red-500">{{getFieldError(userDataForm, "phoneNumber")}}</span>
+                                </div>
+
+                                <div
+                                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5 mt-10">
+
+                                    <button pButton pRipple type="submit" label="Aceptar"
+                                        class="p-button-outlined p-button-help"></button>
+
+
+                                    <button pButton pRipple type="button" label="Cancelar"
+                                        class="p-button-outlined p-button-secondary" (click)="hideForm()"></button>
                                 </div>
 
                                 <div *ngIf="passwordError" class="flex justify-center w-[100%]">
                                     <p class="text-red-500">Las contraseñas deben ser iguales</p>
-                                </div>
-
-                                <div
-                                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5">
-                                    <!-- <a routerLink="/user/profile"></a> -->
-                                    <button pButton pRipple type="submit" label="Aceptar"
-                                        class="p-button-outlined p-button-help"></button>
-                                    <button pButton pRipple type="button" label="Cancelar"
-                                        class="p-button-outlined p-button-secondary" (click)="hideForm()"></button>
                                 </div>
                             </form>
                         </div>
@@ -99,43 +104,48 @@
 
 
                     <ng-template #showPasswordForm>
-                        <div class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
-                            <div class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg">
-                                <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                    <label for="currentPassword"
-                                        [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Contraseña actual</label>
-                                    <input type="password" name="currentPassword" id="currentPassword" autocomplete="given-name"
-                                        [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                        placeholder="********" [(ngModel)]="currentPassword">
+                        <div
+                            class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
+                            <form [formGroup]="passwordForm"
+                                class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg" autocomplete="off">
+                                
+                                <div class="mt-10 grid-cols-1 w-[100%]">
+                                    <span class="p-float-label ">
+                                        <p-password formControlName="currentPassword" [feedback]="false" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                                        <label htmlFor="currentPassword">Contraseña actual *</label>
+                                    </span>
+                
+                                    <span *ngIf="isValidField(passwordForm, 'currentPassword')" class="text-red-500">{{getFieldError(passwordForm,  "currentPassword")}}</span>
                                 </div>
 
-                                <div class="mt-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                    <label for="password"
-                                        [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Contraseña</label>
-                                    <input type="password" name="password" id="password" autocomplete="given-name"
-                                        [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                        placeholder="********" [(ngModel)]="password">
+                                <div class="mt-10 grid-cols-1 w-[100%]">
+                                    <span class="p-float-label ">
+                                        <p-password formControlName="password" [feedback]="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                                        <label htmlFor="password">Nueva contraseña *</label>
+                                    </span>
+                
+                                    <span *ngIf="isValidField(passwordForm, 'password')" class="text-red-500">{{getFieldError(passwordForm, "password")}}</span>
                                 </div>
-        
-                                <div class="mt-7 mb-7 grid-cols-1 xl:w-[70%] lg:w-[70%] md:w-[100%] sm:w-[100%] w-[100%]">
-                                    <label for="password2"
-                                        [class]="updateError || passwordError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Repite
-                                        la contraseña</label>
-                                    <input type="password" name="password2" id="password2" autocomplete="given-name"
-                                        [class]="updateError || passwordError ? 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 border border-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]' : 'rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-violet-600 sm:text-md w-[100%]'"
-                                        placeholder="********" [(ngModel)]="password2">
+
+                                <div class="mt-10 grid-cols-1 w-[100%]">
+                                    <span class="p-float-label ">
+                                        <p-password formControlName="password2" [feedback]="false" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                                        <label htmlFor="password2">Repite la contraseña *</label>
+                                    </span>
+                
+                                    <span *ngIf="isValidField(passwordForm, 'password2')" class="text-red-500">{{getFieldError(passwordForm, "password2")}}</span>
                                 </div>
-        
+
                                 <div
                                     class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5">
-                                    <!-- <a routerLink="/user/profile"></a> -->
                                     <button pButton pRipple type="submit" label="Aceptar"
                                         class="p-button-outlined p-button-help" (click)="updatePassword()"></button>
                                     <button pButton pRipple type="button" label="Cancelar"
-                                        class="p-button-outlined p-button-secondary" (click)="hidePasswordForm()"></button>
+                                        class="p-button-outlined p-button-secondary"
+                                        (click)="hidePasswordForm()"></button>
                                 </div>
-                            </div>
-                            
+                            </form>
+
                         </div>
                     </ng-template>
                 </ng-template>

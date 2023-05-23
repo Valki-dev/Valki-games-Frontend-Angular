@@ -5,6 +5,9 @@ img {
 .title {
     font-family: 'Audiowide', cursive;
 }
+form {
+    width: 600px;
+}
 
 .rojo {
     border: 1px solid red;

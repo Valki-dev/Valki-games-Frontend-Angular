@@ -72,7 +72,7 @@ export class LoginComponent {
         //? Usar el usuario de sessionStorage en lugar del objeto?
         this.userService.setUserLogged(user);
 
-        // sessionStorage.setItem("userLogged", JSON.stringify(response));
+        sessionStorage.setItem("userLogged", JSON.stringify(user));
 
         this.userService.setLogged(true);
 

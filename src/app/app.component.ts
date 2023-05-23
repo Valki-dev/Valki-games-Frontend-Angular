@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'games-app';
-
-  // INSERT INTO products (name, developer, publisher, releaseDate, gender, description, stock, price, available, onOffer, isNew, URL)VALUES("name", "developer", "publisher", "releaseDate", "gender", "description", 200, price, true, false, false, "URL")
 }

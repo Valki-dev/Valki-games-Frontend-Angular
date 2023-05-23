@@ -5,6 +5,7 @@ import { Sale } from '../../interfaces/sale.interface';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,19 @@ import Swal from 'sweetalert2';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  public userDataForm: FormGroup = this.formBuilder.group({
+    userName: ['', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.email]],
+    phoneNumber: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]]
+  });
+
+  public passwordForm: FormGroup = this.formBuilder.group({
+    currentPassword: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(4)]],
+    password2: ['', Validators.required]
+  });
+
+  constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
 
   public currentPassword: string = "";
   public menuOptions!: MenuItem[];
@@ -46,10 +59,38 @@ export class ProfileComponent implements OnInit {
         icon: 'pi pi-fw pi-trash',
         command: () => this.deleteUser(this.userLogged.id)
       },
-    ]
+    ];
+    this.userDataForm.reset(this.userLogged);
   }
 
-  public deleteUser(id: string) {
+  isValidField(form: FormGroup, field: string): boolean | null {
+    return ((form.controls[field].errors) && (form.controls[field].touched));
+  }
+
+  getFieldError(form: FormGroup, field: string): string | null {
+    if ((!form.controls[field]) && (!form.controls[field].errors)) {
+      return null;
+    }
+
+    const errors = this.userDataForm.controls[field].errors || {};
+
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return "Este campo es obligatorio";
+        case 'minlength':
+          return `Este campo debe tener ${errors['minlength'].requiredLength} caracteres como mínimo`;
+        case 'maxlength':
+          return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
+        case 'email':
+          return "Debes introducir un email válido";
+      }
+    }
+
+    return null;
+  }
+
+  deleteUser(id: string) {
     Swal.fire({
       title: `¿Seguro que quieres eliminar tu cuenta?`,
       showDenyButton: false,
@@ -86,7 +127,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public getUserSales() {
+  getUserSales() {
     this.userService.getUserSales(this.userLogged.id).subscribe(response => {
       if (response) {
         this.sales = response;
@@ -96,82 +137,83 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  public showForm() {
+  showForm() {
     this.showUpdateUser = true;
     this.showProfileForm = true;
     this.router.navigate(['/user/profile']);
   }
 
-  public showPasswordForm() {
+  showPasswordForm() {
     this.showUpdateUser = true;
     this.router.navigate(['/user/profile']);
   }
 
-  public hideForm() {
+  hideForm() {
     this.updateError = false;
     this.showUpdateUser = false;
     this.showProfileForm = false;
     this.router.navigate(['/user/profile']);
   }
 
-  public hidePasswordForm() {
+  hidePasswordForm() {
     this.showUpdateUser = false;
     this.router.navigate(['/user/profile']);
   }
 
-  public updateUserData(userName: string, email: string, phoneNumber: string) {
-    if ((userName.trim() != "") && (email.trim() != "") && (phoneNumber.trim() != "")) {
+  updateUserData() {
+    if (this.userDataForm.invalid) {
+      return;
+    }
 
-      this.updateError = false;
+    const { userName, email, phoneNumber } = this.userDataForm.value;
 
-      const updateData = {
-        userId: this.userLogged.id,
-        userName: userName,
-        email: email,
-        phoneNumber: phoneNumber,
-        subscriptionDate: this.userLogged.subscriptionDate
+    this.updateError = false;
+
+    const updateData = {
+      userId: this.userLogged.id,
+      userName: userName,
+      email: email,
+      phoneNumber: phoneNumber,
+      subscriptionDate: this.userLogged.subscriptionDate
+    }
+
+    this.userService.updateUser(updateData).subscribe(response => {
+
+      if (response.status === "OK") {
+        this.userService.getUserById(this.userLogged.id).subscribe(response => {
+          if (response) {
+            this.userLogged = response;
+            this.userService.setUserLogged(response);
+            this.showUpdateUser = false;
+            this.showProfileForm = false;
+            this.router.navigate(['/user/profile']);
+          }
+        }, (err) => {
+          this.router.navigate(['/error/server']);
+        })
+      }
+    }, (err) => {
+      if (err.status == 500) {
+        this.router.navigate(['/error/server']);
       }
 
-      this.userService.updateUser(updateData).subscribe(response => {
-
-        if (response.status === "OK") {
-          this.userService.getUserById(this.userLogged.id).subscribe(response => {
-            if (response) {
-              this.userLogged = response;
-              this.userService.setUserLogged(response);
-              this.showUpdateUser = false;
-              this.router.navigate(['/user/profile']);
-            }
-          }, (err) => {
-            this.router.navigate(['/error/server']);
-          })
-        }
-      }, (err) => {
-        if (err.status == 500) {
-          this.router.navigate(['/error/server']);
-        }
-
-        if (err.status == 400) {
-          this.showErrorUpdate = true;
-          setTimeout(() => {
-            this.showErrorUpdate = false;
-          }, 3000);
-        }
-      })
-    } else {
-      this.updateError = true;
-      this.router.navigate(['/user/profile']);
-    }
+      if (err.status == 400) {
+        this.showErrorUpdate = true;
+        setTimeout(() => {
+          this.showErrorUpdate = false;
+        }, 3000);
+      }
+    })
   }
 
-  public updatePassword() {
+  updatePassword() {
     if ((this.currentPassword.trim() !== "") && (this.password.trim() !== "") && (this.password2.trim() !== "")) {
       console.log(this.currentPassword);
       console.log(this.password);
       console.log(this.password2);
 
       const newPassword = this.password2;
-      
+
       if (this.password === this.password2) {
         this.passwordError = false;
 
@@ -182,22 +224,22 @@ export class ProfileComponent implements OnInit {
 
         //* Comprueba con el backend si la contraseña actual introducida es igual a la del usuario
         this.userService.comparePassword(compareData).subscribe(response => {
-          if(response.message) {
+          if (response.message) {
             console.log("SON IGUALES");
             //TODO: Método setear contraseña en el backend
 
             console.log(this.password2);
-            
+
             const updateData = {
               id: this.userLogged.id,
               newPassword: newPassword
             }
 
             this.userService.updatePassword(updateData).subscribe(response => {
-              if(response.status == "OK") {
+              if (response.status == "OK") {
                 this.showUpdateUser = false;
                 this.router.navigate(['/user/profile']);
-              } 
+              }
             }, (err) => {
               if (err.status == 500) {
                 this.router.navigate(['/error/server']);

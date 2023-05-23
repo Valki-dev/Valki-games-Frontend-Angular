@@ -11,9 +11,15 @@ import { Sale } from '../interfaces/sale.interface';
 })
 export class UserService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    if(sessionStorage.getItem("userLogged")) {
+      
+      this.userLogged = JSON.parse(sessionStorage.getItem("userLogged")!);
+      console.log({usuario: this.userLogged});
+    }
+  }
 
-  private logged: boolean = false;
+  private logged: boolean = true;
 
   private isAdmin: boolean = false;
 
@@ -24,7 +30,15 @@ export class UserService {
   private cartEndpoint: string = "http://localhost:3000/api/v1/videogames/cart";
 
   
-  private userLogged!: User;
+  private userLogged: User = {
+    id: "0fd04272-d5e2-477f-bbf1-342db0",
+    userName: "Flavio",
+    email: "flavio@gmail.com",
+    password: "1234",
+    phoneNumber: "645756656",
+    subscriptionDate: new Date(),
+    isAdmin: false
+  };
   
 
   getLogged(): boolean {
