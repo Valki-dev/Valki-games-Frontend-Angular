@@ -122,7 +122,7 @@ export class ProfileComponent implements OnInit {
                 this.showProfileForm = false;
                 this.passwordForm.reset();
                 Swal.fire('Contraseña actualizada');
-                this.router.navigate(['/user/profile']);
+                this.router.navigate(['/admin/profile']);
               }
             }, (err) => {
               if (err.status == 500) {
@@ -176,7 +176,7 @@ export class ProfileComponent implements OnInit {
               this.userService.setUserLogged(this.userLogged);
               this.showUpdateUser = false;
               this.showProfileForm = false;
-              this.router.navigate(['/user/profile']);
+              this.router.navigate(['/admin/profile']);
             }
           }, (err) => {
             this.router.navigate(['/error/server']);
