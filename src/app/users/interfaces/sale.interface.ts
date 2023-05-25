@@ -2,6 +2,8 @@ export interface Sale {
     userId: string;
     productId: number;
     saleDate: Date;
+    amount: number,
+    price: number,
     products: {
         id: number;
         name: string;

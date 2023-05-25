@@ -43,7 +43,7 @@
                 <div class="mt-10 grid-cols-1 w-[100%]">
                     <span class="p-float-label">
                         <input pInputText id="phoneNumber" formControlName="phoneNumber" />
-                        <label htmlFor="phoneNumber">Teléfono</label>
+                        <label htmlFor="phoneNumber">Teléfono *</label>
                     </span>
 
                     <span *ngIf="isValidField('phoneNumber')" class="text-red-500">{{getFieldError("phoneNumber")}}</span>
