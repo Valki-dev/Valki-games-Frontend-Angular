@@ -35,7 +35,7 @@
     </div>
     <div class="flex justify-around flex-wrap">
       <div class="rounded-lg shadow-lg max-w-[280px] mt-[40px] mb-10 bg-card card"
-        *ngFor="let game of getVideoGames | sortGames: sortingMethod">
+        *ngFor="let game of getVideoGames | sortGames: sortingMethod  | paginate: { itemsPerPage: 10, currentPage: page}">
         <a [routerLink]="['./', game.id]">
           <img class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
         </a>
@@ -47,6 +47,11 @@
     </div>
 
     <!-- AQUÍ VA EL PAGINATOR -->
+    <div class="flex justify-center my-5">
+      <pagination-controls (pageChange)="page = $event"  previousLabel="Anterior"
+    nextLabel="Siguiente" class="paginator"></pagination-controls>
+    </div>
+    
   </div>
 </div>
 

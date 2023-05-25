@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { SharedModule } from './shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 //Components
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { AppComponent } from './app.component';
     PrimeNgModule,
     RouterModule,
     SharedModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

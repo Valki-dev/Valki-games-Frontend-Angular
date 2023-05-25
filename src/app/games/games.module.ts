@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 //Modules
 import { GamesRoutingModule } from './games-routing.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 //Components
 import { AllListComponent } from './pages/all-list/all-list.component';
@@ -33,6 +35,7 @@ import { SortGamesPipe } from './pipes/sort-games.pipe';
     HttpClientModule,
     PrimeNgModule,
     RouterModule,
+    NgxPaginationModule
   ]
 })
 export class GamesModule { }

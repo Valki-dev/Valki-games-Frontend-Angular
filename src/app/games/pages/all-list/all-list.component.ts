@@ -10,13 +10,14 @@ import { GameService } from '../../services/game.service';
 })
 export class AllListComponent implements OnInit {
 
-  constructor(private gameService: GameService, private router: Router) { }
-
   games: Game[] = [];
+  public page!: number;
   search: string = "";
   showOptions: boolean = false;
   sortingMethod: string = "";
   methodSelected: boolean = false;
+
+  constructor(private gameService: GameService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllGames();
