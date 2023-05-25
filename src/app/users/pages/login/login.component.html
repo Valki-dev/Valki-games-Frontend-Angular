@@ -21,7 +21,7 @@
                     <span *ngIf="isValidField('password')" class="text-red-500">{{getFieldError("password")}}</span>
 
                     <div *ngIf="loginError" class="flex justify-center w-[100%] mt-5">
-                        <p class="text-red-500">Email o contraseña incorrectos</p>
+                        <p class="text-red-500">{{loginErrorMessage}}</p>
                     </div>
                 </div>
 

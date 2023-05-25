@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorService } from 'src/app/shared/services/validator.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,19 +27,17 @@ export class ProfileComponent implements OnInit {
     password2: ['', Validators.required]
   });
 
-  constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder) { }
-
-  public currentPassword: string = "";
   public menuOptions!: MenuItem[];
-  public password: string = "";
-  public password2: string = "";
   public passwordError: boolean = false;
+  public passwordErrorMessage: string = "";
   public sales: Sale[] = [];
   public showErrorUpdate: boolean = false;
   public showProfileForm: boolean = false;
   public showUpdateUser: boolean = false;
   public updateError: boolean = false;
   public userLogged!: User | null;
+
+  constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder, private validatorService: ValidatorService) { }
 
   ngOnInit(): void {
     this.userLogged = this.userService.getUserLogged();
@@ -68,30 +67,11 @@ export class ProfileComponent implements OnInit {
   // }
 
   isValidField(form: FormGroup, field: string): boolean | null {
-    return ((form.controls[field].errors) && (form.controls[field].touched));
+    return this.validatorService.isValidField(form, field);
   }
 
   getFieldError(form: FormGroup, field: string): string | null {
-    if ((!form.controls[field]) && (!form.controls[field].errors)) {
-      return null;
-    }
-
-    const errors = this.userDataForm.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return "Este campo es obligatorio";
-        case 'minlength':
-          return `Este campo debe tener ${errors['minlength'].requiredLength} caracteres como mínimo`;
-        case 'maxlength':
-          return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
-        case 'email':
-          return "Debes introducir un email válido";
-      }
-    }
-
-    return null;
+    return this.validatorService.getFieldError(form, field);
   }
 
   deleteUser(id: string) {
@@ -105,20 +85,7 @@ export class ProfileComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.deleteUser(id).subscribe(response => {
           if (response.status === "OK") {
-            // this.userService.setLogged(false);
-
-            // const user: User = {
-            //   id: "",
-            //   userName: "",
-            //   email: "",
-            //   password: "",
-            //   phoneNumber: "",
-            //   subscriptionDate: new Date(),
-            //   isAdmin: false
-            // }
-            //! POSIBLE ERROR
             this.userService.setUserLogged(null);
-            //! 
 
             Swal.fire(`Tu cuenta ha sido eliminada`, '', 'success');
 
@@ -195,8 +162,8 @@ export class ProfileComponent implements OnInit {
         if (response.status === "OK") {
           this.userService.getUserById(this.userLogged!.id).subscribe(response => {
             if (response) {
-              
-              this.userLogged = response;              
+
+              this.userLogged = response;
               this.userService.setUserLogged(this.userLogged);
               this.showUpdateUser = false;
               this.showProfileForm = false;
@@ -225,60 +192,56 @@ export class ProfileComponent implements OnInit {
 
   updatePassword() {
 
-    if(this.userService.getUserLogged() !== null) {
+    if (this.passwordForm.invalid) {
+      return;
+    }
 
-      if ((this.currentPassword.trim() !== "") && (this.password.trim() !== "") && (this.password2.trim() !== "")) {
-        console.log(this.currentPassword);
-        console.log(this.password);
-        console.log(this.password2);
-  
-        const newPassword = this.password2;
-  
-        if (this.password === this.password2) {
-          this.passwordError = false;
-  
-          const compareData = {
-            id: this.userLogged!.id,
-            currentPassword: this.currentPassword
-          }
-  
-          //* Comprueba con el backend si la contraseña actual introducida es igual a la del usuario
-          this.userService.comparePassword(compareData).subscribe(response => {
-            if (response.message) {
-              console.log("SON IGUALES");
-              //TODO: Método setear contraseña en el backend
-  
-              console.log(this.password2);
-  
-              const updateData = {
-                id: this.userLogged!.id,
-                newPassword: newPassword
-              }
-  
-              this.userService.updatePassword(updateData).subscribe(response => {
-                if (response.status == "OK") {
-                  this.showUpdateUser = false;
-                  this.router.navigate(['/user/profile']);
-                }
-              }, (err) => {
-                if (err.status == 500) {
-                  this.router.navigate(['/error/server']);
-                }
-              });
-            } else {
-              //! Activar error en formulario
-              console.log("NO LO SON");
-            }
-  
-            //!Activar error contraseña actual
-          })
-  
-          this.password = "";
-          this.password2 = "";
-        } else {
-          this.passwordError = true;
-          this.router.navigate(['/user/profile']);
+    if (this.userService.getUserLogged() !== null) {
+
+      const { currentPassword, password, password2 } = this.passwordForm.value;
+
+      if (password === password2) {
+        
+        this.passwordError = false;
+
+        const compareData = {
+          id: this.userLogged!.id,
+          currentPassword: currentPassword
         }
+
+        this.userService.comparePassword(compareData).subscribe(response => {
+          if (response.message) {
+
+            const updateData = {
+              id: this.userLogged!.id,
+              password: password
+            }
+
+            this.userService.updatePassword(updateData).subscribe(response => {
+              if (response.status == "OK") {
+                this.showUpdateUser = false;
+                this.showProfileForm = false;
+                this.passwordForm.reset();
+                Swal.fire('Contraseña actualizada');
+                this.router.navigate(['/user/profile']);
+              }
+            }, (err) => {
+              if (err.status == 500) {
+                this.router.navigate(['/error/server']);
+              }
+            });
+
+          } else {
+            this.passwordError = true;
+            this.passwordErrorMessage = "Contraseña actual incorrecta"
+            this.passwordForm.reset();
+          }
+        });
+
+      } else {
+        this.passwordError = true;
+        this.passwordErrorMessage = "Las contraseñas deben ser iguales"
+        this.passwordForm.reset();
       }
 
     } else {

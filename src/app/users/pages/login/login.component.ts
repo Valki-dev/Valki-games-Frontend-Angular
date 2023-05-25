@@ -4,6 +4,7 @@ import { GameService } from '../../../games/services/game.service';
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/user.interface';
 import { FormGroup, FormBuilder, Form, Validators } from '@angular/forms';
+import { ValidatorService } from 'src/app/shared/services/validator.service';
 
 @Component({
   selector: 'app-login',
@@ -12,43 +13,22 @@ import { FormGroup, FormBuilder, Form, Validators } from '@angular/forms';
 })
 export class LoginComponent {
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) { }
-
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   })
 
-  get email() { return this.loginForm.get('email') }
-  get password() { return this.loginForm.get('password') }
+  public loginError: boolean = false;
+  public loginErrorMessage: string = "";
 
-  loginError: boolean = false;
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private validatorService: ValidatorService) { }
 
   isValidField(field: string): boolean | null {
-    return ((this.loginForm.controls[field].errors) && (this.loginForm.controls[field].touched));
+    return this.validatorService.isValidField(this.loginForm, field);
   }
 
   getFieldError(field: string): string | null {
-    if ((!this.loginForm.controls[field]) && (!this.loginForm.controls[field].errors)) {
-      return null;
-    }
-
-    const errors = this.loginForm.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return "Este campo es obligatorio";
-        case 'minlength':
-          return `Este campo debe tener ${errors['minlength'].requiredLength} caracteres como mínimo`;
-        case 'maxlength':
-          return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
-        case 'email':
-          return "Debes introducir un email válido";
-      }
-    }
-
-    return null;
+    return this.validatorService.getFieldError(this.loginForm, field);
   }
 
   logIn() {
@@ -91,6 +71,12 @@ export class LoginComponent {
 
       if (err.status == 400) {
         this.loginError = true;
+        this.loginErrorMessage = "Email o contraseña incorrectos"
+      }
+
+      if (err.status == 404) {
+        this.loginError = true;
+        this.loginErrorMessage = "Este email no pertenece a ninguna cuenta"
       }
     });
 

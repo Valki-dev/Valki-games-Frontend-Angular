@@ -94,10 +94,6 @@
                                     <button pButton pRipple type="button" label="Cancelar"
                                         class="p-button-outlined p-button-secondary" (click)="hideForm()"></button>
                                 </div>
-
-                                <div *ngIf="passwordError" class="flex justify-center w-[100%]">
-                                    <p class="text-red-500">Las contraseñas deben ser iguales</p>
-                                </div>
                             </form>
                         </div>
                     </ng-container>
@@ -106,10 +102,9 @@
                     <ng-template #showPasswordForm>
                         <div
                             class="flex mt-5 xl:justify-center lg:justify-center md:justify-center sm:justify-center rounded-lg shadow-lg p-8 bg-card">
-                            <form [formGroup]="passwordForm"
-                                class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg" autocomplete="off">
+                            <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()"  class="flex xl:w-[90%] xl:pt-10 xl:justify-center lg:w-[90%] lg:pt-10 lg:justify-center md:w-[100%] md:pt-10 md:justify-center sm:w-[90%] sm:pt-10 sm:justify-center w-[100%] pt-5 justify-center flex-col items-center px-5 border border-gray-500 rounded-lg" autocomplete="off">
                                 
-                                <div class="mt-10 grid-cols-1 w-[100%]">
+                                <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
                                     <span class="p-float-label ">
                                         <p-password formControlName="currentPassword" [feedback]="false" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
                                         <label htmlFor="currentPassword">Contraseña actual *</label>
@@ -118,7 +113,7 @@
                                     <span *ngIf="isValidField(passwordForm, 'currentPassword')" class="text-red-500">{{getFieldError(passwordForm,  "currentPassword")}}</span>
                                 </div>
 
-                                <div class="mt-10 grid-cols-1 w-[100%]">
+                                <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
                                     <span class="p-float-label ">
                                         <p-password formControlName="password" [feedback]="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
                                         <label htmlFor="password">Nueva contraseña *</label>
@@ -127,25 +122,28 @@
                                     <span *ngIf="isValidField(passwordForm, 'password')" class="text-red-500">{{getFieldError(passwordForm, "password")}}</span>
                                 </div>
 
-                                <div class="mt-10 grid-cols-1 w-[100%]">
+                                <div class="mt-10 grid-cols-1 lg:w-[70%] w-[100%]">
                                     <span class="p-float-label ">
                                         <p-password formControlName="password2" [feedback]="false" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
-                                        <label htmlFor="password2">Repite la contraseña *</label>
+                                        <label htmlFor="password2">Repite la nueva contraseña *</label>
                                     </span>
                 
                                     <span *ngIf="isValidField(passwordForm, 'password2')" class="text-red-500">{{getFieldError(passwordForm, "password2")}}</span>
                                 </div>
 
+                                <div *ngIf="passwordError" class="flex justify-center w-[100%] mt-5">
+                                    <p class="text-red-500">{{passwordErrorMessage}}</p>
+                                </div>
+
                                 <div
-                                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5">
+                                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 mb-5 mt-10">
                                     <button pButton pRipple type="submit" label="Aceptar"
-                                        class="p-button-outlined p-button-help" (click)="updatePassword()"></button>
+                                        class="p-button-outlined p-button-help"></button>
                                     <button pButton pRipple type="button" label="Cancelar"
                                         class="p-button-outlined p-button-secondary"
                                         (click)="hidePasswordForm()"></button>
                                 </div>
                             </form>
-
                         </div>
                     </ng-template>
                 </ng-template>

@@ -1,7 +1,7 @@
 //Angular imports
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 //Modules
@@ -30,6 +30,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     FormsModule,
     PrimeNgModule,
     RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminsModule { }

@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpHeaderResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ValidatorService } from 'src/app/shared/services/validator.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private validatorService: ValidatorService) { }
 
   registerForm: FormGroup = this.formBuilder.group({
     userName: ['', [Validators.required, Validators.minLength(4)]],
@@ -26,30 +27,32 @@ export class RegisterComponent {
   message: string = "";
 
   isValidField(field: string): boolean | null {
-    return ((this.registerForm.controls[field].errors) && (this.registerForm.controls[field].touched));
+    return this.validatorService.isValidField(this.registerForm, field);
+    // return ((this.registerForm.controls[field].errors) && (this.registerForm.controls[field].touched));
   }
 
   getFieldError(field: string): string | null {
-    if ((!this.registerForm.controls[field]) && (!this.registerForm.controls[field].errors)) {
-      return null;
-    }
+    return this.validatorService.getFieldError(this.registerForm, field);
+    // if ((!this.registerForm.controls[field]) && (!this.registerForm.controls[field].errors)) {
+    //   return null;
+    // }
 
-    const errors = this.registerForm.controls[field].errors || {};
+    // const errors = this.registerForm.controls[field].errors || {};
 
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return "Este campo es obligatorio";
-        case 'minlength':
-          return `Este campo debe tener ${errors['minlength'].requiredLength} caracteres como mínimo`;
-        case 'maxlength':
-          return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
-        case 'email':
-          return "Debes introducir un email válido";
-      }
-    }
+    // for (const key of Object.keys(errors)) {
+    //   switch (key) {
+    //     case 'required':
+    //       return "Este campo es obligatorio";
+    //     case 'minlength':
+    //       return `Este campo debe tener ${errors['minlength'].requiredLength} caracteres como mínimo`;
+    //     case 'maxlength':
+    //       return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
+    //     case 'email':
+    //       return "Debes introducir un email válido";
+    //   }
+    // }
 
-    return null;
+    // return null;
   }
 
   register() {
