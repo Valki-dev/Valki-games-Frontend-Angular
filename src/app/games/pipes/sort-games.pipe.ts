@@ -23,9 +23,6 @@ export class SortGamesPipe implements PipeTransform {
       case 'priceMax': {
         return games.sort((game1, game2) => game1.price > game2.price ? -1 : 1);
       }
-      case 'all': {
-        return this.gameService.originalGames;
-      }
       default: {
         return games;
       }

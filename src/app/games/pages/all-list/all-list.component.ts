@@ -39,9 +39,17 @@ export class AllListComponent implements OnInit {
 
   searchGamesByName(search: string) {
     if (search) {
+
       this.gameService.getGamesByName(search).subscribe((response: any) => {
-        this.games = response;
-        this.gameService.videoGames = response;
+        console.log(response);
+        
+        if (response.length > 0) {
+          this.games = response;
+          this.gameService.videoGames = response;
+        } else {
+          this.games = [];
+          this.gameService.videoGames = []
+        }
       })
     } else {
       this.getAllGames();
@@ -60,9 +68,9 @@ export class AllListComponent implements OnInit {
   }
 
   clearSort() {
-    this.sortGames('all');
-    this.toggleShowOptions();
     this.methodSelected = false;
+    this.sortingMethod = "";
+    this.gameService.videoGames = [...this.gameService.originalGames];
     this.router.navigate(['/all/games']);
   }
 
