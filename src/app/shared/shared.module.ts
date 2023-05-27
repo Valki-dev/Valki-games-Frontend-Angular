@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import { ButtonModule } from 'primeng/button';
+import { DisabledButtonComponent } from './disabledButton/disabled-button/disabled-button.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DisabledButtonComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { ButtonModule } from 'primeng/button';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DisabledButtonComponent
   ]
 })
 export class SharedModule { }

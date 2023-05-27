@@ -39,10 +39,7 @@ export class AllListComponent implements OnInit {
 
   searchGamesByName(search: string) {
     if (search) {
-
-      this.gameService.getGamesByName(search).subscribe((response: any) => {
-        console.log(response);
-        
+      this.gameService.getGamesByName(search).subscribe((response: any) => {        
         if (response.length > 0) {
           this.games = response;
           this.gameService.videoGames = response;

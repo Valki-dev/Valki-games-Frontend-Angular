@@ -14,11 +14,19 @@
                             <div class="mx-10 my-5 p-2 md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[100%]">
                                 <div>
                                     <p class="text-white text-2xl">{{item.products.name}}</p>
-                                    <p class="text-button-hover text-2xl"><b>{{item.products.price}}€</b></p>
+                                    <p [ngClass]="item.products.onOfferPrice !== null ? 'text-lg text-red-500' : 'text-button-hover text-2xl'">
+                                        <span *ngIf="item.products.onOfferPrice !== null; else originalPrice">
+                                            <p>Oferta: <b>{{item.products.onOfferPrice}}€</b></p>
+                                        </span>
+                                        <ng-template #originalPrice>
+                                            <span><b>{{item.products.price}}€</b></span>
+                                        </ng-template>
+                                    </p>
                                     <p class="text-gray-500 text-lg">{{item.products.gender}}</p>
+                                    <p class="text-red-500 text-lg" *ngIf="item.products.stock <= 0"><b>Sin stock</b></p>
                                 </div>
                             </div>
-                            <div class="mx-10 sm:my-2">
+                            <div class="mx-10 sm:my-2" *ngIf="item.products.stock > 0; else disabledSelect">
                                 <select [value]="item.amount" #select name="amounts" id="" class="bg-card text-white rounded-lg" (change)="changeAmount(item.productId, select.value)">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -32,6 +40,20 @@
                                     <option value="10">10</option>
                                 </select>
                             </div>
+                            <ng-template #disabledSelect>
+                                <select [value]="item.amount" #select name="amounts" id="" class="bg-gray-300 text-white rounded-lg"  disabled="true" (change)="changeAmount(item.productId, select.value)">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </ng-template>
                             <div class="sm:my-2 my-5 ">
                                 <button pButton pRipple type="button" icon="pi pi-trash"
                                     class="p-button-outlined p-button-secondary"

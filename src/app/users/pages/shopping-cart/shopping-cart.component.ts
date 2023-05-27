@@ -47,7 +47,7 @@ export class ShoppingCartComponent {
   }
 
   calculateTotal() {
-    let totalAmount = this.cart.reduce((total, item) => total += (item.products.price * item.amount), 0);
+    let totalAmount = this.cart.filter(item => item.products.stock > 0).reduce((total, item) => total += ((item.products.onOfferPrice !== null ? item.products.onOfferPrice : item.products.price) * item.amount), 0);
     return Number(totalAmount.toFixed(2))
   }
 
@@ -107,45 +107,39 @@ export class ShoppingCartComponent {
   pay() {
     if(this.userService.getUserLogged() !== null) {
       this.cart.forEach(item => {
-        let updateData = {
-          productId: item.productId,
-          amount: item.amount
-        }
-        this.gameService.updateStock(updateData).subscribe(response => {
-          if (response.status === "OK") {
-            console.log("ENTRA");
-  
-            // ? Traer antes el juego y nmultiplicar el precio por la cantidad del Cart 
-            this.gameService.getGameById(item.productId).subscribe(response => {
-              if (response) {
-                let totalPrice = item.amount * response.price;
-  
-                let data = {
-                  userId: this.userService.getUserLogged()!.id,
-                  productId: item.productId,
-                  amount: item.amount,
-                  price: totalPrice
-                }
-  
-                console.log(data);
-  
-  
-                this.userService.addToSales(data).subscribe(response => {
-  
-                })
-  
-                this.userService.deleteFromCart(data).subscribe(response => {
-  
-                })
-                this.router.navigate(['/user/paying'])
-              }
-            });
-          } else {
-            //! HACER ALGO CUANDO NO HAYA STOCK PARA COMPRAR
+        if(item.products.stock > 0) {
+          let updateData = {
+            productId: item.productId,
+            amount: item.amount
           }
-        }, (err) => {
-          this.router.navigate(['/error/server']);
-        })
+          this.gameService.updateStock(updateData).subscribe(response => {
+            if (response.status === "OK") {
+              this.gameService.getGameById(item.productId).subscribe(response => {
+                if (response) {
+                  let totalPrice = item.amount * (response.onOfferPrice !== null ? response.onOfferPrice : response.price);
+    
+                  let data = {
+                    userId: this.userService.getUserLogged()!.id,
+                    productId: item.productId,
+                    amount: item.amount,
+                    price: totalPrice
+                  } 
+    
+                  this.userService.addToSales(data).subscribe(response => {
+    
+                  })
+    
+                  this.userService.deleteFromCart(data).subscribe(response => {
+    
+                  })
+                  this.router.navigate(['/user/paying'])
+                }
+              });
+            } 
+          }, (err) => {
+            this.router.navigate(['/error/server']);
+          })
+        }
       });
     } else {
       this.router.navigate(["/user/login"]);

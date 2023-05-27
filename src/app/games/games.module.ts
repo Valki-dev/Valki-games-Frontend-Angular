@@ -18,6 +18,7 @@ import { InputComponent } from './sharedGames/input/input.component';
 
 //Pipes
 import { SortGamesPipe } from './pipes/sort-games.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SortGamesPipe } from './pipes/sort-games.pipe';
     HttpClientModule,
     PrimeNgModule,
     RouterModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule
   ]
 })
 export class GamesModule { }

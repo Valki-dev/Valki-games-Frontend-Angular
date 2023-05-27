@@ -12,6 +12,7 @@ export interface CartItem {
         description: string;
         stock: number;
         price: number;
+        onOfferPrice: number;
         available: number;
         onOffer: number;
         isNew: number;

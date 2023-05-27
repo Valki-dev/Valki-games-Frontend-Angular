@@ -11,7 +11,10 @@
 
                 <div class="p-4">
                     <h5 class="text-white text-xl font-medium mb-5">{{game.name}}</h5>
-                    <p class="text-gray-400 mb-4 text-xl font-medium">{{game.price}}€</p>
+                    <p class="text-gray-400 mb-4 text-xl font-medium">
+                        <span [ngClass]="game.onOfferPrice !== null ? 'text-gray-400 mb-4 text-lg line-through' : 'text-gray-400 mb-4 text-xl font-medium'">{{game.price}}€</span> 
+                        <span *ngIf="game.onOfferPrice !== null" class="text-red-500 text-xl font-medium ml-5">{{game.onOfferPrice}}€</span>
+                      </p>
                     <div id="button-container" class="flex justify-evenly p-5" style="display: none;">
                         <a [routerLink]="['./', game.id]">
                             <p-button styleClass="p-button-outlined p-button-success" class="mb-3"><i

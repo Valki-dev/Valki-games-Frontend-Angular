@@ -16,14 +16,23 @@
                         <div class="mx-10 my-5 p-2 md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[150px]">
                             <div>
                                 <p class="text-white text-2xl">{{item.products.name}}</p>
-                                <p class="text-button-hover text-2xl"><b>{{item.products.price}}€</b></p>
+                                <p [ngClass]="item.products.onOfferPrice !== null ? 'text-red-500 text-2xl': 'text-button-hover text-2xl'">
+                                    <span *ngIf="item.products.onOfferPrice !== null; else originalPrice"><p class="text-xl">Oferta: <b>{{item.products.onOfferPrice}}€</b></p></span>
+                                    <ng-template #originalPrice>
+                                        <span><b>{{item.products.price}}€</b></span>
+                                    </ng-template>
+                                </p>
                                 <p class="text-gray-500 text-lg">{{item.products.gender}}</p>
+                                <p *ngIf="item.products.stock <= 0" class="text-red-500 text-lg"><b>Sin stock</b></p>
                             </div>
                         </div>
-                        <div class="mx-5 sm:my-2">
+                        <div class="mx-5 sm:my-2" *ngIf="item.products.stock > 0; else disabledButton">
                             <button pButton pRipple type="button" label="Añadir al carrito"
                                 class="p-button-outlined p-button-help" (click)="addToCart(item.productId)"></button>
                         </div>
+                        <ng-template #disabledButton>
+                            <shared-disabled-button [message]="'Añadir al carrito'"></shared-disabled-button>
+                        </ng-template>
                         <div class="sm:my-2 my-5 mx-5">
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-outlined p-button-secondary"

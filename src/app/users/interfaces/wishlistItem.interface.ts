@@ -11,6 +11,7 @@ export interface WishlistItem {
         description: string;
         stock: number;
         price: number;
+        onOfferPrice: number;
         available: number;
         onOffer: number;
         isNew: number;

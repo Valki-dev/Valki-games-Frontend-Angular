@@ -36,19 +36,26 @@
         <hr class="mt-9">
         <div class="flex xl:flex-row lg:flex-row md:flex-row sm:flex-row justify-around py-3 items-center flex-col mt-5">
           <div>
-            <p class="text-button-hover text-4xl"><b>{{game.price}}€</b></p>
+            <p [ngClass]="game.onOfferPrice !== null? 'text-red-500 text-4xl' : 'text-button-hover text-4xl'">
+              <span><p class="text-lg">Oferta</p><b>{{game.onOfferPrice !== null ? game.onOfferPrice : game.price}}€</b></span>
+            </p>
           </div>
           <div class="flex xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 justify-between w-[180px] bg-card px-10 py-3 mt-5 rounded-lg">
-            <p class="text-button-hover text"><b>STOCK</b></p>
-            <p class="text-white">{{game.stock}}</p>
+            <p [ngClass]="game.stock > 0 ? 'text-button-hover text' : 'text-red-500'"><b>{{game.stock > 0 ? "STOCK" : "SIN STOCK"}}</b></p>
+            <p class="text-white">{{game.stock > 0 ? game.stock : ""}}</p>
           </div>
           <div class="flex xl:flex-row lg:flex-row md:flex-row sm:flex-row flex-col items-center">
             <div class="xl:mr-5 lg:mr-5 md:mr-5 sm:mr-5 xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 mt-5">
               <button pButton pRipple type="button" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined mr-7" (click)="addToWishlist(game.id)"></button>
             </div>
             <div class="xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 mt-5">
-              <button pButton pRipple type="button" label="Añadir al carrito" class="p-button-outlined p-button-help"
+              <button pButton pRipple type="button" label="Añadir al carrito" class="p-button-outlined p-button-help" *ngIf="game.stock > 0; else disabledButton"
                 (click)="addToCart(game.id)"></button>
+
+              <ng-template #disabledButton>
+                <!-- <button pButton pRipple type="button" label="Añadir al carrito" class="p-button-raised p-button-secondary" disabled="true"></button> -->
+                <shared-disabled-button [message]="'Añadir al carrito'"></shared-disabled-button>
+              </ng-template>
             </div>
           </div>
         </div>

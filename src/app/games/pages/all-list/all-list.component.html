@@ -41,7 +41,10 @@
         </a>
         <div class="p-4">
           <h5 class="text-white text-xl font-medium mb-2">{{game.name}}</h5>
-          <p class="text-gray-400 mb-4 text-xl font-medium">{{game.price}}€</p>
+          <p class="text-gray-400 mb-4 text-xl font-medium">
+            <span [ngClass]="game.onOfferPrice !== null ? 'text-gray-400 mb-4 text-lg line-through' : 'text-gray-400 mb-4 text-xl font-medium'">{{game.price}}€</span> 
+            <span *ngIf="game.onOfferPrice !== null" class="text-red-500 text-xl font-medium ml-5">{{game.onOfferPrice}}€</span>
+          </p>
         </div>
       </div>
     </div>
