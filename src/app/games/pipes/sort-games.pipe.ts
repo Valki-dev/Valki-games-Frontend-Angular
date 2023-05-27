@@ -18,10 +18,10 @@ export class SortGamesPipe implements PipeTransform {
         return games.sort((game1, game2) => game2.name.localeCompare(game1.name));
       }
       case 'priceMin': {
-        return games.sort((game1, game2) => game1.price > game2.price ? 1 : -1);
+        return games.sort((game1, game2) =>  (game1.onOfferPrice !== null ? game1.onOfferPrice : game1.price) > (game2.onOfferPrice !== null ? game2.onOfferPrice : game2.price) ? 1 : -1);
       }
       case 'priceMax': {
-        return games.sort((game1, game2) => game1.price > game2.price ? -1 : 1);
+        return games.sort((game1, game2) => (game1.onOfferPrice !== null ? game1.onOfferPrice : game1.price) > (game2.onOfferPrice !== null ? game2.onOfferPrice : game2.price) ? -1 : 1);
       }
       default: {
         return games;

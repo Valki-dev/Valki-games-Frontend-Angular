@@ -1,18 +1,14 @@
-<div class="grid-cols-1 flex justify-around items-center bg-main main min-h-[35.75vh] ">
+<div class="grid-cols-1 flex justify-around items-center bg-main main min-h-[71.5vh] ">
     <div class="bg-card rounded-lg p-7">
-        <h2 class="text-white text-3xl mb-3">Inicios de sesión</h2>
+        <h2 class="text-white text-3xl mb-3">Ranking de videojuegos</h2>
         <hr>
     </div>
 
     <div class="bg-card rounded-lg p-7">
         <h2 class="text-white text-3xl mb-3">Géneros más vendidos</h2>
         <hr>
-    </div>
-</div>
-
-<div class="grid-cols-1 flex justify-center items-center bg-main main min-h-[35.75vh]">
-    <div class="bg-card rounded-lg p-7">
-        <h2 class="text-white text-3xl mb-3">Ranking de videojuegos</h2>
-        <hr>
+        <div class="p-5">
+            <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+        </div>
     </div>
 </div>

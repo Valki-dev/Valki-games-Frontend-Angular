@@ -10,6 +10,8 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ToastModule } from 'primeng/toast';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { ChartModule } from 'primeng/chart';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @NgModule({
   exports: [
@@ -22,7 +24,9 @@ import { InputTextModule } from 'primeng/inputtext';
     VirtualScrollerModule,
     ToastModule,
     PaginatorModule,
-    InputTextModule
+    InputTextModule,
+    ChartModule,
+    FieldsetModule
   ]
 })
 export class PrimeNgModule { }
