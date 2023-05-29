@@ -37,7 +37,7 @@
         <div class="flex xl:flex-row lg:flex-row md:flex-row sm:flex-row justify-around py-3 items-center flex-col mt-5">
           <div>
             <p [ngClass]="game.onOfferPrice > 0 ? 'text-red-500 text-4xl' : 'text-button-hover text-4xl'">
-              <span><p class="text-lg">Oferta</p><b>{{game.onOfferPrice > 0 ? game.onOfferPrice : game.price}}€</b></span>
+              <span><p class="text-lg">{{game.onOfferPrice > 0 ? 'Oferta' : ''}}</p><b>{{game.onOfferPrice > 0 ? game.onOfferPrice : game.price}}€</b></span>
             </p>
           </div>
           <div class="flex xl:mt-0 lg:mt-0 md:mt-0 sm:mt-0 justify-between w-[180px] bg-card px-10 py-3 mt-5 rounded-lg">

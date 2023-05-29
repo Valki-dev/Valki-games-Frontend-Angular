@@ -47,8 +47,6 @@ export class AllGamesComponent implements OnInit {
   getAllGames() {
     this.gameService.getAllGames().subscribe(response => {
       if (response.length > 0) {
-        console.log({ response });
-
         this.gameService.originalGames = [...response];
         this.gameService.videoGames = [...response];
       }
@@ -59,7 +57,7 @@ export class AllGamesComponent implements OnInit {
     if (search.trim() === "") {
       this.getAllGames();
     } else if (search.length > 0) {
-      this.gameService.videoGames = [...this.gameService.originalGames.filter(game => game.name.includes(search.toLowerCase()))];
+      this.gameService.videoGames = [...this.gameService.originalGames.filter(game => game.name.toLowerCase().includes(search.toLowerCase()))];
     }
   }
 
