@@ -1,92 +1,57 @@
 img {
-    height: 350px;
+    height: 370px;
 }
+
 
 /* .card:hover {scale: 1.05; transition: 0.7s; box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);} */
 
-.card:hover #button-container{ display: flex !important; transition: all 0.4s !important;}
-
-/* @property --rotate {
-    syntax: '<angle>';
-    initial-value: 132deg;
-    inherits: false;
+.card:hover #button-container {
+    display: flex !important;
+    transition: all 0.4s !important;
 }
 
-
-.card {
-    align-items: center;
-    background: #191c29;
-    border-radius: 6px;
-    color: rgb(88 199 250 / 0%);
-    cursor: pointer;
-    display: flex;
-    font-family: cursive;
-    font-size: 1.5em;
-    height: 400px;
-    justify-content: center;
-    padding: 3px;
-    /* position: relative; */
-    /* text-align: center;
-    width: 300px;
+.data {
+    background: rgba(0, 0, 0, 0.6);
 }
 
-.card:hover {
-    color: rgb(88 199 250 / 100%);
-    transition: color 1s;
-} */
+.game-card .wrapper {
+    background-color: #fff;
+    /* height: 250px; */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    margin: 30px 0px;
+}
 
-/* .card:hover:before,
-.card:hover:after {
-    animation: none;
-    opacity: 0;
-} */
+.game-card .wrapper:hover .data {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
 
-
-/* .card::before {
-    content: "";
-    width: 104%;
-    height: 102%;
-    border-radius: 8px;
-    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+.game-card .data {
     position: absolute;
-    z-index: -1;
-    top: -1%;
-    left: -2%;
-    animation: spin 2.5s linear infinite;
-}
-
-.card::after {
-    position: absolute;
-    content: "";
-    top: calc(var(--card-height) / 6);
-    left: 0;
-    right: 0;
-    z-index: -1;
-    height: 100%;
+    bottom: 0;
     width: 100%;
-    margin: 0 auto;
-    transform: scale(0.8);
-    filter: blur(calc(var(--card-height) / 6));
-    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
-    opacity: 1;
-    transition: opacity .5s;
-    animation: spin 2.5s linear infinite;
+    -webkit-transform: translateY(calc(80px + 1em));
+    transform: translateY(calc(80px + 1em));
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
-@keyframes spin {
-    0% {
-        --rotate: 0deg;
-    }
-
-    100% {
-        --rotate: 360deg;
-    }
+.game-card .data .content {
+    padding: -70%;
+    position: relative;
+    z-index: 1;
 }
 
-a {
-    color: #212534;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-weight: bold;
-    margin-top: 2rem;
-}  */
+.wrapper:hover img
+{
+-webkit-filter:grayscale(70%);
+-moz-filter:grayscale(70%);
+-o-filter:grayscale(70%);
+-ms-filter:grayscale(70%);
+filter:grayscale(70%);
+}

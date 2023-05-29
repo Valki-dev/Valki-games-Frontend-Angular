@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../interfaces/game.interface';
+import { RankingGame } from '../interfaces/rankingGame.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ export class GameService {
     return this.videoGames;
   }
 
+  //<<-------------------- POST -------------------->>
+  createGame(formData: FormData): Observable<any> {
+    return this.httpClient.post<any>(`${this.endpoint}`, formData);
+  }
+
   //<<-------------------- GET -------------------->>
 
   getAllGames(): Observable<Game[]> {
@@ -37,6 +43,10 @@ export class GameService {
 
   getGameById(id: number): Observable<Game> {
     return this.httpClient.get<Game>(`${this.endpoint}/${id}`);
+  }
+
+  getGameRanking(): Observable<RankingGame[]> {
+    return this.httpClient.get<RankingGame[]>(`${this.endpoint}/ranking`);
   }
 
   //<<-------------------- UPDATE -------------------->>

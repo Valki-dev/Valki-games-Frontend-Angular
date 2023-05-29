@@ -1,0 +1,15 @@
+h1 {
+    font-family: 'Audiowide', cursive;
+}
+
+#main {
+    background: url('../../../../assets/2322.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#uploadInput::ng-deep:hover{
+    background-color: blueviolet;
+    border: none;
+    border-radius: 8px;
+}

@@ -1,3 +1,18 @@
 h2 {
     font-family: 'Audiowide', cursive;
 }
+
+.ranking::ng-deep tr {
+    background-color: #01010165;
+    color: white;
+}
+
+.ranking::ng-deep th {
+    background-color: #01010165 !important;
+    color: white !important;
+}
+
+.one {
+    background-color: rgba(192, 103, 255, 0.499) !important;
+    font-weight: bold;
+}

@@ -16,8 +16,8 @@
                         <div class="mx-10 my-5 p-2 md:w-[300px] sm:my-5 sm:w-[400px] md:text-sm sm:text-2xl w-[150px]">
                             <div>
                                 <p class="text-white text-2xl">{{item.products.name}}</p>
-                                <p [ngClass]="item.products.onOfferPrice !== null ? 'text-red-500 text-2xl': 'text-button-hover text-2xl'">
-                                    <span *ngIf="item.products.onOfferPrice !== null; else originalPrice"><p class="text-xl">Oferta: <b>{{item.products.onOfferPrice}}€</b></p></span>
+                                <p [ngClass]="item.products.onOfferPrice > 0 ? 'text-red-500 text-2xl': 'text-button-hover text-2xl'">
+                                    <span *ngIf="item.products.onOfferPrice > 0; else originalPrice"><p class="text-xl">Oferta: <b>{{item.products.onOfferPrice}}€</b></p></span>
                                     <ng-template #originalPrice>
                                         <span><b>{{item.products.price}}€</b></span>
                                     </ng-template>

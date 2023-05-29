@@ -2,6 +2,30 @@
     <div class="bg-card rounded-lg p-7">
         <h2 class="text-white text-3xl mb-3">Ranking de videojuegos</h2>
         <hr>
+        <div class="card my-5 border border-gray-500 rounded-lg ">
+            <p-table [value]="gameRanking" [tableStyle]="{ 'min-width': '50rem', 'border-radius': '8px' }" class="ranking" styleClass="background-color: #01010165">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Puesto</th>
+                        <th>Name</th>
+                        <th>Desarrollador</th>
+                        <th>Distribuidor</th>
+                        <th>Lanzamiento</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-rowData let-rowIndex="rowIndex">
+                    <tr [ngClass]="rowIndex + 1 == 1 ? 'one' : ''">
+                        <td ><span>
+                            {{ rowData?.totalUnits }} {{rowIndex + 1}}
+                          </span></td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.developer }}</td>
+                        <td>{{ product.publisher }}</td>
+                        <td>{{ product.releaseDate | date:"dd/MM/yyyy" }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
 
     <div class="bg-card rounded-lg p-7">

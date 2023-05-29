@@ -1,1 +1,38 @@
-<p>add-game works!</p>
+<div class="grid-cols-1 flex justify-center bg-main min-h-[71.5vh]" id="main">
+
+    <div class="flex justify-center items-center">
+        <div class="p-[40px] max-h-[300px] my-7 rounded-lg shadow-lg min-w-4xl bg-forms">
+            <h1 class="text-white text-4xl leading-tight font-medium mb-2">Agregar videojuegos</h1>
+            <hr>
+
+            <p class="text-gray-300 text-lg p-5 my-5">Carga un archivo con extensión ".csv" para añadir uno o varios
+                juegos</p>
+
+            <div class="flex justify-center text-white">
+                <!-- <p-fileUpload mode="basic" styleClass="p-button-outlined p-button-help" id="uploadInput" chooseLabel="Cargar archivo" name="demo[]"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept=".csv" [maxFileSize]="1000000"
+                (onUpload)="onUpload($event)"></p-fileUpload> -->
+
+                <!-- 1º OPCIÓN -->
+                <!-- <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+                <div>
+                    {{fileName || "Aún no se ha seleccionado ningún archivo"}}
+
+                    <button pButton pRipple type="button" label="Archivo" class="p-button-outlined p-button-help"
+                        (click)="fileUpload.click()"></button>
+                </div> -->
+
+                <!-- 2º OPCIÓN -->
+
+                <div class="text-center">
+                    <input class="form-control" type="file" name="file" (change)="onChange($event)">
+
+                    <button (click)="onUpload()" class="btn btn-success">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

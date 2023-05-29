@@ -12,6 +12,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { ChartModule } from 'primeng/chart';
 import { FieldsetModule } from 'primeng/fieldset';
+import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   exports: [
@@ -26,7 +28,9 @@ import { FieldsetModule } from 'primeng/fieldset';
     PaginatorModule,
     InputTextModule,
     ChartModule,
-    FieldsetModule
+    FieldsetModule,
+    FileUploadModule,
+    TableModule
   ]
 })
 export class PrimeNgModule { }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RankingGame } from 'src/app/games/interfaces/rankingGame.interface';
+import { GameService } from 'src/app/games/services/game.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +10,22 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   data: any;
-
+  gameRanking: RankingGame[] = [];
   options: any;
+
+  constructor(private gameService: GameService) {}
 
   ngOnInit() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
+
+    this.gameService.getGameRanking().subscribe(response => {
+      if(response.length > 0) {
+        this.gameRanking = response;
+        console.log(this.gameRanking);
+        
+      }
+    })
 
     this.data = {
       labels: ['A', 'B', 'C'],
