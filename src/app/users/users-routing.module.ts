@@ -7,6 +7,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { PayingPageComponent } from './pages/paying-page/paying-page.component';
+import { VerificationTokenComponent } from './pages/verification-token/verification-token.component';
 
 const routes: Routes = [
   {path: '', children: [
@@ -16,6 +17,8 @@ const routes: Routes = [
     {path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard]},
     {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthenticationGuard]},
     {path: 'paying', component: PayingPageComponent, canActivate:[AuthenticationGuard]},
+    //! Aplicar guardia a la verificación
+    {path: 'verification/:email', component: VerificationTokenComponent},
     {path: '**', redirectTo: 'login'}
   ]}
 ];

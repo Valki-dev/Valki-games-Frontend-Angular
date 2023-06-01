@@ -70,7 +70,8 @@ export class RegisterComponent {
         password: password,
         phoneNumber: phoneNumber,
         subscriptionDate: new Date(),
-        isAdmin: false
+        isAdmin: false,
+        isVerified: false
       }
 
       this.userService.createUser(newUser).subscribe(response => {

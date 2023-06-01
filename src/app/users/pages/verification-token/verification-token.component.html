@@ -1,1 +1,25 @@
-<p>verification-token works!</p>
+<div class="grid-cols-1 flex justify-center items-center bg-main main min-h-[71.5vh]">
+    <div class="flex justify-center">
+        <div class="p-[40px] my-7 rounded-lg shadow-lg min-w-4xl bg-forms">
+            <h1 class="text-white text-4xl leading-tight font-medium mb-2">Verifica tu cuenta</h1>
+            <hr>
+            <p class="text-white mt-5 text-lg">Introduce el código que hemos enviado a tu correo para verificar tu cuenta</p>
+            <form [formGroup]="verificationForm" (ngSubmit)="verifyAccount()" class="flex flex-col items-center">
+                <div class="w-[90%] mt-10">
+                    <span class="p-float-label">
+                        <input pInputText id="token" formControlName="token" style="width: 100%"/>
+                        <label htmlFor="token">Código de verificación</label>
+                    </span>
+                </div>
+                <span *ngIf="isValidField('token')" class="text-red-500">{{getFieldError("token")}}</span>
+
+                <div *ngIf="showError" class="flex justify-center w-[100%] mt-5">
+                    <p class="text-red-500">El código introducido es incorrecto</p>
+                </div>
+
+                <button pButton pRipple type="submit" label="Verificar"
+                        class="p-button-outlined p-button-help" style="margin-top: 30px;"></button>
+            </form>
+        </div>
+    </div>
+</div>

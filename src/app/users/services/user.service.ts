@@ -139,4 +139,8 @@ export class UserService {
     return this.httpClient.patch<any>(`${this.endpoint}/password`, data);
   }
 
+  verifyAccount(data: any): Observable<any> {
+    return this.httpClient.patch<any>(`${this.endpoint}/verification`, data);
+  }
+
 }

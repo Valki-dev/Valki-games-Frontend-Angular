@@ -50,9 +50,7 @@ export class LoginComponent {
         // let user: User = response;
 
         //? Usar el usuario de sessionStorage en lugar del objeto?
-        this.userService.setUserLogged(response);
 
-        sessionStorage.setItem("userLogged", JSON.stringify(response));
 
         // this.userService.setLogged(true);
 
@@ -60,7 +58,14 @@ export class LoginComponent {
           this.userService.setIsAdmin(true);
           this.router.navigate(['/admin/dashboard'])
         } else {
-          this.router.navigate(['/games/all']);
+          if (response.isVerified) {
+            this.userService.setUserLogged(response);
+            sessionStorage.setItem("userLogged", JSON.stringify(response));
+
+            this.router.navigate(['/games/all']);
+          } else {
+            this.router.navigate(['/user/verification', response.email]);
+          }
         }
       }
 
