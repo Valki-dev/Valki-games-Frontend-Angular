@@ -47,15 +47,10 @@ export class LoginComponent {
       if (response) {
         this.loginError = false;
 
-        // let user: User = response;
-
-        //? Usar el usuario de sessionStorage en lugar del objeto?
-
-
-        // this.userService.setLogged(true);
-
         if (response.isAdmin) {
           this.userService.setIsAdmin(true);
+          this.userService.setUserLogged(response);
+          sessionStorage.setItem("userLogged", JSON.stringify(response));
           this.router.navigate(['/admin/dashboard'])
         } else {
           if (response.isVerified) {

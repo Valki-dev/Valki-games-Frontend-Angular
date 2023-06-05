@@ -105,45 +105,46 @@ export class ShoppingCartComponent {
   }
 
   pay() {
-    if(this.userService.getUserLogged() !== null) {
-      this.cart.forEach(item => {
-        if(item.products.stock > 0) {
-          let updateData = {
-            productId: item.productId,
-            amount: item.amount
-          }
-          this.gameService.updateStock(updateData).subscribe(response => {
-            if (response.status === "OK") {
-              this.gameService.getGameById(item.productId).subscribe(response => {
-                if (response) {
-                  let totalPrice = item.amount * (response.onOfferPrice !== null ? response.onOfferPrice : response.price);
+    this.router.navigate(['/user/paying', this.total]);
+    // if(this.userService.getUserLogged() !== null) {
+    //   this.cart.forEach(item => {
+    //     if(item.products.stock > 0) {
+    //       let updateData = {
+    //         productId: item.productId,
+    //         amount: item.amount
+    //       }
+    //       this.gameService.updateStock(updateData).subscribe(response => {
+    //         if (response.status === "OK") {
+    //           this.gameService.getGameById(item.productId).subscribe(response => {
+    //             if (response) {
+    //               let totalPrice = item.amount * (response.onOfferPrice !== null ? response.onOfferPrice : response.price);
     
-                  let data = {
-                    userId: this.userService.getUserLogged()!.id,
-                    productId: item.productId,
-                    amount: item.amount,
-                    price: totalPrice
-                  } 
+    //               let data = {
+    //                 userId: this.userService.getUserLogged()!.id,
+    //                 productId: item.productId,
+    //                 amount: item.amount,
+    //                 price: totalPrice
+    //               } 
     
-                  this.userService.addToSales(data).subscribe(response => {
+    //               this.userService.addToSales(data).subscribe(response => {
     
-                  })
+    //               })
     
-                  this.userService.deleteFromCart(data).subscribe(response => {
+    //               this.userService.deleteFromCart(data).subscribe(response => {
     
-                  })
-                  this.router.navigate(['/user/paying'])
-                }
-              });
-            } 
-          }, (err) => {
-            this.router.navigate(['/error/server']);
-          })
-        }
-      });
-    } else {
-      this.router.navigate(["/user/login"]);
-    }
+    //               })
+    //               this.router.navigate(['/user/paying'])
+    //             }
+    //           });
+    //         } 
+    //       }, (err) => {
+    //         this.router.navigate(['/error/server']);
+    //       })
+    //     }
+    //   });
+    // } else {
+    //   this.router.navigate(["/user/login"]);
+    // }
   }
 
 }

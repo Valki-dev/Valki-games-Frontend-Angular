@@ -67,6 +67,10 @@ export class UserService {
     this.isAdmin = value;
   }
 
+  chargePayment(amount: number, tokenId: string): Observable<any> {
+    return this.httpClient.post<any>(`${this.endpoint}/payment`, { stripeToken: tokenId, amount: amount })
+  }
+
   //<<-------------------- GET -------------------->>
 
   getUserById(userId: string): Observable<User> {

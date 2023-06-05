@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MenuItem } from 'primeng/api';
+import { Sale } from '../../interfaces/sale.interface';
 import { User } from '../../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
-import { Sale } from '../../interfaces/sale.interface';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/shared/services/validator.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',

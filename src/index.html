@@ -8,8 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--CSS SweetAlert-->
   <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
-  <!--JS SweetAlert-->
-  
+  <!--Stripe Libray-->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe('pk_test_51NExalGtd86gxW1pwmMsbPwqaEtGU8pU3HiOrqxYnF0vRUDMcRNBYIviyDmf1HChlO17Ykkjpvs86CV0nWpYr4jW00U65aJt0F');
+    const elements = stripe.elements();
+  </script>
   <!--Fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

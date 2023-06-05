@@ -1,0 +1,19 @@
+<div class="grid-cols-1 flex justify-center items-center bg-main main min-h-[71.5vh]">
+    <div class="flex justify-center">
+        <div class="p-10  rounded-lg shadow-lg min-w-4xl bg-forms">
+            <div class="credit-card">
+                <div class="flex justify-center mb-10">
+                    <img src="../../../../assets/credit-card.gif" alt="">
+                </div>
+                <div #cardInfo class="mb-5" class="cardCredit">
+
+                </div>
+                <span class="error text-red-500" *ngIf="cardError">{{ cardError }}</span>
+                <div class="mt-10 flex justify-center">
+                    <p-button label="Realizar pago" styleClass="p-button-outlined p-button-help"
+                        (onClick)="getToken()"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

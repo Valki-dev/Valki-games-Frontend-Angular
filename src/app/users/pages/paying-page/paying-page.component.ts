@@ -15,7 +15,7 @@ export class PayingPageComponent {
   ngOnInit(): void {
     setTimeout(() => {
       this.paying = false;
-      this.router.navigate(['/user/paying']);
+      this.router.navigate(['/user/sale']);
     }, 3000);
   }
 

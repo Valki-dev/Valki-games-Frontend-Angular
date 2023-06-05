@@ -2,7 +2,7 @@
   <app-input (onSearch)="searchGamesByName($event)"></app-input>
 </div>
 
-<div class="grid-cols-1 flex justify-center bg-main min-h-[80vh]" id="main"
+<div class="grid-cols-1 flex justify-center bg-main min-h-[80vh] p-7" id="main"
   *ngIf="getVideoGames.length > 0; else noGames">
   <div class="container">
     <div class="flex items-center flex-col sm:items-end sm:ml-5">
@@ -37,7 +37,15 @@
       <div class="rounded-lg shadow-lg max-w-[280px] mt-[40px] mb-10 bg-card card"
         *ngFor="let game of getVideoGames | sortGames: sortingMethod  | paginate: { itemsPerPage: 10, currentPage: page}">
         <a [routerLink]="['./', game.id]">
-          <img class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
+          <img *ngIf="game.URL; else noImage" class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
+          <ng-template #noImage>
+            <div class="loader">
+              <svg viewBox="0 0 80 80">
+                  <circle id="test" cx="40" cy="40" r="32"></circle>
+              </svg>
+          </div>
+          
+          </ng-template>
         </a>
         <div class="p-4">
           <h5 class="text-white text-xl font-medium mb-2">{{game.name}}</h5>
