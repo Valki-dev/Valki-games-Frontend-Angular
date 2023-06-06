@@ -49,6 +49,10 @@ export class GameService {
     return this.httpClient.get<RankingGame[]>(`${this.endpoint}/ranking`);
   }
 
+  getBestSellingGenres(): Observable<any> {
+    return this.httpClient.get<any>(`${this.endpoint}/best-selling`);
+  }
+
   //<<-------------------- UPDATE -------------------->>
   updateGame(updateData: any): Observable<any> {
     return this.httpClient.patch<any>(`${this.endpoint}`, updateData);

@@ -9,45 +9,50 @@ import { GameService } from 'src/app/games/services/game.service';
 })
 export class DashboardComponent implements OnInit {
 
-  data: any;
-  gameRanking: RankingGame[] = [];
-  options: any;
+  public data: any;
+  public gameRanking: RankingGame[] = [];
+  public genres: string[] = [];
+  public genresValue: number[] = [];
+  public options: any;
 
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService) { }
 
   ngOnInit() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
     this.gameService.getGameRanking().subscribe(response => {
-      if(response.length > 0) {
+      if (response.length > 0) {
         this.gameRanking = response;
-        console.log(this.gameRanking);
-        
       }
     })
 
-    this.data = {
-      labels: ['A', 'B', 'C'],
-      datasets: [
-        {
-          data: [300, 50, 100],
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-        }
-      ]
-    };
+    this.gameService.getBestSellingGenres().subscribe(response => {
+      response.forEach((element: any) => {
+        this.genresValue.push(element.data);
+        this.genres.push(element.gender);
 
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--text-color');
+        this.data = {
+          labels: this.genres,
+          datasets: [
+            {
+              data: this.genresValue,
+              backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
+              hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+            }
+          ]
+        };
 
-    this.options = {
-      cutout: '60%',
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
+        this.options = {
+          cutout: '60%',
+          plugins: {
+            legend: {
+              labels: {
+                color: textColor
+              }
+            }
           }
-        }
-      }
-    };
+        };
+      });
+    });
   }
 }
