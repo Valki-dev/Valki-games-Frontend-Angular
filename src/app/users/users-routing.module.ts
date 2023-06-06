@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
@@ -9,6 +9,7 @@ import { PayingPageComponent } from './pages/paying-page/paying-page.component';
 import { VerificationTokenComponent } from './pages/verification-token/verification-token.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
 
 const routes: Routes = [
   {path: '', children: [
@@ -18,7 +19,8 @@ const routes: Routes = [
     {path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard]},
     {path: 'cart', component: ShoppingCartComponent, canActivate: [AuthenticationGuard]},
     {path: 'paying/:total', component: PaymentPageComponent, canActivate:[AuthenticationGuard]},
-    {path: 'sale', component: PayingPageComponent},
+    {path: 'sale', component: PayingPageComponent, canActivate: [AuthenticationGuard]},
+    {path: 'sale-detail/:orderNumber', component: SaleDetailComponent, canActivate: [AuthenticationGuard]},
     {path: 'verification/:email', component: VerificationTokenComponent},
     {path: '**', redirectTo: 'login'}
   ]}

@@ -21,6 +21,7 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     WishlistComponent,
     PaymentPageComponent,
     ProfileComponent,
+    SaleDetailComponent,
   ],
   imports: [
     CommonModule,

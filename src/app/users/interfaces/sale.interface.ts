@@ -2,8 +2,10 @@ export interface Sale {
     userId: string;
     productId: number;
     saleDate: Date;
-    amount: number,
-    price: number,
+    orderNumber: string;
+    amount: number;
+    price: number;
+    downloadCode: string;
     products: {
         id: number;
         name: string;

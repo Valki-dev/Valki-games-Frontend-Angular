@@ -93,6 +93,11 @@ export class UserService {
     return this.httpClient.post<boolean>(`${this.endpoint}/password`, data);
   }
 
+  getSaleByOrderNumber(orderNumber: string): Observable<Sale> {
+    return this.httpClient.get<Sale>(`${this.endpoint}/order/${orderNumber}`);
+  }
+
+
   //<<-------------------- POST -------------------->>
 
   createUser(user: User): Observable<any> {

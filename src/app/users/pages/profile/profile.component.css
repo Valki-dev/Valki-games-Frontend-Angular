@@ -5,8 +5,13 @@ img {
 .title {
     font-family: 'Audiowide', cursive;
 }
+
 form {
     width: 600px;
+}
+
+.sale:hover {
+    cursor: pointer;
 }
 
 .rojo {

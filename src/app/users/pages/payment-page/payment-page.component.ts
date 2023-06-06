@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { CartItem } from '../../interfaces/cartItem.interface';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,14 +9,14 @@ import { GameService } from 'src/app/games/services/game.service';
   templateUrl: './payment-page.component.html',
   styleUrls: ['./payment-page.component.css']
 })
-export class PaymentPageComponent implements AfterViewInit, OnInit {
+export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   
   
   @ViewChild("cardInfo") 
   cardInfo!: ElementRef<HTMLInputElement>;
 
   public cardError: any;
-  public card: any;
+  public card: any = null;
   public cart: CartItem[] = [];
   public total: number = 0;
 
@@ -27,37 +27,41 @@ export class PaymentPageComponent implements AfterViewInit, OnInit {
     private activatedRoute: ActivatedRoute,
     private gameService: GameService
   ) {}
+  ngOnDestroy(): void {
+    this.card.destroy();
+    this.card = null;
+  }
 
   ngOnInit(): void {
     this.getUserShoppingCart();
     this.activatedRoute.params.subscribe(response => this.total = response["total"]);
     console.log(this.total);
-    
   }
 
   ngAfterViewInit(): void {
-    this.card = elements.create('card', {
-      style: {
-        base: {
-          iconColor: "#ff0000",
-          color: "#ffffff",
-          fontSize: "20px",
+    if(this.card == null) {
+      this.card = elements.create('card', {
+        style: {
+          base: {
+            iconColor: "#ff0000",
+            color: "#ffffff",
+            fontSize: "20px",
+          }
+        }, 
+        appearance: {
+          
         }
-      }, 
-      appearance: {
-        
-      }
-    });
-    this.card.mount(this.cardInfo.nativeElement);
-    this.card.addEventListener('change', this.onChange.bind(this));
+      });
+      this.card.mount(this.cardInfo.nativeElement);
+      this.card.addEventListener('change', this.onChange.bind(this));
+    }
+    
   }
 
   async getToken() {
     const {token, error} = await stripe.createToken(this.card);
     
-    if(token) {
-      console.log(token);
-      
+    if(token) {      
       this.userService.chargePayment(this.total, token.id).subscribe(response => {
         if(response) {
           if(this.userService.getUserLogged() !== null) {

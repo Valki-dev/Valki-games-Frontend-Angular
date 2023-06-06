@@ -1,0 +1,13 @@
+<div class="grid-cols-1 flex justify-center items-center bg-main main min-h-[71.5vh]">
+    <div class="flex justify-center">
+        <div class="p-[40px] my-7 rounded-lg shadow-lg min-w-4xl bg-forms">
+            <div id="saleInfo" class="flex flex-col items-center">
+                <img [src]="currentSale.products.URL" [alt]="currentSale.products.name">
+                <h1 class="text-white text-3xl my-5">{{currentSale.products.name}}</h1>
+
+                <p class="text-gray-500 text-lg">Canjea este código para empezar a jugar</p>
+                <p class="bg-gray-500 my-5 p-5 text-white text-lg rounded-lg">{{currentSale.downloadCode | uppercase}}</p>
+            </div>
+        </div>
+    </div>
+</div>
