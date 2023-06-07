@@ -10,24 +10,29 @@
         <div class="flex flex-row h-[50px]">
           <button pButton pRipple type="button" label="Orderar por ▽" class="p-button-outlined p-button-help"
             (click)="toggleShowOptions()"></button>
-            <div *ngIf="methodSelected">
-              <button class="bg-gray-800 hover:bg-gray-600 rounded-full w-[30px] h-[30px] text-white" (click)="clearSort()">X</button>
-            </div>
+          <div *ngIf="methodSelected">
+            <button class="bg-gray-800 hover:bg-gray-600 rounded-full w-[30px] h-[30px] text-white"
+              (click)="clearSort()">X</button>
+          </div>
         </div>
       </div>
-      
+
       <div class="bg-card rounded-lg mt-3 w-[300px] sm:w-[500px]" *ngIf="showOptions">
         <div class="flex flex-col justify-center space-y-3 p-3 sm:flex-row sm:space-x-3 sm:space-y-0">
-          <a routerLink="/games/all" class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+          <a routerLink="/games/all"
+            class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
             (click)="sortGames('alphabetical')">Nombre A-Z</a>
 
-          <a routerLink="/games/all" class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+          <a routerLink="/games/all"
+            class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
             (click)="sortGames('alphabeticalInverted')">Nombre Z-A</a>
 
-          <a routerLink="/games/all" class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+          <a routerLink="/games/all"
+            class="text-gray-300 hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
             (click)="sortGames('priceMin')">Precio 🡣</a>
 
-          <a routerLink="/games/all" class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
+          <a routerLink="/games/all"
+            class="text-gray-300  hover:bg-button-hover hover:text-white px-3 py-2 rounded-md text-md font-medium"
             (click)="sortGames('priceMax')">Precio 🡡</a>
         </div>
       </div>
@@ -37,21 +42,16 @@
       <div class="rounded-lg shadow-lg max-w-[280px] mt-[40px] mb-10 bg-card card"
         *ngFor="let game of getVideoGames | sortGames: sortingMethod  | paginate: { itemsPerPage: 10, currentPage: page}">
         <a [routerLink]="['./', game.id]">
-          <img *ngIf="game.URL; else noImage" class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
-          <ng-template #noImage>
-            <div class="loader">
-              <svg viewBox="0 0 80 80">
-                  <circle id="test" cx="40" cy="40" r="32"></circle>
-              </svg>
-          </div>
-          
-          </ng-template>
+          <img class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible"
+            width="280px" />
         </a>
         <div class="p-4">
           <h5 class="text-white text-xl font-medium mb-2">{{game.name}}</h5>
           <p class="text-gray-400 mb-4 text-xl font-medium">
-            <span [ngClass]="game.onOfferPrice > 0 ? 'text-gray-400 mb-4 text-lg line-through' : 'text-gray-400 mb-4 text-xl font-medium'">{{game.price}}€</span> 
-            <span *ngIf="game.onOfferPrice > 0" class="text-red-500 text-xl font-medium ml-5">{{game.onOfferPrice}}€</span>
+            <span
+              [ngClass]="game.onOfferPrice > 0 ? 'text-gray-400 mb-4 text-lg line-through' : 'text-gray-400 mb-4 text-xl font-medium'">{{game.price}}€</span>
+            <span *ngIf="game.onOfferPrice > 0"
+              class="text-red-500 text-xl font-medium ml-5">{{game.onOfferPrice}}€</span>
           </p>
         </div>
       </div>
@@ -59,10 +59,10 @@
 
     <!-- AQUÍ VA EL PAGINATOR -->
     <div class="flex justify-center my-5">
-      <pagination-controls (pageChange)="page = $event"  previousLabel="Anterior"
-    nextLabel="Siguiente" class="paginator"></pagination-controls>
+      <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"
+        class="paginator"></pagination-controls>
     </div>
-    
+
   </div>
 </div>
 

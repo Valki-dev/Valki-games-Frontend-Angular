@@ -12,7 +12,6 @@ import { UsersRoutingModule } from './users-routing.module';
 
 //Components
 import { LoginComponent } from './pages/login/login.component';
-import { PayingPageComponent } from './pages/paying-page/paying-page.component';
 
 import { RegisterComponent } from './pages/register/register.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
@@ -22,12 +21,12 @@ import { PaymentPageComponent } from './pages/payment-page/payment-page.componen
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
+import { GratitudeComponent } from './pages/gratitude/gratitude.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    PayingPageComponent,
     RegisterComponent,
     ShoppingCartComponent,
     VerificationTokenComponent,
@@ -35,6 +34,7 @@ import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
     PaymentPageComponent,
     ProfileComponent,
     SaleDetailComponent,
+    GratitudeComponent,
   ],
   imports: [
     CommonModule,

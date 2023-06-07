@@ -19,7 +19,6 @@ export class EditGameComponent implements OnInit {
   public editGameForm: FormGroup = this.formBuilder.group({
     stock: [0, [Validators.required, Validators.min(0)]],
     price: [0, [Validators.required, Validators.min(1)]],
-    // offer: [0],
     isNew: [false]
   })
 
@@ -32,8 +31,6 @@ export class EditGameComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
    ) {}
-
-  
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id}) => {

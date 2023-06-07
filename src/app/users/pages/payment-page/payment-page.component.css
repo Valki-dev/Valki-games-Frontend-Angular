@@ -8,3 +8,24 @@
 .rojo {
     border: 1px solid red
 }
+
+.loader {
+    --dim: 45px;
+    width: var(--dim);
+    height: var(--dim);
+    border: 7px solid #a639f9;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: spin_51 1.5s infinite linear;
+}
+
+@keyframes spin_51 {
+    from {
+        transform: rotate(0)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}

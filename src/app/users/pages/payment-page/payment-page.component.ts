@@ -19,6 +19,7 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   public card: any = null;
   public cart: CartItem[] = [];
   public total: number = 0;
+  public showSpinner: boolean = false;
 
   constructor(
     private ngZone: NgZone, 
@@ -59,6 +60,7 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   async getToken() {
+    this.showSpinner = true;
     const {token, error} = await stripe.createToken(this.card);
     
     if(token) {      
@@ -91,11 +93,13 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
                         this.userService.deleteFromCart(data).subscribe(response => {
           
                         })
-                        this.router.navigate(['/user/sale']);
+                        this.showSpinner = false;
+                        this.router.navigate(['/user/gratitude']);
                       }
                     });
                   } 
                 }, (err) => {
+                  this.showSpinner = false;
                   this.router.navigate(['/error/server']);
                 })
               }
