@@ -16,14 +16,15 @@ export class EditGameComponent implements OnInit {
   public videogame!: Game;
   public updateError: boolean = false;
   public nodes: any;
+  // public isNew: boolean = false;
 
   public editGameForm: FormGroup = this.formBuilder.group({
     stock: [0, [Validators.required, Validators.min(0)]],
-    price: [0, [Validators.required, Validators.min(1)]],
-    isNew: [false]
+    price: [0, [Validators.required, Validators.min(1)]]
   })
 
   @ViewChild("isOnOffer") isOnOffer!: ElementRef<HTMLInputElement>;
+  @ViewChild("isNew") isNew!: ElementRef<HTMLInputElement>;
 
 
   constructor(
@@ -45,6 +46,11 @@ export class EditGameComponent implements OnInit {
     this.nodes = [0,5,10]
   }
 
+  changeValue(event: any) {
+    console.log({event});
+    
+  }
+
   getFieldError(field: string) {
     return this.validatorService.getFieldError(this.editGameForm, field);
   }
@@ -60,15 +66,18 @@ export class EditGameComponent implements OnInit {
       return;
     }
 
-    const { stock, price, isNew } = this.editGameForm.value;
+    const { stock, price } = this.editGameForm.value;
     
     const updateData = {
       id: this.videogame.id,
       stock: stock,
       price: price,
       onOffer: this.isOnOffer.nativeElement.value,
-      isNew: (isNew <= 0 ? false : true)
+      isNew: (this.isNew.nativeElement.value === 'true' ? true: false) 
     }
+    
+    // console.log(this.isNew.nativeElement.value);
+    
 
     this.gameService.updateGame(updateData).subscribe(response => {
       if(response.status === "OK") {

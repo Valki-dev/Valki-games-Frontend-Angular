@@ -2,7 +2,7 @@
     <div class="bg-card rounded-lg p-7 xl:w-[900px] md:w-[700px] w-[400px] my-7">
         <h2 class="text-white text-3xl mb-3">Ranking de videojuegos</h2>
         <hr>
-        <div class="card my-5 border border-gray-500 rounded-lg">
+        <div *ngIf="gameRanking.length > 0; else noRanking" class="card my-5 border border-gray-500 rounded-lg">
             <p-table [value]="gameRanking" [tableStyle]="{ 'min-width': '50rem', 'border-radius': '8px' }" class="ranking" styleClass="background-color: #01010165">
                 <ng-template pTemplate="header">
                     <tr>
@@ -26,13 +26,23 @@
                 </ng-template>
             </p-table>
         </div>
+        <ng-template #noRanking>
+            <div class="my-10">
+                <p class="text-gray-500 text-2xl">Aún no se han realizado compras</p>
+            </div>
+        </ng-template>
     </div>
 
     <div class="bg-card rounded-lg p-7 my-7">
         <h2 class="text-white text-3xl mb-3">Géneros más vendidos</h2>
         <hr>
-        <div class="p-5">
-            <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+        <div class="p-5" *ngIf="genresValue.length > 0; else noData">
+            <p-chart  type="doughnut" [data]="data" [options]="options"></p-chart>
         </div>
+        <ng-template #noData>
+            <div class="my-10">
+                <p class="text-gray-500 text-2xl">No hay información que mostrar</p>
+            </div>
+        </ng-template>
     </div>
 </div>

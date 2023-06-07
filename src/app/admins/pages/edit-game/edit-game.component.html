@@ -43,10 +43,20 @@
                     </select>
                 </div>
 
-                <span class="mt-10 w-full">
-                    <label for="onOffer" class="text-white ml-2"><p-checkbox formControlName="isNew" [value]="true"
-                            inputId="isNew"></p-checkbox> Nuevo</label>
-                </span>
+                <div class="mt-7 grid-cols-1 xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] w-[100%]">
+                    <label for="isNew"
+                        [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Nuevo</label>
+                    <select #isNew name="isNew" id="isNew" class="bg-card text-white rounded-lg mt-2">
+                        <option value="false">No</option>
+                        <option value="true">Si</option>
+                    </select>
+                </div>
+
+                <!-- <span class="mt-10 w-full">
+                    <label for="isNew" class="text-white"><input type="checkbox" class="mr-2" style="width: 15px;" name="isNew" id="isNew" (change)="changeValue(isNew.value)" #isNew>Nuevo</label>
+                    <!-- <label for="onOffer" class="text-white ml-2"><p-checkbox formControlName="isNew" [value]="true"
+                            inputId="isNew"></p-checkbox> Nuevo</label> -->
+                <!-- </span> --> -->
                 <!-- <div class="grid-cols-1 xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] w-[100%]">
                     <label for="stock"
                         [class]="updateError ? 'block text-sm font-medium leading-6 text-red-500': 'block text-sm font-medium leading-6 text-gray-500'">Stock</label>

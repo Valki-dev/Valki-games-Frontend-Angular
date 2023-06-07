@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { GameService } from 'src/app/games/services/game.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-game',
@@ -26,11 +28,12 @@ export class AddGameComponent {
 
   //? 2º OPCIÓN
   // On file Select
-  shortLink: string = "";
-  loading: boolean = false; // Flag variable
-  file!: File;
+  public shortLink: string = "";
+  public loading: boolean = false; // Flag variable
+  public file!: File;
+  public showLoadError: boolean = false;
 
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService, private router: Router) {}
 
   onChange(event: any) {
     this.file = event.target.files[0];
@@ -48,7 +51,13 @@ export class AddGameComponent {
     console.log(formData);
 
     this.gameService.createGame(formData).subscribe(response => {
-      console.log(response);
+      if(response) {
+        this.showLoadError = false;
+        Swal.fire(`Videojuego/s cargado/s`, '', 'success');
+        this.router.navigate(['/admin/all-games']);
+      }
+    }, (err) => {
+      this.showLoadError = true;
     });
 
     
