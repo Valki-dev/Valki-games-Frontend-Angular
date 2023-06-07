@@ -14,6 +14,8 @@ import { ChartModule } from 'primeng/chart';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @NgModule({
   exports: [
@@ -30,7 +32,9 @@ import { TableModule } from 'primeng/table';
     ChartModule,
     FieldsetModule,
     FileUploadModule,
-    TableModule
+    TableModule,
+    CheckboxModule,
+    TreeSelectModule
   ]
 })
 export class PrimeNgModule { }
