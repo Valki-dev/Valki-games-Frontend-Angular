@@ -9,12 +9,18 @@
 
                 </div>
                 <span class="error text-red-500" *ngIf="cardError">{{ cardError }}</span>
-                <div class="mt-10 flex items-center justify-center">
+                <span class="text-red-500" *ngIf="showPaymentError">No se ha podido realizar el pago</span>
+                <div *ngIf="!cardError; else disabledButton" class="mt-10 flex items-center justify-center">
                     <p-button label="Realizar pago" styleClass="p-button-outlined p-button-help"
                         (onClick)="getToken()"></p-button>
                     <div *ngIf="showSpinner" class="loader ml-5">
                     </div>
                 </div>
+                <ng-template #disabledButton>
+                    <div class="mt-10 flex items-center justify-center">
+                        <shared-disabled-button [message]="'Añadir al carrito'"></shared-disabled-button>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>

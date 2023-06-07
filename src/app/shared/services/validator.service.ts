@@ -27,6 +27,8 @@ export class ValidatorService {
           return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
         case 'email':
           return "Debes introducir un email válido";
+        case 'min':
+          return `Este campo debe tener un valor superior a ${errors['min'].min}`
       }
     }
 

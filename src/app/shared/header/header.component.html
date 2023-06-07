@@ -76,7 +76,7 @@
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <div class="relative ml-3">
-                        <div>
+                        <div class="flex">
                             <button class="bg-gray-800 hover:bg-gray-600 rounded-full"><img
                                     src="../../../assets/carritoBlanco.png" alt="Icono no disponible" width="50px"
                                     class="p-3" (click)="showCart()"></button>
@@ -84,10 +84,11 @@
                     </div>
                     <!-- Profile dropdown -->
                     <div class="relative ml-3">
-                        <div>
+                        <div class="flex items-center justify-center">
                             <button (click)="toggleMenu()" class="bg-gray-800 hover:bg-gray-600 rounded-full"><img
                                     src="../../../assets/iconoPerfilBlanco.png" alt="Icono no disponible" width="50px"
                                     class="p-3"></button>
+                                    <p class="text-titles text-lg ml-2 font-semibold">{{userLogged?.userName}}</p>
                         </div>
 
                         <div class="absolute right-0 z-10 w-40 origin-top-right rounded-md bg-button-navbar py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"

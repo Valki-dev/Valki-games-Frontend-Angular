@@ -47,7 +47,7 @@ export class ShoppingCartComponent {
   }
 
   calculateTotal() {
-    let totalAmount = this.cart.filter(item => item.products.stock > 0).reduce((total, item) => total += ((item.products.onOfferPrice !== null ? item.products.onOfferPrice : item.products.price) * item.amount), 0);
+    let totalAmount = this.cart.filter(item => item.products.stock > 0).reduce((total, item) => total += ((item.products.onOfferPrice > 0 ? item.products.onOfferPrice : item.products.price) * item.amount), 0);
     return Number(totalAmount.toFixed(2))
   }
 

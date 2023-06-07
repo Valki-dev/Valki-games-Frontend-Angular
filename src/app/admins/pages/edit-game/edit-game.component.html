@@ -4,17 +4,20 @@
             <h1 class="text-white text-4xl leading-tight font-medium mb-2">Editar videojuego</h1>
             <hr>
             <form [formGroup]="editGameForm" autocomplete="off" (ngSubmit)="updateVideogame()"
-                class="flex flex-col items-center px-5 mt-7">
+                class="flex flex-col px-5 mt-7">
                 <span class="p-float-label w-full">
                     <p-inputNumber inputId="integeronly" formControlName="stock"></p-inputNumber>
-                    <label htmlFor="username">Stock</label>
+                    <label htmlFor="stock">Stock</label>
+
                 </span>
+                <span *ngIf="isValidField('stock')" class="text-red-500 text-start">{{getFieldError("stock")}}</span>
 
                 <span class="p-float-label mt-10 w-full">
                     <p-inputNumber formControlName="price" mode="currency" inputId="currency-germany" currency="EUR"
                         locale="de-DE"> </p-inputNumber>
-                    <label htmlFor="username">Precio</label>
+                    <label htmlFor="price">Precio</label>
                 </span>
+                <span *ngIf="isValidField('price')" class="text-red-500 text-start">{{getFieldError("price")}}</span>
 
                 <div class="mt-7 grid-cols-1 xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] w-[100%]">
                     <label for="isOnOffer"
@@ -41,7 +44,8 @@
                 </div>
 
                 <span class="mt-10 w-full">
-                    <label for="onOffer" class="text-white ml-2"><p-checkbox formControlName="isNew" [value]="true" inputId="isNew"></p-checkbox> Nuevo</label>
+                    <label for="onOffer" class="text-white ml-2"><p-checkbox formControlName="isNew" [value]="true"
+                            inputId="isNew"></p-checkbox> Nuevo</label>
                 </span>
                 <!-- <div class="grid-cols-1 xl:w-[100%] lg:w-[100%] md:w-[100%] sm:w-[100%] w-[100%]">
                     <label for="stock"
@@ -93,14 +97,16 @@
                         <option value="true">Si</option>
                     </select>
                 </div>-->
+                <div class="flex justify-center">
+                    <div
+                        class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 my-5 mt-10">
+                        <button pButton pRipple type="submit" label="Aceptar"
+                            class="p-button-outlined p-button-help"></button>
+                        <button pButton pRipple type="button" label="Cancelar"
+                            class="p-button-outlined p-button-secondary" routerLink="/admin/all-games"></button>
+                    </div>
+                </div>
 
-                <div
-                    class="flex justify-around sm:flex-row sm:w-[300px] sm:space-y-0 flex-col w-[100px] space-y-4 my-5 mt-10">
-                    <button pButton pRipple type="submit" label="Aceptar"
-                        class="p-button-outlined p-button-help"></button>
-                    <button pButton pRipple type="button" label="Cancelar"
-                        class="p-button-outlined p-button-secondary" routerLink="/admin/all-games"></button>
-                </div> 
             </form>
         </div>
     </div>

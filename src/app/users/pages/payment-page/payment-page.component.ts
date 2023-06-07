@@ -20,6 +20,7 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   public cart: CartItem[] = [];
   public total: number = 0;
   public showSpinner: boolean = false;
+  public showPaymentError: boolean = false;
 
   constructor(
     private ngZone: NgZone, 
@@ -60,12 +61,13 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   async getToken() {
-    this.showSpinner = true;
     const {token, error} = await stripe.createToken(this.card);
     
     if(token) {      
+      this.showSpinner = true;
       this.userService.chargePayment(this.total, token.id).subscribe(response => {
         if(response) {
+          this.showPaymentError = false;
           if(this.userService.getUserLogged() !== null) {
             this.cart.forEach(item => {
               if(item.products.stock > 0) {
@@ -77,10 +79,11 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
                   if (response.status === "OK") {
                     this.gameService.getGameById(item.productId).subscribe(response => {
                       if (response) {
-                        let totalPrice = item.amount * (response.onOfferPrice !== null ? response.onOfferPrice : response.price);
+                        let totalPrice = item.amount * (response.onOfferPrice > 0 ? response.onOfferPrice : response.price);
           
                         let data = {
                           userId: this.userService.getUserLogged()!.id,
+                          email: this.userService.getUserLogged()!.email,
                           productId: item.productId,
                           amount: item.amount,
                           price: totalPrice
@@ -109,9 +112,12 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
           }
         }
         
-      })
+        //!CONTROLAR ERROR
+      }, (err) => {
+        this.showSpinner = false;
+        this.showPaymentError = true;
+      });
 
-      //!CONTROLAR ERROR
       
     } else {
       this.ngZone.run(() => this.cardError = error.message);

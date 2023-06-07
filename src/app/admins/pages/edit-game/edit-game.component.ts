@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from 'src/app/games/interfaces/game.interface';
 import { GameService } from 'src/app/games/services/game.service';
+import { ValidatorService } from 'src/app/shared/services/validator.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,7 +30,8 @@ export class EditGameComponent implements OnInit {
     private activatedRoute: ActivatedRoute, 
     private gameService: GameService, 
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private validatorService: ValidatorService
    ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,15 @@ export class EditGameComponent implements OnInit {
     })
 
     this.nodes = [0,5,10]
+  }
+
+  getFieldError(field: string) {
+    return this.validatorService.getFieldError(this.editGameForm, field);
+  }
+
+
+  isValidField(field: string) {
+    return this.validatorService.isValidField(this.editGameForm, field);
   }
 
   updateVideogame() {
