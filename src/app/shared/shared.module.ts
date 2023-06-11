@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
+//Angular imports
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from './footer/footer.component';
-import {TieredMenuModule} from 'primeng/tieredmenu';
+
+//Components
 import { ButtonModule } from 'primeng/button';
 import { DisabledButtonComponent } from './disabledButton/disabled-button/disabled-button.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 
 @NgModule({
@@ -17,15 +20,15 @@ import { DisabledButtonComponent } from './disabledButton/disabled-button/disabl
   ],
   imports: [
     CommonModule,
+    ButtonModule,
     FormsModule,
     RouterModule,
-    TieredMenuModule,
-    ButtonModule
+    TieredMenuModule
   ],
   exports: [
-    HeaderComponent,
+    DisabledButtonComponent,
     FooterComponent,
-    DisabledButtonComponent
+    HeaderComponent
   ]
 })
 export class SharedModule { }

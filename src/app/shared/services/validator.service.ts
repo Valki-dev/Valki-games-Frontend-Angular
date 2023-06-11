@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidatorService {
 
-  public isValidField(form: FormGroup, field: string) {
+  isValidField(form: FormGroup, field: string) {
     return ((form.controls[field].errors) && (form.controls[field].touched));
   }
 

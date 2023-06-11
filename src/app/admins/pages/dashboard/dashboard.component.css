@@ -2,6 +2,11 @@ h2 {
     font-family: 'Audiowide', cursive;
 }
 
+.one {
+    background-color: rgba(192, 103, 255, 0.499) !important;
+    font-weight: bold;
+}
+
 .ranking::ng-deep tr {
     background-color: #01010165;
     color: white;
@@ -10,9 +15,4 @@ h2 {
 .ranking::ng-deep th {
     background-color: #01010165 !important;
     color: white !important;
-}
-
-.one {
-    background-color: rgba(192, 103, 255, 0.499) !important;
-    font-weight: bold;
 }

@@ -6,6 +6,5 @@ export interface User {
     phoneNumber: string;
     subscriptionDate: Date;
     isAdmin: boolean;
-    // token: string;
     isVerified: boolean;
 }

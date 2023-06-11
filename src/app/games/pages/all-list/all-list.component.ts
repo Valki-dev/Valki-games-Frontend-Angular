@@ -10,12 +10,12 @@ import { GameService } from '../../services/game.service';
 })
 export class AllListComponent implements OnInit {
 
-  games: Game[] = [];
+  public games: Game[] = [];
+  public methodSelected: boolean = false;
   public page!: number;
-  search: string = "";
-  showOptions: boolean = false;
-  sortingMethod: string = "";
-  methodSelected: boolean = false;
+  public search: string = "";
+  public showOptions: boolean = false;
+  public sortingMethod: string = "";
 
   constructor(private gameService: GameService, private router: Router) { }
 
@@ -25,6 +25,13 @@ export class AllListComponent implements OnInit {
 
   get getVideoGames() {
     return [...this.gameService.getVideoGames()];
+  }
+
+  clearSort() {
+    this.methodSelected = false;
+    this.sortingMethod = "";
+    this.gameService.videoGames = [...this.gameService.originalGames];
+    this.router.navigate(['/all/games']);
   }
 
   getAllGames() {
@@ -53,10 +60,6 @@ export class AllListComponent implements OnInit {
     }
   }
 
-  toggleShowOptions() {
-    this.showOptions ? this.showOptions = false : this.showOptions = true;
-  }
-
   sortGames(method: any) {
     this.sortingMethod = method;
     this.toggleShowOptions();
@@ -64,11 +67,8 @@ export class AllListComponent implements OnInit {
     this.router.navigate(['/all/games']);
   }
 
-  clearSort() {
-    this.methodSelected = false;
-    this.sortingMethod = "";
-    this.gameService.videoGames = [...this.gameService.originalGames];
-    this.router.navigate(['/all/games']);
+  toggleShowOptions() {
+    this.showOptions ? this.showOptions = false : this.showOptions = true;
   }
 
 }

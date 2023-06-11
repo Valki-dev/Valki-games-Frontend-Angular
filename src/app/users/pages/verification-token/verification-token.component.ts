@@ -15,9 +15,8 @@ export class VerificationTokenComponent implements OnInit {
     token: ["", Validators.required]
   });
 
-  public showError: boolean = false;
-
   private email: string = "";
+  public showError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,12 +32,12 @@ export class VerificationTokenComponent implements OnInit {
     })
   }
 
-  isValidField(field: string) {
-    return this.validatorService.isValidField(this.verificationForm, field);
-  }
-
   getFieldError(field: string) {
     return this.validatorService.getFieldError(this.verificationForm, field);
+  }
+
+  isValidField(field: string) {
+    return this.validatorService.isValidField(this.verificationForm, field);
   }
 
   verifyAccount() {

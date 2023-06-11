@@ -15,12 +15,12 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild("cardInfo") 
   cardInfo!: ElementRef<HTMLInputElement>;
 
-  public cardError: any;
   public card: any = null;
+  public cardError: any;
   public cart: CartItem[] = [];
-  public total: number = 0;
-  public showSpinner: boolean = false;
   public showPaymentError: boolean = false;
+  public showSpinner: boolean = false;
+  public total: number = 0;
 
   constructor(
     private ngZone: NgZone, 
@@ -29,6 +29,7 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private gameService: GameService
   ) {}
+
   ngOnDestroy(): void {
     this.card.destroy();
     this.card = null;
@@ -37,7 +38,6 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnInit(): void {
     this.getUserShoppingCart();
     this.activatedRoute.params.subscribe(response => this.total = response["total"]);
-    console.log(this.total);
   }
 
   ngAfterViewInit(): void {
@@ -111,13 +111,10 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
             this.router.navigate(["/user/login"]);
           }
         }
-        
-        //!CONTROLAR ERROR
       }, (err) => {
         this.showSpinner = false;
         this.showPaymentError = true;
       });
-
       
     } else {
       this.ngZone.run(() => this.cardError = error.message);
@@ -147,34 +144,5 @@ export class PaymentPageComponent implements AfterViewInit, OnInit, OnDestroy {
     }
     
   }
-
-
-  // OTRA MANERA
-  // private readonly STRIPE!: any;
-  // private elementStripe!: any;
-
-  // public cardNumber: any;
-  // public cardCvc: any;
-  // public cardExp: any;
-  // public id!: string;
-  // public orderData: any;
-  // public userLogged!: User | null;
-
-  // public payingForm: FormGroup = this.formBuilder.group({
-  //   cardNumber: [false, [Validators.required, Validators.requiredTrue]],
-  //   cadCvc: [false, [Validators.required, Validators.requiredTrue]],
-  //   cardExp: [false, [Validators.required, Validators.requiredTrue]]
-  // })
-
-  // constructor(
-  //   private userService: UserService,
-  //   private formBuilder: FormBuilder
-  // ) {
-  //   this.STRIPE = window.stripe(environment.stripe_pk);
-  // }
-
-  // ngOnInit(): void {
-  //   this.userLogged = this.userService.getUserLogged();
-  // }
 
 }

@@ -5,29 +5,7 @@
                 name="search" placeholder="Tekken, Ark, Fallout..." #search (keyup.enter)="searchGame(search.value)">
         </div>
         <div class="flex justify-around flex-wrap">
-            <!-- <div class="rounded-lg shadow-lg max-w-[280px] mt-[40px] mb-10 bg-card card" *ngFor="let game of getGames">
-
-                <img class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
-
-                <div class="p-4">
-                    <h5 class="text-white text-xl font-medium mb-5">{{game.name}}</h5>
-                    <p class="text-gray-400 mb-4 text-xl font-medium">
-                        <span [ngClass]="game.onOfferPrice !== null ? 'text-gray-400 mb-4 text-lg line-through' : 'text-gray-400 mb-4 text-xl font-medium'">{{game.price}}€</span> 
-                        <span *ngIf="game.onOfferPrice !== null" class="text-red-500 text-xl font-medium ml-5">{{game.onOfferPrice}}€</span>
-                      </p>
-                    <div id="button-container" class="flex justify-evenly p-5" style="display: none;">
-                        <a [routerLink]="['./', game.id]">
-                            <p-button styleClass="p-button-outlined p-button-success" class="mb-3"><i
-                                    class="pi pi-pencil py-2" style="font-size: 18px;"></i></p-button>
-                        </a>
-                        <p-button styleClass="p-button-outlined p-button-danger" (onClick)="deleteGame(game.name, game.id)"><i class="pi pi-trash py-2"
-                                style="font-size: 18px;"></i></p-button>
-                    </div>
-
-                </div>
-            </div> -->
-
-            <div class="card-model game-card col-lg-3 col-md-5 col-sm-6 col-xs-12 rounded-lg" *ngFor="let game of getGames">
+            <div class="card-model game-card col-lg-3 col-md-5 col-sm-6 col-xs-12 rounded-lg" *ngFor="let game of getGames | paginate: { itemsPerPage: 10, currentPage: page}">
                 <div class="wrapper rounded-lg">
                     <img class="rounded-t-lg" src="{{game.URL}}" alt="Imagen no disponible" width="280px" />
                     <div class="data">
@@ -51,10 +29,10 @@
             </div>
         </div>
 
-        <!-- <div class="card">
-            Magic Card
-        </div> -->
-
+        <div class="flex justify-center my-5">
+            <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"
+              class="paginator"></pagination-controls>
+          </div>
     </div>
 </div>
 

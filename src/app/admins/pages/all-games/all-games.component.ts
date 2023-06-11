@@ -10,13 +10,16 @@ import Swal from 'sweetalert2';
 })
 export class AllGamesComponent implements OnInit {
 
-  constructor(private gameService: GameService, private router: Router) { }
+  public page!: number;
 
-  // games: Game[] = [];
-  // search: string = "";
+  constructor(private gameService: GameService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllGames();
+  }
+
+  get getGames() {
+    return this.gameService.videoGames;
   }
 
   deleteGame(name: string, id: number) {
@@ -59,10 +62,6 @@ export class AllGamesComponent implements OnInit {
     } else if (search.length > 0) {
       this.gameService.videoGames = [...this.gameService.originalGames.filter(game => game.name.toLowerCase().includes(search.toLowerCase()))];
     }
-  }
-
-  get getGames() {
-    return this.gameService.videoGames;
   }
 
 }

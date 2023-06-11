@@ -13,8 +13,6 @@ import { ValidatorService } from 'src/app/shared/services/validator.service';
 })
 export class RegisterComponent {
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private validatorService: ValidatorService) { }
-
   registerForm: FormGroup = this.formBuilder.group({
     userName: ['', [Validators.required, Validators.minLength(4)]],
     email: ['', [Validators.required, Validators.email]],
@@ -22,37 +20,18 @@ export class RegisterComponent {
     password2: ['', [Validators.required, Validators.minLength(4)]],
     phoneNumber: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]]
   })
+  
+  public message: string = "";
+  public showAlert: boolean = false;
 
-  showAlert: boolean = false;
-  message: string = "";
-
-  isValidField(field: string): boolean | null {
-    return this.validatorService.isValidField(this.registerForm, field);
-    // return ((this.registerForm.controls[field].errors) && (this.registerForm.controls[field].touched));
-  }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private validatorService: ValidatorService) { }
 
   getFieldError(field: string): string | null {
     return this.validatorService.getFieldError(this.registerForm, field);
-    // if ((!this.registerForm.controls[field]) && (!this.registerForm.controls[field].errors)) {
-    //   return null;
-    // }
-
-    // const errors = this.registerForm.controls[field].errors || {};
-
-    // for (const key of Object.keys(errors)) {
-    //   switch (key) {
-    //     case 'required':
-    //       return "Este campo es obligatorio";
-    //     case 'minlength':
-    //       return `Este campo debe tener ${errors['minlength'].requiredLength} caracteres como mínimo`;
-    //     case 'maxlength':
-    //       return `Este campo debe tener ${errors['maxlength'].requiredLength} caracteres como máximo`
-    //     case 'email':
-    //       return "Debes introducir un email válido";
-    //   }
-    // }
-
-    // return null;
+  }
+  
+  isValidField(field: string): boolean | null {
+    return this.validatorService.isValidField(this.registerForm, field);
   }
 
   register() {

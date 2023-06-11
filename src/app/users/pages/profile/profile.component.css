@@ -1,19 +1,15 @@
-img {
-    height: 100px;
-}
-
-.title {
-    font-family: 'Audiowide', cursive;
-}
-
 form {
     width: 600px;
+}
+
+img {
+    height: 100px;
 }
 
 .sale:hover {
     cursor: pointer;
 }
 
-.rojo {
-    border: 1px solid red;
+.title {
+    font-family: 'Audiowide', cursive;
 }

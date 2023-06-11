@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 //Modules
 import { AdminsRoutingModule } from './admins-routing.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 
 //Components
@@ -28,6 +29,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CommonModule,
     AdminsRoutingModule,
     FormsModule,
+    NgxPaginationModule,
     PrimeNgModule,
     RouterModule,
     ReactiveFormsModule

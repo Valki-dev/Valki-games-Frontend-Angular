@@ -5,10 +5,6 @@
     width: 550px;
 }
 
-.rojo {
-    border: 1px solid red
-}
-
 .loader {
     --dim: 45px;
     width: var(--dim);

@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { GameService } from '../../../games/services/game.service';
 import { Router } from '@angular/router';
-import { User } from '../../interfaces/user.interface';
-import { FormGroup, FormBuilder, Form, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/shared/services/validator.service';
 
 @Component({
@@ -13,7 +11,7 @@ import { ValidatorService } from 'src/app/shared/services/validator.service';
 })
 export class LoginComponent {
 
-  loginForm: FormGroup = this.formBuilder.group({
+  public loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   })
@@ -23,12 +21,12 @@ export class LoginComponent {
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private validatorService: ValidatorService) { }
 
-  isValidField(field: string): boolean | null {
-    return this.validatorService.isValidField(this.loginForm, field);
-  }
-
   getFieldError(field: string): string | null {
     return this.validatorService.getFieldError(this.loginForm, field);
+  }
+
+  isValidField(field: string): boolean | null {
+    return this.validatorService.isValidField(this.loginForm, field);
   }
 
   logIn() {

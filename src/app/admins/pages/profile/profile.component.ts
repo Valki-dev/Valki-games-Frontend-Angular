@@ -58,14 +58,14 @@ export class ProfileComponent implements OnInit {
     this.userDataForm.reset(this.userService.getUserLogged());
   }
 
-  public hideForm() {
+  hideForm() {
     this.updateError = false;
     this.showUpdateUser = false;
     this.showProfileForm = false;
     this.router.navigate(['/admin/profile']);
   }
 
-  public hidePasswordForm() {
+  hidePasswordForm() {
     this.showUpdateUser = false;
     this.router.navigate(['/admin/profile']);
   }
@@ -78,13 +78,13 @@ export class ProfileComponent implements OnInit {
     return this.validatorService.getFieldError(form, field);
   }
 
-  public showForm() {
+  showForm() {
     this.showUpdateUser = true;
     this.showProfileForm = true;
     this.router.navigate(['/admin/profile']);
   }
 
-  public showPasswordForm() {
+  showPasswordForm() {
     this.showUpdateUser = true;
     this.router.navigate(['/admin/profile']);
   }

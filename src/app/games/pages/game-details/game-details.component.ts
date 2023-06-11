@@ -14,11 +14,11 @@ export class GameDetailsComponent implements OnInit {
 
   constructor(private gameService: GameService, private userService: UserService, private activeRoute: ActivatedRoute, private router: Router) { }
 
-  game!: Game;
-  showAddWishlist: boolean = false;
-  showAddCart: boolean = false;
-  showErrorAddWishlist: boolean = false;
-  showErrorAddCart: boolean = false;
+  public game!: Game;
+  public showAddCart: boolean = false;
+  public showAddWishlist: boolean = false;
+  public showErrorAddCart: boolean = false;
+  public showErrorAddWishlist: boolean = false;
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(({id}) => {

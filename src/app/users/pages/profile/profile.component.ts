@@ -62,18 +62,6 @@ export class ProfileComponent implements OnInit {
     this.userDataForm.reset(this.userService.getUserLogged());
   }
 
-  // get userLogged(): User | null {
-  //   return this.userService.getUserLogged();
-  // }
-
-  isValidField(form: FormGroup, field: string): boolean | null {
-    return this.validatorService.isValidField(form, field);
-  }
-
-  getFieldError(form: FormGroup, field: string): string | null {
-    return this.validatorService.getFieldError(form, field);
-  }
-
   deleteUser(id: string) {
     Swal.fire({
       title: `¿Seguro que quieres eliminar tu cuenta?`,
@@ -100,6 +88,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getFieldError(form: FormGroup, field: string): string | null {
+    return this.validatorService.getFieldError(form, field);
+  }
+
   getUserSales() {
     if (this.userService.getUserLogged() !== null) {
 
@@ -116,17 +108,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  showForm() {
-    this.showUpdateUser = true;
-    this.showProfileForm = true;
-    this.router.navigate(['/user/profile']);
-  }
-
-  showPasswordForm() {
-    this.showUpdateUser = true;
-    this.router.navigate(['/user/profile']);
-  }
-
   hideForm() {
     this.updateError = false;
     this.showUpdateUser = false;
@@ -136,6 +117,21 @@ export class ProfileComponent implements OnInit {
 
   hidePasswordForm() {
     this.showUpdateUser = false;
+    this.router.navigate(['/user/profile']);
+  }
+
+  isValidField(form: FormGroup, field: string): boolean | null {
+    return this.validatorService.isValidField(form, field);
+  }
+
+  showForm() {
+    this.showUpdateUser = true;
+    this.showProfileForm = true;
+    this.router.navigate(['/user/profile']);
+  }
+
+  showPasswordForm() {
+    this.showUpdateUser = true;
     this.router.navigate(['/user/profile']);
   }
 

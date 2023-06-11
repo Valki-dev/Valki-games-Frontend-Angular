@@ -26,10 +26,10 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgxPaginationModule,
     PrimeNgModule,
     RouterModule,
-    SharedModule,
-    NgxPaginationModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

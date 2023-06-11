@@ -53,12 +53,12 @@
                 (click)="addToCart(game.id)"></button>
 
               <ng-template #disabledButton>
-                <!-- <button pButton pRipple type="button" label="Añadir al carrito" class="p-button-raised p-button-secondary" disabled="true"></button> -->
                 <shared-disabled-button [message]="'Añadir al carrito'"></shared-disabled-button>
               </ng-template>
             </div>
           </div>
         </div>
+        
         <!--Alerts-->
         <div *ngIf="showAddWishlist">
           <div class="mb-3 inline-flex w-full items-center rounded-lg bg-violet-300 py-5 px-6 text-base text-violet-700"

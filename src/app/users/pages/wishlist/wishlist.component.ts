@@ -12,13 +12,11 @@ import { WishlistItem } from '../../interfaces/wishlistItem.interface';
 export class WishlistComponent {
   constructor(private userService: UserService, private router: Router) { }
 
-  wishlist: WishlistItem[] = [];
-  // userLogged!: User;
-  showAddCart: boolean = false;
-  showErrorAddCart: boolean = false;
+  public showAddCart: boolean = false;
+  public showErrorAddCart: boolean = false;
+  public wishlist: WishlistItem[] = [];
 
   ngOnInit(): void {
-    // this.userLogged = this.userService.getUserLogged();
     if(this.userService.getUserLogged() !== null) {
       this.userService.getUserWishlist(this.userService.getUserLogged()!.id).subscribe(response => {
         this.wishlist = response;
@@ -28,7 +26,6 @@ export class WishlistComponent {
     } else {
       this.router.navigate(["/user/login"]);
     }
-    
   }
 
   get userLogged(): User | null {
@@ -76,7 +73,6 @@ export class WishlistComponent {
           productId: productId
         }
         this.userService.deleteFromWishlist(data).subscribe(response => {
-          console.log(response);
           if (response.status == 'OK') {
             this.userService.getUserWishlist(this.userService.getUserLogged()!.id).subscribe(response => {
               if (response) {

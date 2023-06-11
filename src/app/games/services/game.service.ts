@@ -12,15 +12,10 @@ export class GameService {
   constructor(private httpClient: HttpClient) { }
 
   private endpoint: string = "http://localhost:3000/api/v2/valki-games/games";
+  // private endpoint: string = "https://valki-games-backend.up.railway.app/api/v2/valki-games/games";
 
-  private newGamesEndpoint: string = "http://localhost:3000/api/v1/videogames/new";
-
-  private onOfferGamesEndpoint: string = "http://localhost:3000/api/v1/videogames/offers";
-
-  private byGenderEndpoint: string = "http://localhost:3000/api/v1/videogames/gender";
-
-  videoGames: Game[] = [];
-  originalGames: Game[] = [];
+  public videoGames: Game[] = [];
+  public originalGames: Game[] = [];
 
   getVideoGames() {
     return this.videoGames;
