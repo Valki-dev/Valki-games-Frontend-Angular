@@ -13,8 +13,8 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  private endpoint: string = "http://localhost:3000/api/v2/valki-games/users";
-  // private endpoint: string = "https://valki-games-backend.up.railway.app/api/v2/valki-games/users";
+  // private endpoint: string = "http://localhost:3000/api/v2/valki-games/users";
+  private endpoint: string = "https://valki-games-backend.up.railway.app/api/v2/valki-games/users";
 
 
   private isAdmin: boolean = false;
